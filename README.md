@@ -1,6 +1,8 @@
 # vform
 
-A simple way to handle form validation in Vue and Laravel.
+> A simple way to handle form validation in Vue and Laravel.
+
+![Demo](http://i.imgur.com/AcBAPll.gif)
 
 ## Installation
 
