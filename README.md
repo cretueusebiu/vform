@@ -14,5 +14,5 @@ npm install --save vform
 
 ## Usage
 
-See the [example](example).
+See the [example](example). <br>
 Read the [documentation](DOCS.md).
