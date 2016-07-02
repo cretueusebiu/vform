@@ -17,6 +17,8 @@ export default class FormErrors {
 
     /**
      * Get all of the errors for the collection in a flat array.
+     *
+     * @return {Array}
      */
     flatten() {
         return this.objectValues(this.errors).reduce((a, b) => a.concat(b));
