@@ -4,7 +4,7 @@
 
 # vform
 
-A simple way to handle form validation in Vue and Laravel.
+A simple way to handle form validation in Vue and Laravel. Inspired from [Laravel Spark](https://spark.laravel.com/)
 
 ## Installation
 
