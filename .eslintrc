@@ -1,0 +1,37 @@
+{
+    "globals": {
+    },
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "quotes": [
+            1,
+            "single"
+        ],
+        "linebreak-style": 0,
+        "no-console": 0,
+        "no-unused-vars": 1
+    },
+    "settings": {
+        "import/ignore": [
+        ]
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "ecmaFeatures": {
+        "modules": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true,
+            "sourceType": "module"
+        }
+    },
+    "extends": "eslint:recommended"
+}

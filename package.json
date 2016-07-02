@@ -1,0 +1,30 @@
+{
+  "name": "vform",
+  "version": "0.1.4",
+  "description": "A simple way to handle form validation in Vue and Laravel.",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "babel --presets=es2015 -d dist src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cretueusebiu/vform.git"
+  },
+  "keywords": [
+    "vue",
+    "form",
+    "laravel"
+  ],
+  "author": "Cretu Eusebiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cretueusebiu/vform/issues"
+  },
+  "homepage": "https://github.com/cretueusebiu/vform#readme",
+  "dependencies": {
+    "vue": "^1.0.26",
+    "vue-resource": "^0.9.3"
+  }
+}
