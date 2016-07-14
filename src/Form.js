@@ -22,7 +22,7 @@ export default class Form {
      */
     getData() {
         const data = {};
-        const ignore = ['busy', 'successful', 'errors'];
+        const ignore = ['busy', 'successful', 'errors', 'forms'];
 
         for (let key in this) {
             if (this.hasOwnProperty(key) && ignore.indexOf(key) < 0) {
