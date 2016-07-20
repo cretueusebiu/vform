@@ -62,6 +62,8 @@ export default class Form {
      * Reset the form fields.
      */
     reset() {
+        this.clear();
+
         for (let key in this.getData()) {
             this[key] = '';
         }
