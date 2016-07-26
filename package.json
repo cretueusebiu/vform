@@ -1,10 +1,10 @@
 {
   "name": "vform",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A simple way to handle form validation in Vue and Laravel.",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "babel --presets=es2015 -d dist src",
+    "compile": "babel --presets=es2015 --plugins=transform-object-assign  -d dist src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run compile"
   },
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
+    "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.9.0"
   }
 }
