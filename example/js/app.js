@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import {http, Form, AlertError} from 'vform';
+import {Form, AlertError} from 'vform';
 
 Vue.use(VueResource);
 
@@ -19,7 +19,7 @@ new Vue({
 
     methods: {
         login() {
-            http.post('server.php', this.form)
+            this.form.post('server.php')
                 .then(({data}) => console.log(data));
         }
     }

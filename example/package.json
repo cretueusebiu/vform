@@ -1,8 +1,8 @@
 {
   "private": true,
   "dependencies": {
-    "vform": "^0.1.4",
-    "vue": "^1.0.24",
+    "vform": "^0.2.1",
+    "vue": "^1.0.26",
     "vue-resource": "^0.9.3"
   },
   "devDependencies": {

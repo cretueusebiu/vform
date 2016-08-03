@@ -101,10 +101,19 @@ export default class Form {
     }
 
     /**
-     * Set / Get http base url.
+     * Send the from via a PUT request.
      *
-     * @param  {String|null} url
-     * @return {String|null}
+     * @param  {String} url
+     * @return {Promise}
+     */
+    put(url) {
+        return http.send('put', url, this);
+    }
+
+    /**
+     * Set the http base url.
+     *
+     * @param {String} url
      */
     static baseUrl(url = null) {
         if (url) {
@@ -115,10 +124,9 @@ export default class Form {
     }
 
     /**
-     * Set / Get http routes.
+     * Set http routes.
      *
-     * @param  {String|null} url
-     * @return {String|null}
+     * @param {Object} routes
      */
     static routes(routes = null) {
         if (routes) {
