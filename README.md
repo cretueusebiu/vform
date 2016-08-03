@@ -9,7 +9,7 @@ A simple way to handle form validation in Vue and Laravel. Inspired from [Larave
 ## Installation
 
 ```bash
-npm install --save vform
+npm install --save vform@0.1.*
 ```
 
 ## Usage

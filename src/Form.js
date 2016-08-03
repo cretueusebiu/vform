@@ -1,3 +1,4 @@
+import http from './http';
 import FormErrors from './FormErrors';
 
 export default class Form {
@@ -67,5 +68,63 @@ export default class Form {
         for (let key in this.getData()) {
             this[key] = '';
         }
+    }
+
+    /**
+     * Send the from via a GET request.
+     *
+     * @param  {String} url
+     * @return {Promise}
+     */
+    get(url) {
+        return http.send('get', url, this);
+    }
+
+    /**
+     * Send the from via a POST request.
+     *
+     * @param  {String} url
+     * @return {Promise}
+     */
+    post(url) {
+        return http.send('post', url, this);
+    }
+
+    /**
+     * Send the from via a PATCH request.
+     *
+     * @param  {String} url
+     * @return {Promise}
+     */
+    patch(url) {
+        return http.send('patch', url, this);
+    }
+
+    /**
+     * Set / Get http base url.
+     *
+     * @param  {String|null} url
+     * @return {String|null}
+     */
+    static baseUrl(url = null) {
+        if (url) {
+            http.baseUrl = url;
+        }
+
+        return http.baseUrl;
+    }
+
+    /**
+     * Set / Get http routes.
+     *
+     * @param  {String|null} url
+     * @return {String|null}
+     */
+    static routes(routes = null) {
+        if (routes) {
+            http.routes = routes;
+        }
+
+        return http.routes;
     }
 }

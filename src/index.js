@@ -5,4 +5,6 @@ import AlertError from './components/Error';
 import AlertErrors from './components/Errors';
 import AlertSuccess from './components/Success';
 
-export {http, Form, FormErrors, AlertError, AlertErrors, AlertSuccess}
+export {Form, FormErrors, AlertError, AlertErrors, AlertSuccess}
+
+export default Form;
