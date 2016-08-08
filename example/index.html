@@ -5,7 +5,7 @@
     <title>vform</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <style>body { padding-top: 20px; } .has-error { color: #a94442; } .dismissible { cursor: pointer }</style>
+    <style>body { padding-top: 20px; } .has-error { color: #a94442; font-weight: bold; } .dismissible { cursor: pointer }</style>
 </head>
 <body>
     <div id="app">
@@ -23,9 +23,10 @@
                             <div class="col-md-6">
                                 <input v-model="form.username" type="text" name="username" class="form-control">
                                 <!-- Validation error -->
-                                <span class="has-error" v-if="form.errors.has('username')">
+                                <has-error :form="form" field="username"></has-error>
+                                <!-- <span class="has-error" v-if="form.errors.has('username')">
                                     <strong>{{ form.errors.get('username') }}</strong>
-                                </span>
+                                </span> -->
                             </div>
                         </div>
 
@@ -35,9 +36,10 @@
                             <div class="col-md-6">
                                 <input v-model="form.password" type="password" name="password" class="form-control">
                                 <!-- Validation error -->
-                                <span class="has-error" v-if="form.errors.has('password')">
+                                <has-error :form="form" field="password"></has-error>
+                                <!-- <span class="has-error" v-if="form.errors.has('password')">
                                     <strong>{{ form.errors.get('password') }}</strong>
-                                </span>
+                                </span> -->
                             </div>
                         </div>
 

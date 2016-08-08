@@ -1,20 +1,24 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import {Form, AlertError} from 'vform';
+import VueForm, { AlertError, HasError } from 'vform';
 
+Vue.use(VueForm);
 Vue.use(VueResource);
+
+Vue.component('has-error', HasError);
+Vue.component('alert-error', AlertError);
 
 new Vue({
     el: '#app',
 
-    components: {AlertError},
-
-    data: {
-        form: new Form({
-            username: '',
-            password: '',
-            remember: false
-        })
+    data() {
+        return {
+            form: this.$form({
+                username: '',
+                password: '',
+                remember: false
+            })
+        }
     },
 
     methods: {

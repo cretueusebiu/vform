@@ -19,23 +19,25 @@ npm install --save vform
 ```javascript
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import {Form, AlertError} from 'vform';
+import VueForm, { AlertError } from 'vform';
 
-// Install vue-resource
+Vue.use(VueForm);
 Vue.use(VueResource);
 
-// Define the alert error component
 Vue.component('alert-error', AlertError);
 
 new Vue({
     el: '#app',
     
-    data: {
-        // Define the form
-        form: new Form({
-            username: '',
-            password: ''
-        })
+    data() {
+        return {
+            // Create a new form instance
+            form: this.$form({
+                username: '',
+                password: '',
+                remember: false
+            })
+        }
     },
 
     methods: {
@@ -108,15 +110,23 @@ See the [example](example) for more. <br>
 __Usage:__
 
 ```javascript
-import Form from 'vform';
-
-const myform = new Form({
-    username: '',
-    password: ''
-});
-
-this.form.post('/someUrl')
-    .then(({data}) => console.log(data));
+...
+data() {
+    return {
+        form: this.$form({
+            username: '',
+            password: '',
+            remember: false
+        })
+    }
+},
+methods: {
+    submit() {
+        this.form.post('/someUrl')
+            .then(({data}) => console.log(data));
+    }
+}
+...
 ```
 
 ```html
@@ -159,14 +169,14 @@ patch(url, data)
 get(url)
 
 /**
- * Set the http base url.
+ * Set the base url.
  *
  * @param {String} url
  */
 static baseUrl(url)
 
 /**
- * Set the http routes.
+ * Set the routes.
  *
  * @param {Object} routes
  */
@@ -234,6 +244,19 @@ __Usage:__
 <span class="has-error" v-if="form.errors.has('username')">
     <strong>{{ form.errors.get('username') }}</strong>
 </span>
+```
+
+Or
+
+```javascript
+import { HasError } from 'vform';
+
+Vue.component('has-error', HasError);
+
+```
+
+```html
+<has-error :form="form" field="username"></has-error>
 ```
 
 __Available methods:__
@@ -307,7 +330,7 @@ clear()
 Bootstrap alerts.
 
 ```javascript
-import {AlertError, AlertErrors, AlertSuccess} from 'vform';
+import { AlertError, AlertErrors, AlertSuccess } from 'vform';
 
 Vue.component('alert-error', AlertError);
 Vue.component('alert-errors', AlertErrors);

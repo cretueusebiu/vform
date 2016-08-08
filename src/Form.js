@@ -1,7 +1,7 @@
-import http from './http';
+import Vue from 'vue';
 import FormErrors from './FormErrors';
 
-export default class Form {
+class Form {
     /**
      * Create a new form instance.
      *
@@ -25,11 +25,11 @@ export default class Form {
         const data = {};
         const ignore = ['busy', 'successful', 'errors', 'forms'];
 
-        for (let key in this) {
-            if (this.hasOwnProperty(key) && ignore.indexOf(key) < 0) {
+        Object.keys(this).forEach(key => {
+            if (!ignore.includes(key)) {
                 data[key] = this[key];
             }
-        }
+        });
 
         return data;
     }
@@ -65,9 +65,7 @@ export default class Form {
     reset() {
         this.clear();
 
-        for (let key in this.getData()) {
-            this[key] = '';
-        }
+        Object.keys(this).forEach(key => this[key] = '');
     }
 
     /**
@@ -77,7 +75,7 @@ export default class Form {
      * @return {Promise}
      */
     get(url) {
-        return http.send('get', url, this);
+        return this.send('get', url);
     }
 
     /**
@@ -87,7 +85,7 @@ export default class Form {
      * @return {Promise}
      */
     post(url) {
-        return http.send('post', url, this);
+        return this.send('post', url);
     }
 
     /**
@@ -97,7 +95,7 @@ export default class Form {
      * @return {Promise}
      */
     patch(url) {
-        return http.send('patch', url, this);
+        return this.send('patch', url);
     }
 
     /**
@@ -107,32 +105,125 @@ export default class Form {
      * @return {Promise}
      */
     put(url) {
-        return http.send('put', url, this);
+        return this.send('put', url);
     }
 
     /**
-     * Set the http base url.
+     * Send the form data via an HTTP request.
+     *
+     * @param  {String} method (get, post, patch, put)
+     * @param  {String} url
+     * @return {Promise}
+     */
+    send(method, url) {
+        this.startProcessing();
+
+        let body = this.getData();
+
+        if (this.hasFile(body)) {
+            body = this.toFormData(body);
+        }
+
+        if (method === 'get') {
+            body = {params: body};
+        }
+
+        return new Promise((resolve, reject) => {
+            Vue.http[method](this.route(url), body)
+                .then((response) => {
+                    this.finishProcessing();
+
+                    resolve(response);
+                }, (response) => {
+                    this.busy = false;
+                    this.errors.set(Object.assign({}, response.data));
+
+                    reject(response);
+                });
+        });
+    }
+
+    /**
+     * Determinte if the given object has any files.
+     *
+     * @param  {Object} obj
+     * @return {Boolean}
+     */
+    hasFile(obj) {
+        return Object.keys(obj).some(key =>
+            obj[key] instanceof File || obj[key] instanceof FileList
+        );
+    }
+
+    /**
+     * Convert the given object to a FormData instance.
+     *
+     * @param  {Object} obj
+     * @return {FormData}
+     */
+    toFormData(obj) {
+        const data = new FormData();
+
+        Object.keys(obj).forEach(key => {
+            let value = obj[key];
+
+            if (value instanceof FileList) {
+                for (let i = 0; i < value.length; i++) {
+                    data.append(`${key}[]`, value.item(i));
+                }
+            } else {
+                data.append(key, value);
+            }
+        });
+
+        return data;
+    }
+
+    /**
+     * Get a named route.
+     *
+     * @param  {String} name
+     * @return {Object} parameters
+     * @return {String}
+     */
+    route(name, parameters = {}) {
+        let url = name;
+
+        if (Form.routes.hasOwnProperty(name)) {
+            url = decodeURI(Form.routes[name]);
+        }
+
+        if (typeof parameters !== 'object') {
+            parameters = {id: parameters};
+        }
+
+        Object.keys(parameters).forEach(key => {
+            url = url.replace(`{${key}}`, parameters[key]);
+        });
+
+        return Form.baseUrl + url;
+    }
+
+    /**
+     * Set the base url.
      *
      * @param {String} url
      */
-    static baseUrl(url = null) {
-        if (url) {
-            http.baseUrl = url;
-        }
-
-        return http.baseUrl;
+    static baseUrl(url) {
+        Form.baseUrl = url;
     }
 
     /**
-     * Set http routes.
+     * Set named routes.
      *
      * @param {Object} routes
      */
-    static routes(routes = null) {
-        if (routes) {
-            http.routes = routes;
-        }
-
-        return http.routes;
+    static routes(routes) {
+        Form.routes = routes;
     }
 }
+
+Form.routes = {};
+Form.baseUrl = '';
+
+export default Form;
