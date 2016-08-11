@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "A simple way to handle form validation in Vue and Laravel.",
   "main": "dist/index.js",
   "scripts": {
@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/cretueusebiu/vform#readme",
   "dependencies": {
-    "vue": "^1.0.26",
     "vue-resource": "^0.9.3"
   },
   "devDependencies": {

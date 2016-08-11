@@ -135,8 +135,18 @@ class Form {
 
                     resolve(response);
                 }, (response) => {
+                    let errors = {};
+
+                    if (response.data.errors) {
+                        errors = response.data.errors;
+                    } else if (response.data.message) {
+                        errors = {error: response.data.message};
+                    } else {
+                        errors = response.data;
+                    }
+
                     this.busy = false;
-                    this.errors.set(Object.assign({}, response.data));
+                    this.errors.set(Object.assign({}, errors));
 
                     reject(response);
                 });
