@@ -11,8 +11,8 @@ export default {
     },
 
     template: `
-        <span class="has-error" v-if="this.form.errors.has(this.field)">
-            {{ this.form.errors.get(this.field) }}
+        <span class="has-error" v-if="form.errors.has(field)">
+            {{ form.errors.get(field) }}
         </span>
     `
 }

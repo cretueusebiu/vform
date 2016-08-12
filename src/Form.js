@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import FormErrors from './FormErrors';
 
+const ignore = ['busy', 'successful', 'errors', 'forms'];
+
 class Form {
     /**
      * Create a new form instance.
@@ -23,13 +25,8 @@ class Form {
      */
     getData() {
         const data = {};
-        const ignore = ['busy', 'successful', 'errors', 'forms'];
 
-        Object.keys(this).forEach(key => {
-            if (!ignore.includes(key)) {
-                data[key] = this[key];
-            }
-        });
+        Object.keys(this).filter(key => !ignore.includes(key)).forEach(key => data[key] = this[key]);
 
         return data;
     }
@@ -65,7 +62,7 @@ class Form {
     reset() {
         this.clear();
 
-        Object.keys(this).forEach(key => this[key] = '');
+        Object.keys(this).filter(key => !ignore.includes(key)).forEach(key => this[key] = '');
     }
 
     /**
