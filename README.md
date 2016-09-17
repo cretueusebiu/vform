@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="700" src="http://i.imgur.com/AcBAPll.gif" alt="demo">
+  <img width="700" src="http://i.imgur.com/AcBAPll.gif" alt="demo">
 </p>
 
 # vform
@@ -17,70 +17,64 @@ npm install --save vform
 ### JavaScript
 
 ```javascript
-import Vue from 'vue';
-import VueResource from 'vue-resource';
-import VueForm, { AlertError } from 'vform';
+import Vue from 'vue'
+import VueForm from 'vform'
+import VueResource from 'vue-resource'
 
-Vue.use(VueForm);
-Vue.use(VueResource);
-
-Vue.component('alert-error', AlertError);
+Vue.use(VueForm, {components: true})
+Vue.use(VueResource)
 
 new Vue({
-    el: '#app',
-    
-    data() {
-        return {
-            // Create a new form instance
-            form: this.$form({
-                username: '',
-                password: '',
-                remember: false
-            })
-        }
-    },
-
-    methods: {
-        login() {
-            // Submit the form via a POST request
-            this.form.post('/auth/login')
-                .then(({data}) => console.log(data));
-        }
+  el: '#app',
+  
+  data() {
+    return {
+      // Create a new form instance
+      form: this.$form({
+        username: '',
+        password: '',
+        remember: false
+      })
     }
-});
+  },
+
+  methods: {
+    login() {
+      // Submit the form via a POST request
+      this.form.post('/auth/login')
+        .then(({data}) => console.log(data))
+    }
+  }
+})
 ```
 
 ### HTML
 
 ```html
 <div id="app">
-    <form v-on:submit.prevent="login" class="form-horizontal">
-        <alert-error :form="form"></alert-error>
+  <form @submit.prevent="login" class="form-horizontal">
+    <alert-error :form="form"></alert-error>
 
-        <div class="form-group">
-            <label class="col-md-3 control-label">Username</label>
-            <div class="col-md-6">
-                <input v-model="form.username" type="text" name="username" class="form-control">
-                <span class="has-error" v-if="form.errors.has('username')">
-                    <strong>{{ form.errors.get('username') }}</strong>
-                </span>
-            </div>
-        </div>
+    <div class="form-group" :class="{'has-error': form.errors.has('username')}">
+      <label class="col-md-3 control-label">Username</label>
+      <div class="col-md-6">
+        <input v-model="form.username" type="text" name="username" class="form-control">
+        <has-error :form="form" field="username"></has-error>
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label class="col-md-3 control-label">Password</label>
-            <div class="col-md-6">
-                <input v-model="form.password" type="password" name="password" class="form-control">
-                <span class="has-error" v-if="form.errors.has('password')">
-                    <strong>{{ form.errors.get('password') }}</strong>
-                </span>
-            </div>
-        </div>
+    <div class="form-group" :class="{'has-error': form.errors.has('password')}">
+      <label class="col-md-3 control-label">Password</label>
+      <div class="col-md-6">
+        <input v-model="form.password" type="password" name="password" class="form-control">
+        <has-error :form="form" field="password"></has-error>
+      </div>
+    </div>
 
-        <div class="form-group">
-            <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
-        </div>
-    </form>
+    <div class="form-group">
+      <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
+    </div>
+  </form>
 </div>
 ```
 
@@ -112,19 +106,19 @@ __Usage:__
 ```javascript
 ...
 data() {
-    return {
-        form: this.$form({
-            username: '',
-            password: '',
-            remember: false
-        })
-    }
+  return {
+    form: this.$form({
+      username: '',
+      password: '',
+      remember: false
+    })
+  }
 },
 methods: {
-    submit() {
-        this.form.post('/someUrl')
-            .then(({data}) => console.log(data));
-    }
+  submit() {
+    this.form.post('/someUrl')
+      .then(({data}) => console.log(data))
+  }
 }
 ...
 ```
@@ -167,13 +161,6 @@ patch(url, data)
  * @return {Promise}
  */
 get(url)
-
-/**
- * Set the base url.
- *
- * @param {String} url
- */
-static baseUrl(url)
 
 /**
  * Set the routes.
@@ -242,18 +229,11 @@ __Usage:__
 
 ```html
 <span class="has-error" v-if="form.errors.has('username')">
-    <strong>{{ form.errors.get('username') }}</strong>
+  <strong>{{ form.errors.get('username') }}</strong>
 </span>
 ```
 
 Or
-
-```javascript
-import { HasError } from 'vform';
-
-Vue.component('has-error', HasError);
-
-```
 
 ```html
 <has-error :form="form" field="username"></has-error>
@@ -326,16 +306,6 @@ clear()
 ```
 
 ### Alerts
-
-Bootstrap alerts.
-
-```javascript
-import { AlertError, AlertErrors, AlertSuccess } from 'vform';
-
-Vue.component('alert-error', AlertError);
-Vue.component('alert-errors', AlertErrors);
-Vue.component('alert-success', AlertSuccess);
-```
 
 ```html
 <alert-error :form="form"></alert-error>

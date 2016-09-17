@@ -1,30 +1,27 @@
-import Vue from 'vue';
-import VueResource from 'vue-resource';
-import VueForm, { AlertError, HasError } from 'vform';
+import Vue from 'vue'
+import VueForm from 'vform'
+import VueResource from 'vue-resource'
 
-Vue.use(VueForm);
-Vue.use(VueResource);
-
-Vue.component('has-error', HasError);
-Vue.component('alert-error', AlertError);
+Vue.use(VueForm, {components: true, bs4: window.bs4})
+Vue.use(VueResource)
 
 new Vue({
-    el: '#app',
+  el: '#app',
 
-    data() {
-        return {
-            form: this.$form({
-                username: '',
-                password: '',
-                remember: false
-            })
-        }
-    },
-
-    methods: {
-        login() {
-            this.form.post('server.php')
-                .then(({data}) => console.log(data));
-        }
+  data() {
+    return {
+      form: this.$form({
+        username: '',
+        password: '',
+        remember: false
+      })
     }
-});
+  },
+
+  methods: {
+    login() {
+      this.form.post('server.php')
+        .then(({data}) => console.log(data))
+    }
+  }
+})

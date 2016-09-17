@@ -1,10 +1,8 @@
 {
-    "globals": {
-    },
     "rules": {
         "indent": [
             2,
-            4
+            2
         ],
         "quotes": [
             1,
@@ -24,13 +22,30 @@
         "browser": true
     },
     "ecmaFeatures": {
-        "modules": true
+        "arrowFunctions": true,
+        "destructuring": true,
+        "classes": true,
+        "defaultParams": true,
+        "blockBindings": true,
+        "modules": true,
+        "objectLiteralComputedProperties": true,
+        "objectLiteralShorthandMethods": true,
+        "objectLiteralShorthandProperties": true,
+        "restParams": true,
+        "spread": true,
+        "forOf": true,
+        "generators": true,
+        "templateStrings": true,
+        "superInFunctions": true,
+        "experimentalObjectRestSpread": true
     },
     "parserOptions": {
         "sourceType": "module",
         "ecmaFeatures": {
             "modules": true,
-            "sourceType": "module"
+            "sourceType": "module",
+            "spread": true,
+            "experimentalObjectRestSpread": true
         }
     },
     "extends": "eslint:recommended"

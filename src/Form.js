@@ -1,236 +1,224 @@
-import Vue from 'vue';
-import FormErrors from './FormErrors';
-
-const ignore = ['busy', 'successful', 'errors', 'forms'];
+import Vue from 'vue'
+import FormErrors from './FormErrors'
 
 class Form {
-    /**
-     * Create a new form instance.
-     *
-     * @param {Object} data
-     * @param {Object} mergeData
-     */
-    constructor(data = {}, mergeData = {}) {
-        Object.assign(this, data, mergeData);
+  /**
+   * Create a new form instance.
+   *
+   * @param {Object} data
+   * @param {Object} mergeData
+   */
+  constructor(data = {}, mergeData = {}) {
+    Object.assign(this, data, mergeData)
 
-        this.busy = false;
-        this.successful = false;
-        this.errors = new FormErrors();
+    this.busy = false
+    this.successful = false
+    this.errors = new FormErrors()
+  }
+
+  /**
+   * Get the form data.
+   *
+   * @return {Object}
+   */
+  getData() {
+    const data = {}
+
+    Object.keys(this).filter(key => !Form.ignore.includes(key)).forEach(key => data[key] = this[key])
+
+    return data
+  }
+
+  /**
+   * Start processing the form.
+   */
+  startProcessing() {
+    this.errors.clear()
+    this.busy = true
+    this.successful = false
+  }
+
+  /**
+   * Finish processing the form.
+   */
+  finishProcessing() {
+    this.busy = false
+    this.successful = true
+  }
+
+  /**
+   * Clear the form.
+   */
+  clear() {
+    this.errors.clear()
+    this.successful = false
+  }
+
+  /**
+   * Reset the form fields.
+   */
+  reset() {
+    Object.keys(this).filter(key => !Form.ignore.includes(key)).forEach(key => this[key] = '')
+  }
+
+  /**
+   * Send the from via a GET request.
+   *
+   * @param  {String} url
+   * @return {Promise}
+   */
+  get(url) {
+    return this.send('get', url)
+  }
+
+  /**
+   * Send the from via a POST request.
+   *
+   * @param  {String} url
+   * @return {Promise}
+   */
+  post(url) {
+    return this.send('post', url)
+  }
+
+  /**
+   * Send the from via a PATCH request.
+   *
+   * @param  {String} url
+   * @return {Promise}
+   */
+  patch(url) {
+    return this.send('patch', url)
+  }
+
+  /**
+   * Send the from via a PUT request.
+   *
+   * @param  {String} url
+   * @return {Promise}
+   */
+  put(url) {
+    return this.send('put', url)
+  }
+
+  /**
+   * Send the form data via an HTTP request.
+   *
+   * @param  {String} method (get, post, patch, put)
+   * @param  {String} url
+   * @return {Promise}
+   */
+  send(method, url) {
+    this.startProcessing()
+
+    let body = this.getData()
+
+    if (this.hasFile(body)) {
+      body = this.toFormData(body)
     }
 
-    /**
-     * Get the form data.
-     *
-     * @return {Object}
-     */
-    getData() {
-        const data = {};
-
-        Object.keys(this).filter(key => !ignore.includes(key)).forEach(key => data[key] = this[key]);
-
-        return data;
+    if (method === 'get') {
+      body = {params: body}
     }
 
-    /**
-     * Start processing the form.
-     */
-    startProcessing() {
-        this.errors.clear();
-        this.busy = true;
-        this.successful = false;
-    }
+    return new Promise((resolve, reject) => {
+      Vue.http[method](this.route(url), body)
+        .then((response) => {
+          this.finishProcessing()
 
-    /**
-     * Finish processing the form.
-     */
-    finishProcessing() {
-        this.busy = false;
-        this.successful = true;
-    }
+          resolve(response)
+        }, (response) => {
+          let errors = {}
 
-    /**
-     * Clear the form.
-     */
-    clear() {
-        this.errors.clear();
-        this.successful = false;
-    }
+          if (response.data.errors) {
+            errors = response.data.errors
+          } else if (response.data.message) {
+            errors = {error: response.data.message}
+          } else {
+            errors = response.data
+          }
 
-    /**
-     * Reset the form fields.
-     */
-    reset() {
-        this.clear();
+          this.busy = false
+          this.errors.set(Object.assign({}, errors))
 
-        Object.keys(this).filter(key => !ignore.includes(key)).forEach(key => this[key] = '');
-    }
+          reject(response)
+        })
+    })
+  }
 
-    /**
-     * Send the from via a GET request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-    get(url) {
-        return this.send('get', url);
-    }
+  /**
+   * Determinte if the given object has any files.
+   *
+   * @param  {Object} obj
+   * @return {Boolean}
+   */
+  hasFile(obj) {
+    return Object.keys(obj).some(key =>
+      obj[key] instanceof File || obj[key] instanceof FileList
+    )
+  }
 
-    /**
-     * Send the from via a POST request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-    post(url) {
-        return this.send('post', url);
-    }
+  /**
+   * Convert the given object to a FormData instance.
+   *
+   * @param  {Object} obj
+   * @return {FormData}
+   */
+  toFormData(obj) {
+    const data = new FormData()
 
-    /**
-     * Send the from via a PATCH request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-    patch(url) {
-        return this.send('patch', url);
-    }
+    Object.keys(obj).forEach(key => {
+      let value = obj[key]
 
-    /**
-     * Send the from via a PUT request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-    put(url) {
-        return this.send('put', url);
-    }
-
-    /**
-     * Send the form data via an HTTP request.
-     *
-     * @param  {String} method (get, post, patch, put)
-     * @param  {String} url
-     * @return {Promise}
-     */
-    send(method, url) {
-        this.startProcessing();
-
-        let body = this.getData();
-
-        if (this.hasFile(body)) {
-            body = this.toFormData(body);
+      if (value instanceof FileList) {
+        for (let i = 0; i < value.length; i++) {
+          data.append(`${key}[]`, value.item(i))
         }
+      } else {
+        data.append(key, value)
+      }
+    })
 
-        if (method === 'get') {
-            body = {params: body};
-        }
+    return data
+  }
 
-        return new Promise((resolve, reject) => {
-            Vue.http[method](this.route(url), body)
-                .then((response) => {
-                    this.finishProcessing();
+  /**
+   * Get a named route.
+   *
+   * @param  {String} name
+   * @return {Object} parameters
+   * @return {String}
+   */
+  route(name, parameters = {}) {
+    let url = name
 
-                    resolve(response);
-                }, (response) => {
-                    let errors = {};
-
-                    if (response.data.errors) {
-                        errors = response.data.errors;
-                    } else if (response.data.message) {
-                        errors = {error: response.data.message};
-                    } else {
-                        errors = response.data;
-                    }
-
-                    this.busy = false;
-                    this.errors.set(Object.assign({}, errors));
-
-                    reject(response);
-                });
-        });
+    if (Form.routes.hasOwnProperty(name)) {
+      url = decodeURI(Form.routes[name])
     }
 
-    /**
-     * Determinte if the given object has any files.
-     *
-     * @param  {Object} obj
-     * @return {Boolean}
-     */
-    hasFile(obj) {
-        return Object.keys(obj).some(key =>
-            obj[key] instanceof File || obj[key] instanceof FileList
-        );
+    if (typeof parameters !== 'object') {
+      parameters = {id: parameters}
     }
 
-    /**
-     * Convert the given object to a FormData instance.
-     *
-     * @param  {Object} obj
-     * @return {FormData}
-     */
-    toFormData(obj) {
-        const data = new FormData();
+    Object.keys(parameters).forEach(key => {
+      url = url.replace(`{${key}}`, parameters[key])
+    });
 
-        Object.keys(obj).forEach(key => {
-            let value = obj[key];
+    return url
+  }
 
-            if (value instanceof FileList) {
-                for (let i = 0; i < value.length; i++) {
-                    data.append(`${key}[]`, value.item(i));
-                }
-            } else {
-                data.append(key, value);
-            }
-        });
-
-        return data;
-    }
-
-    /**
-     * Get a named route.
-     *
-     * @param  {String} name
-     * @return {Object} parameters
-     * @return {String}
-     */
-    route(name, parameters = {}) {
-        let url = name;
-
-        if (Form.routes.hasOwnProperty(name)) {
-            url = decodeURI(Form.routes[name]);
-        }
-
-        if (typeof parameters !== 'object') {
-            parameters = {id: parameters};
-        }
-
-        Object.keys(parameters).forEach(key => {
-            url = url.replace(`{${key}}`, parameters[key]);
-        });
-
-        return Form.baseUrl + url;
-    }
-
-    /**
-     * Set the base url.
-     *
-     * @param {String} url
-     */
-    static baseUrl(url) {
-        Form.baseUrl = url;
-    }
-
-    /**
-     * Set named routes.
-     *
-     * @param {Object} routes
-     */
-    static routes(routes) {
-        Form.routes = routes;
-    }
+  /**
+   * Set named routes.
+   *
+   * @param {Object} routes
+   */
+  static routes(routes) {
+    Form.routes = routes
+  }
 }
 
-Form.routes = {};
-Form.baseUrl = '';
+Form.routes = {}
+Form.ignore = ['busy', 'successful', 'errors', 'forms']
 
-export default Form;
+
+export default Form

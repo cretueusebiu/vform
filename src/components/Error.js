@@ -1,21 +1,25 @@
-import Mixin from './Mixin';
+import Alert from './Alert'
 
 export default {
-    mixins: [Mixin],
+  extends: Alert,
 
-    props: {
-        message: {
-            type: String,
-            default() {
-                return 'There were some problems with your input.';
-            }
-        }
-    },
+  props: {
+    message: {
+      type: String,
+      default() {
+        return 'There were some problems with your input.'
+      }
+    }
+  },
 
-    template: `
-        <div class="alert alert-danger" :class="{dismissible: dismissible}" v-if="form.errors && form.errors.hasErrors()" v-on:click="dismiss">
-            <template v-if="form.errors.has('error')">{{ form.errors.get('error') }}</template>
-            <template v-else>{{ message }}</template>
-        </div>
-    `
+  template: `
+    <div class="alert alert-danger" v-if="form.errors && form.errors.hasErrors()">
+      <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div v-if="form.errors.has('error')" v-html="form.errors.get('error')"></div>
+      <div v-else v-html="message"></div>
+    </div>
+  `
 }

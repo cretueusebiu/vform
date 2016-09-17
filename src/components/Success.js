@@ -1,18 +1,22 @@
-import Mixin from './Mixin';
+import Alert from './Alert'
 
 export default {
-    mixins: [Mixin],
+  extends: Alert,
 
-    props: {
-        message: {
-            type: String,
-            required: true
-        }
-    },
+  props: {
+    message: {
+      type: String,
+      required: true
+    }
+  },
 
-    template: `
-        <div class="alert alert-success" :class="{dismissible: dismissible}" v-if="form.successful" v-on:click="dismiss">
-            {{ message }}
-        </div>
-    `
+  template: `
+    <div class="alert alert-success" v-if="form.successful">
+      <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div v-html="message"></div>
+    </div>
+  `
 }

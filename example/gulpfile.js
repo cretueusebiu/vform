@@ -1,5 +1,5 @@
-var elixir = require('laravel-elixir');
+const elixir = require('laravel-elixir')
 
-elixir(function (mix) {
-    mix.browserify('app.js', 'dist/app.js', 'js');
-});
+elixir(mix => {
+  mix.webpack('app.js', 'dist/app.js', 'js')
+})
