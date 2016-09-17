@@ -21,8 +21,8 @@ import Vue from 'vue'
 import VueForm from 'vform'
 import VueResource from 'vue-resource'
 
-Vue.use(VueForm, {components: true})
 Vue.use(VueResource)
+Vue.use(VueForm, {components: true})
 
 new Vue({
   el: '#app',
