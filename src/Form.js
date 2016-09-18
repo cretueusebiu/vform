@@ -160,7 +160,7 @@ class Form {
    */
   hasFile(obj) {
     return Object.keys(obj).some(key =>
-      obj[key] instanceof File || obj[key] instanceof FileList
+      obj[key] instanceof Blob || obj[key] instanceof FileList
     )
   }
 
