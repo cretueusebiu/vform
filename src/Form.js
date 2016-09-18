@@ -24,7 +24,9 @@ class Form {
   getData() {
     const data = {}
 
-    Object.keys(this).filter(key => !Form.ignore.includes(key)).forEach(key => data[key] = this[key])
+    Object.keys(this)
+      .filter(key => !Form.ignore.includes(key))
+      .forEach(key => data[key] = this[key])
 
     return data
   }
@@ -58,7 +60,9 @@ class Form {
    * Reset the form fields.
    */
   reset() {
-    Object.keys(this).filter(key => !Form.ignore.includes(key)).forEach(key => this[key] = '')
+    Object.keys(this)
+      .filter(key => !Form.ignore.includes(key))
+      .forEach(key => this[key] = '')
   }
 
   /**
@@ -130,7 +134,9 @@ class Form {
         }, (response) => {
           let errors = {}
 
-          if (response.data.errors) {
+          if (!response.data) {
+            errors = {error: 'Something went wrong. Please try again.'}
+          } else if (response.data.errors) {
             errors = response.data.errors
           } else if (response.data.message) {
             errors = {error: response.data.message}
@@ -219,6 +225,5 @@ class Form {
 
 Form.routes = {}
 Form.ignore = ['busy', 'successful', 'errors', 'forms']
-
 
 export default Form
