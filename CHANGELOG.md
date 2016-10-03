@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.4 - 2016-10-03
+
+- Fix `FormErrors.flatten` when there are no errors
+- `FormErrors.hasAny` can be called without any args to check if any errors exist
+
 ## 0.4.0 - 2016-09-17
 
 - Removed `Form.baseUrl`

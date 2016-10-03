@@ -21,7 +21,7 @@ export default class FormErrors {
    * @return {Array}
    */
   flatten() {
-    return this.objectValues(this.errors).reduce((a, b) => a.concat(b))
+    return this.objectValues(this.errors).reduce((a, b) => a.concat(b), [])
   }
 
   /**
@@ -39,8 +39,12 @@ export default class FormErrors {
    *
    * @return {Boolean}
    */
-  hasAny() {
-    return this.only.apply(this, arguments).length > 0
+  hasAny(...args) {
+    if (args.length > 0) {
+      return this.only.apply(this, args).length > 0
+    }
+
+    return this.flatten().length > 0
   }
 
   /**
@@ -70,16 +74,16 @@ export default class FormErrors {
    *
    * @return {Array}
    */
-  only() {
-    let messages = []
+  only(...args) {
+    const messages = []
 
-    for (let i = 0; i < arguments.length; i++) {
-      let message = this.get(arguments[i])
+    args.forEach(arg => {
+      let message = this.get(arg)
 
       if (message) {
         messages.push(message)
       }
-    }
+    })
 
     return messages
   }
