@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.5 - 2016-10-04
+
+- Add `Form.set(data = {})` to set mutiple form fields
+
 ## 0.4.4 - 2016-10-03
 
 - Fix `FormErrors.flatten` when there are no errors

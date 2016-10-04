@@ -17,6 +17,15 @@ class Form {
   }
 
   /**
+   * Set form data.
+   *
+   * @param {Object} data
+   */
+  set(data) {
+    Object.keys(data).forEach(key => this[key] = data[key])
+  }
+
+  /**
    * Get the form data.
    *
    * @return {Object}
