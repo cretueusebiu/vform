@@ -101,6 +101,23 @@ export default class FormErrors {
     }
 
     /**
+     * Remove the errors for the given field.
+     *
+     * @param  {String} key
+     */
+    remove(key) {
+        const errors = {}
+
+        Object.keys(this.errors).forEach(k => {
+            if (key !== k) {
+                errors[k] = this.errors[k]
+            }
+        })
+
+        this.set(errors)
+    }
+
+    /**
      * Object.values polyfil.
      *
      * @param  {Object} O
