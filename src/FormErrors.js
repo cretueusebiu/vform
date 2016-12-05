@@ -2,7 +2,7 @@ export default class FormErrors {
   /**
    * Create a new error bag instance.
    */
-  constructor() {
+  constructor () {
     this.errors = {}
   }
 
@@ -11,7 +11,7 @@ export default class FormErrors {
    *
    * @return {Boolean}
    */
-  hasErrors() {
+  hasErrors () {
     return Object.keys(this.errors).length !== 0
   }
 
@@ -20,8 +20,8 @@ export default class FormErrors {
    *
    * @return {Array}
    */
-  flatten() {
-    return this.objectValues(this.errors).reduce((a, b) => a.concat(b), [])
+  flatten () {
+    return Object.values(this.errors).reduce((a, b) => a.concat(b), [])
   }
 
   /**
@@ -30,7 +30,7 @@ export default class FormErrors {
    * @param  {String} field
    * @return {Boolean}
    */
-  has(field) {
+  has (field) {
     return this.errors.hasOwnProperty(field)
   }
 
@@ -39,7 +39,7 @@ export default class FormErrors {
    *
    * @return {Boolean}
    */
-  hasAny(...args) {
+  hasAny (...args) {
     if (args.length > 0) {
       return this.only.apply(this, args).length > 0
     }
@@ -52,7 +52,7 @@ export default class FormErrors {
    *
    * @return {Object}
    */
-  all() {
+  all () {
     return this.errors
   }
 
@@ -61,7 +61,7 @@ export default class FormErrors {
    *
    * @return {String|Null}
    */
-  get(field) {
+  get (field) {
     if (this.has(field)) {
       const messages = this.errors[field]
 
@@ -74,11 +74,11 @@ export default class FormErrors {
    *
    * @return {Array}
    */
-  only(...args) {
+  only (...args) {
     const messages = []
 
     args.forEach(arg => {
-      let message = this.get(arg)
+      const message = this.get(arg)
 
       if (message) {
         messages.push(message)
@@ -93,24 +93,31 @@ export default class FormErrors {
    *
    * @param {Object}
    */
-  set(errors) {
+  set (errors) {
     this.errors = errors
   }
 
   /**
    * Clear all of the errors from the collection.
    */
-  clear() {
+  clear () {
     this.errors = {}
   }
 
   /**
-   * Object.values polyfil.
+   * Remove the errors for the given field.
    *
-   * @param  {Object} O
-   * @return {Array}
+   * @param {String} field
    */
-  objectValues(O) {
-    return Object.keys(O).reduce((v, k) => v.concat(typeof k === 'string' && O.propertyIsEnumerable(k) ? [O[k]] : []), [])
+  remove (field) {
+    const errors = {}
+
+    Object.keys(this.errors).forEach(key => {
+      if (key !== field) {
+        errors[key] = this.errors[key]
+      }
+    })
+
+    this.set(errors)
   }
 }

@@ -1,52 +1,9 @@
 {
-    "rules": {
-        "indent": [
-            2,
-            2
-        ],
-        "quotes": [
-            1,
-            "single"
-        ],
-        "linebreak-style": 0,
-        "no-console": 0,
-        "no-unused-vars": 1
-    },
-    "settings": {
-        "import/ignore": [
-        ]
-    },
-    "env": {
-        "es6": true,
-        "node": true,
-        "browser": true
-    },
-    "ecmaFeatures": {
-        "arrowFunctions": true,
-        "destructuring": true,
-        "classes": true,
-        "defaultParams": true,
-        "blockBindings": true,
-        "modules": true,
-        "objectLiteralComputedProperties": true,
-        "objectLiteralShorthandMethods": true,
-        "objectLiteralShorthandProperties": true,
-        "restParams": true,
-        "spread": true,
-        "forOf": true,
-        "generators": true,
-        "templateStrings": true,
-        "superInFunctions": true,
-        "experimentalObjectRestSpread": true
-    },
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "modules": true,
-            "sourceType": "module",
-            "spread": true,
-            "experimentalObjectRestSpread": true
-        }
-    },
-    "extends": "eslint:recommended"
+  "extends": "vue",
+  "globals": {
+    "File": true,
+    "Blob": true,
+    "FormData": true,
+    "FileList": true
+  }
 }

@@ -6,9 +6,7 @@ export default {
   props: {
     message: {
       type: String,
-      default() {
-        return 'There were some problems with your input.'
-      }
+      default: 'There were some problems with your input.'
     }
   },
 

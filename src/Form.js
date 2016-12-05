@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import FormErrors from './FormErrors'
 
 class Form {
@@ -8,7 +7,7 @@ class Form {
    * @param {Object} data
    * @param {Object} mergeData
    */
-  constructor(data = {}, mergeData = {}) {
+  constructor (data = {}, mergeData = {}) {
     Object.assign(this, data, mergeData)
 
     this.busy = false
@@ -21,8 +20,8 @@ class Form {
    *
    * @param {Object} data
    */
-  set(data) {
-    Object.keys(data).forEach(key => this[key] = data[key])
+  set (data) {
+    Object.keys(data).forEach(key => { this[key] = data[key] })
   }
 
   /**
@@ -30,12 +29,12 @@ class Form {
    *
    * @return {Object}
    */
-  getData() {
+  getData () {
     const data = {}
 
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
-      .forEach(key => data[key] = this[key])
+      .forEach(key => { data[key] = this[key] })
 
     return data
   }
@@ -43,7 +42,7 @@ class Form {
   /**
    * Start processing the form.
    */
-  startProcessing() {
+  startProcessing () {
     this.errors.clear()
     this.busy = true
     this.successful = false
@@ -52,7 +51,7 @@ class Form {
   /**
    * Finish processing the form.
    */
-  finishProcessing() {
+  finishProcessing () {
     this.busy = false
     this.successful = true
   }
@@ -60,7 +59,7 @@ class Form {
   /**
    * Clear the form.
    */
-  clear() {
+  clear () {
     this.errors.clear()
     this.successful = false
   }
@@ -68,10 +67,10 @@ class Form {
   /**
    * Reset the form fields.
    */
-  reset() {
+  reset () {
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
-      .forEach(key => this[key] = '')
+      .forEach(key => { this[key] = '' })
   }
 
   /**
@@ -80,7 +79,7 @@ class Form {
    * @param  {String} url
    * @return {Promise}
    */
-  get(url) {
+  get (url) {
     return this.send('get', url)
   }
 
@@ -90,7 +89,7 @@ class Form {
    * @param  {String} url
    * @return {Promise}
    */
-  post(url) {
+  post (url) {
     return this.send('post', url)
   }
 
@@ -100,7 +99,7 @@ class Form {
    * @param  {String} url
    * @return {Promise}
    */
-  patch(url) {
+  patch (url) {
     return this.send('patch', url)
   }
 
@@ -110,7 +109,7 @@ class Form {
    * @param  {String} url
    * @return {Promise}
    */
-  put(url) {
+  put (url) {
     return this.send('put', url)
   }
 
@@ -121,7 +120,7 @@ class Form {
    * @param  {String} url
    * @return {Promise}
    */
-  send(method, url) {
+  send (method, url) {
     this.startProcessing()
 
     let body = this.getData()
@@ -131,30 +130,35 @@ class Form {
     }
 
     if (method === 'get') {
-      body = {params: body}
+      body = { params: body }
     }
 
     return new Promise((resolve, reject) => {
-      Vue.http[method](this.route(url), body)
-        .then((response) => {
+      Form.http[method](this.route(url), body)
+        .then(response => {
           this.finishProcessing()
 
           resolve(response)
-        }, (response) => {
+        })
+        .catch(response => {
           let errors = {}
 
+          if (response.response) {
+            response = response.response
+          }
+
           if (!response.data) {
-            errors = {error: 'Something went wrong. Please try again.'}
+            errors = { error: 'Something went wrong. Please try again.' }
           } else if (response.data.errors) {
             errors = response.data.errors
           } else if (response.data.message) {
-            errors = {error: response.data.message}
+            errors = { error: response.data.message }
           } else {
             errors = response.data
           }
 
           this.busy = false
-          this.errors.set(Object.assign({}, errors))
+          this.errors.set({ ...errors })
 
           reject(response)
         })
@@ -167,7 +171,7 @@ class Form {
    * @param  {Object} obj
    * @return {Boolean}
    */
-  hasFile(obj) {
+  hasFile (obj) {
     return Object.keys(obj).some(key =>
       obj[key] instanceof Blob || obj[key] instanceof FileList
     )
@@ -179,11 +183,11 @@ class Form {
    * @param  {Object} obj
    * @return {FormData}
    */
-  toFormData(obj) {
+  toFormData (obj) {
     const data = new FormData()
 
     Object.keys(obj).forEach(key => {
-      let value = obj[key]
+      const value = obj[key]
 
       if (value instanceof FileList) {
         for (let i = 0; i < value.length; i++) {
@@ -204,7 +208,7 @@ class Form {
    * @return {Object} parameters
    * @return {String}
    */
-  route(name, parameters = {}) {
+  route (name, parameters = {}) {
     let url = name
 
     if (Form.routes.hasOwnProperty(name)) {
@@ -212,27 +216,19 @@ class Form {
     }
 
     if (typeof parameters !== 'object') {
-      parameters = {id: parameters}
+      parameters = { id: parameters }
     }
 
     Object.keys(parameters).forEach(key => {
       url = url.replace(`{${key}}`, parameters[key])
-    });
+    })
 
     return url
-  }
-
-  /**
-   * Set named routes.
-   *
-   * @param {Object} routes
-   */
-  static routes(routes) {
-    Form.routes = routes
   }
 }
 
 Form.routes = {}
+Form.http = undefined
 Form.ignore = ['busy', 'successful', 'errors', 'forms']
 
 export default Form

@@ -1,14 +1,17 @@
 import Vue from 'vue'
+import axios from 'axios'
 import VueForm from 'vform'
-import VueResource from 'vue-resource'
+// import VueResource from 'vue-resource'
 
-Vue.use(VueForm, {components: true, bs4: window.bs4})
-Vue.use(VueResource)
+// Vue.use(VueResource)
+
+Vue.use(VueForm, { http: axios, bs4: window.bs4 })
+// Vue.use(VueForm, { http: Vue.http, bs4: window.bs4 })
 
 new Vue({
   el: '#app',
 
-  data() {
+  data () {
     return {
       form: this.$form({
         username: '',
@@ -19,9 +22,9 @@ new Vue({
   },
 
   methods: {
-    login() {
+    login () {
       this.form.post('server.php')
-        .then(({data}) => console.log(data))
+        .then(({ data }) => console.log(data))
     }
   }
 })

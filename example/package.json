@@ -1,17 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "prod": "gulp --production",
+    "build": "gulp --production",
     "dev": "gulp watch --minimal"
   },
   "dependencies": {
-    "vform": "^0.4.0",
-    "vue": "^1.0.26",
-    "vue-resource": "^1.0.2"
+    "axios": "^0.15.3",
+    "vform": "^0.5.0",
+    "vue": "^2.1.4",
+    "vue-resource": "^1.0.3"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "laravel-elixir": "^6.0.0-10",
-    "laravel-elixir-webpack-official": "^1.0.2"
+    "laravel-elixir": "^6.0.0-15",
+    "laravel-elixir-vue-2": "^0.3.0",
+    "laravel-elixir-webpack-official": "^1.0.10"
   }
 }

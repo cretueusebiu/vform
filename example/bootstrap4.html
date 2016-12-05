@@ -19,7 +19,7 @@
               <alert-error :form="form"></alert-error>
 
               <!-- Username -->
-              <div class="form-group row" :class="{'has-danger': form.errors.has('username')}">
+              <div class="form-group row" :class="{ 'has-danger': form.errors.has('username') }">
                 <label class="col-sm-3 col-form-label">Username</label>
                 <div class="col-sm-9">
                   <input v-model="form.username" type="text" name="username" class="form-control" placeholder="Username">
@@ -28,7 +28,7 @@
               </div>
 
               <!-- Password -->
-              <div class="form-group row" :class="{'has-danger': form.errors.has('password')}">
+              <div class="form-group row" :class="{ 'has-danger': form.errors.has('password') }">
                 <label class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
                   <input v-model="form.password" type="password" name="password" class="form-control" placeholder="Password">

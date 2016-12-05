@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="700" src="http://i.imgur.com/AcBAPll.gif" alt="demo">
+  <img src="http://i.imgur.com/AcBAPll.gif" width="700" alt="vform">
 </p>
 
 # vform
@@ -18,16 +18,15 @@ npm install --save vform
 
 ```javascript
 import Vue from 'vue'
+import axios from 'axios'
 import VueForm from 'vform'
-import VueResource from 'vue-resource'
 
-Vue.use(VueResource)
-Vue.use(VueForm, {components: true})
+Vue.use(VueForm, { http: axios })
 
 new Vue({
   el: '#app',
   
-  data() {
+  data () {
     return {
       // Create a new form instance
       form: this.$form({
@@ -39,13 +38,22 @@ new Vue({
   },
 
   methods: {
-    login() {
+    login () {
       // Submit the form via a POST request
       this.form.post('/auth/login')
-        .then(({data}) => console.log(data))
+        .then(({ data }) => { console.log(data) })
     }
   }
 })
+```
+
+If you want to use [vue-resoure](https://github.com/pagekit/vue-resource) then:
+
+```javascript
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
+Vue.use(VueForm, { http: Vue.http })
 ```
 
 ### HTML
@@ -55,7 +63,7 @@ new Vue({
   <form @submit.prevent="login" class="form-horizontal">
     <alert-error :form="form"></alert-error>
 
-    <div class="form-group" :class="{'has-error': form.errors.has('username')}">
+    <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
       <label class="col-md-3 control-label">Username</label>
       <div class="col-md-6">
         <input v-model="form.username" type="text" name="username" class="form-control">
@@ -63,7 +71,7 @@ new Vue({
       </div>
     </div>
 
-    <div class="form-group" :class="{'has-error': form.errors.has('password')}">
+    <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
       <label class="col-md-3 control-label">Password</label>
       <div class="col-md-6">
         <input v-model="form.password" type="password" name="password" class="form-control">
@@ -105,7 +113,7 @@ __Usage:__
 
 ```javascript
 ...
-data() {
+data () {
   return {
     form: this.$form({
       username: '',
@@ -115,9 +123,9 @@ data() {
   }
 },
 methods: {
-  submit() {
+  submit () {
     this.form.post('/someUrl')
-      .then(({data}) => console.log(data))
+      .then(({ data }) => { console.log(data) })
   }
 }
 ...
@@ -136,7 +144,7 @@ __Available methods:__
  * @param {Object} data
  * @param {Object} mergeData
  */
-constructor(data = {}, mergeData = {})
+constructor (data = {}, mergeData = {})
 
 /**
  * Send the from via a POST request.
@@ -144,7 +152,7 @@ constructor(data = {}, mergeData = {})
  * @param  {String} url
  * @return {Promise}
  */
-post(url)
+post (url)
 
 /**
  * Send the from via a PATCH request.
@@ -152,7 +160,7 @@ post(url)
  * @param  {String} url
  * @return {Promise}
  */
-patch(url, data)
+patch (url, data)
 
 /**
  * Send the from via a GET request.
@@ -160,41 +168,34 @@ patch(url, data)
  * @param  {String} url
  * @return {Promise}
  */
-get(url)
-
-/**
- * Set the routes.
- *
- * @param {Object} routes
- */
-static routes(routes)
+get (url)
 
 /**
  * Get the form data.
  *
  * @return {Object}
  */
-getData()
+getData ()
 
 /**
  * Start processing the form.
  */
-startProcessing()
+startProcessing ()
 
 /**
  * Finish processing the form.
  */
-finishProcessing()
+finishProcessing ()
 
 /**
  * Clear the form.
  */
-clear()
+clear ()
 
 /**
  * Reset the form fields.
  */
-reset()
+reset ()
 ```
 
 __Available properties:__
@@ -247,14 +248,14 @@ __Available methods:__
  *
  * @return {Boolean}
  */
-hasErrors()
+hasErrors ()
 
 /**
  * Get all of the errors for the collection in a flat array.
  *
  * @return {Array}
  */
-flatten()
+flatten ()
 
 /**
  * Determine if the collection has errors for a given field.
@@ -262,47 +263,54 @@ flatten()
  * @param  {String} field
  * @return {Boolean}
  */
-has(field)
+has (field)
 
 /**
  * Determine if the collection has errors for a given fields.
  *
  * @return {Boolean}
  */
-hasAny()
+hasAny ()
 
 /**
  * Get all of the errors for the collection.
  *
  * @return {Object}
  */
-all()
+all ()
 
 /**
  * Get the first error message for a given field.
  *
  * @return {String|Null}
  */
-get(field)
+get (field)
 
 /**
  * Get the first error message for a given fields.
  *
  * @return {Array}
  */
-only()
+only ()
 
 /**
  * Set the raw errors for the collection.
  *
  * @param {Object}
  */
-set(errors)
+set (errors)
 
 /**
  * Clear all of the errors from the collection.
  */
-clear()
+clear ()
+
+/**
+ * Remove the errors for the given field.
+ *
+ * @param {String} field
+ */
+remove (field)
 ```
 
 ### Alerts
@@ -314,3 +322,7 @@ clear()
 
 <alert-success :form="form" message="Success!"></alert-success>
 ```
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

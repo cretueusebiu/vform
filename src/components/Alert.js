@@ -7,14 +7,12 @@ export default {
 
     dismissible: {
       type: Boolean,
-      default() {
-        return true
-      }
+      default: true
     }
   },
 
   methods: {
-    dismiss() {
+    dismiss () {
       if (this.dismissible) {
         this.form.clear()
       }

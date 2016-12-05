@@ -18,7 +18,7 @@
             <alert-error :form="form"></alert-error>
 
             <!-- Username -->
-            <div class="form-group" :class="{'has-error': form.errors.has('username')}">
+            <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
               <label class="col-md-3 control-label">Username</label>
               <div class="col-md-6">
                 <input v-model="form.username" type="text" name="username" class="form-control">
@@ -27,7 +27,7 @@
             </div>
 
             <!-- Password -->
-            <div class="form-group" :class="{'has-error': form.errors.has('password')}">
+            <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
               <label class="col-md-3 control-label">Password</label>
               <div class="col-md-6">
                 <input v-model="form.password" type="password" name="password" class="form-control">
