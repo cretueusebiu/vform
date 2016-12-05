@@ -141,28 +141,38 @@ class Form {
           resolve(response)
         })
         .catch(response => {
-          let errors = {}
-
-          if (response.response) {
-            response = response.response
-          }
-
-          if (!response.data) {
-            errors = { error: 'Something went wrong. Please try again.' }
-          } else if (response.data.errors) {
-            errors = response.data.errors
-          } else if (response.data.message) {
-            errors = { error: response.data.message }
-          } else {
-            errors = response.data
-          }
-
           this.busy = false
-          this.errors.set({ ...errors })
+          this.errors.set(this.extractErrors(response))
 
           reject(response)
         })
     })
+  }
+
+  /**
+   * Extract the errors from the response object.
+   *
+   * @param  {Object} response
+   * @return {Object}
+   */
+  extractErrors (response) {
+    if (response.response) {
+      response = response.response
+    }
+
+    if (!response.data) {
+      return { error: 'Something went wrong. Please try again.' }
+    }
+
+    if (response.data.errors) {
+      return { ...response.data.errors }
+    }
+
+    if (response.data.message) {
+      return { error: response.data.message }
+    }
+
+    return { ...response.data }
   }
 
   /**
