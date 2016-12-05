@@ -78,7 +78,10 @@ export default {
                     }
 
                     resolve(response);
-                }, (response) => {
+                })
+                .catch((error) => {
+                    const response = error.response ? error.response : error;
+
                     if (form) {
                         form.busy = false;
                         form.errors.set(Object.assign({}, response.data));
