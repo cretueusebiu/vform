@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A simple way to handle form validation in Vue and Laravel.",
   "main": "dist/index.js",
   "scripts": {

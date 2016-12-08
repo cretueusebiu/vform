@@ -1,18 +1,19 @@
 import FormErrors from './FormErrors'
+import { deepCopy, hasFile, toFormData } from './util'
 
 class Form {
   /**
    * Create a new form instance.
    *
    * @param {Object} data
-   * @param {Object} mergeData
    */
-  constructor (data = {}, mergeData = {}) {
-    Object.assign(this, data, mergeData)
-
+  constructor (data = {}) {
     this.busy = false
     this.successful = false
     this.errors = new FormErrors()
+    this.original = deepCopy(data)
+
+    Object.assign(this, data)
   }
 
   /**
@@ -21,7 +22,9 @@ class Form {
    * @param {Object} data
    */
   set (data) {
-    Object.keys(data).forEach(key => { this[key] = data[key] })
+    Object.keys(data).forEach(key => {
+      this[key] = data[key]
+    })
   }
 
   /**
@@ -34,7 +37,9 @@ class Form {
 
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
-      .forEach(key => { data[key] = this[key] })
+      .forEach(key => {
+        data[key] = this[key]
+      })
 
     return data
   }
@@ -57,7 +62,7 @@ class Form {
   }
 
   /**
-   * Clear the form.
+   * Clear the form errors.
    */
   clear () {
     this.errors.clear()
@@ -70,7 +75,9 @@ class Form {
   reset () {
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
-      .forEach(key => { this[key] = '' })
+      .forEach(key => {
+        this[key] = deepCopy(this.original[key])
+      })
   }
 
   /**
@@ -125,8 +132,8 @@ class Form {
 
     let body = this.getData()
 
-    if (this.hasFile(body)) {
-      body = this.toFormData(body)
+    if (hasFile(body)) {
+      body = toFormData(body)
     }
 
     if (method === 'get') {
@@ -176,42 +183,6 @@ class Form {
   }
 
   /**
-   * Determinte if the given object has any files.
-   *
-   * @param  {Object} obj
-   * @return {Boolean}
-   */
-  hasFile (obj) {
-    return Object.keys(obj).some(key =>
-      obj[key] instanceof Blob || obj[key] instanceof FileList
-    )
-  }
-
-  /**
-   * Convert the given object to a FormData instance.
-   *
-   * @param  {Object} obj
-   * @return {FormData}
-   */
-  toFormData (obj) {
-    const data = new FormData()
-
-    Object.keys(obj).forEach(key => {
-      const value = obj[key]
-
-      if (value instanceof FileList) {
-        for (let i = 0; i < value.length; i++) {
-          data.append(`${key}[]`, value.item(i))
-        }
-      } else {
-        data.append(key, value)
-      }
-    })
-
-    return data
-  }
-
-  /**
    * Get a named route.
    *
    * @param  {String} name
@@ -239,6 +210,6 @@ class Form {
 
 Form.routes = {}
 Form.http = undefined
-Form.ignore = ['busy', 'successful', 'errors', 'forms']
+Form.ignore = ['busy', 'successful', 'errors', 'forms', 'original']
 
 export default Form

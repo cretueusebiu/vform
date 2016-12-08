@@ -142,9 +142,8 @@ __Available methods:__
  * Create a new form instance.
  *
  * @param {Object} data
- * @param {Object} mergeData
  */
-constructor (data = {}, mergeData = {})
+constructor (data = {})
 
 /**
  * Send the from via a POST request.
@@ -188,7 +187,7 @@ startProcessing ()
 finishProcessing ()
 
 /**
- * Clear the form.
+ * Clear the form errors.
  */
 clear ()
 
@@ -268,9 +267,10 @@ has (field)
 /**
  * Determine if the collection has errors for a given fields.
  *
+ * @param  {...String} fields
  * @return {Boolean}
  */
-hasAny ()
+hasAny (...fields)
 
 /**
  * Get all of the errors for the collection.
@@ -289,9 +289,10 @@ get (field)
 /**
  * Get the first error message for a given fields.
  *
+ * @param  {...String} fields
  * @return {Array}
  */
-only ()
+only (..fields)
 
 /**
  * Set the raw errors for the collection.

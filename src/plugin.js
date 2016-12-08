@@ -20,7 +20,7 @@ export default {
       Vue.component('has-error', options.bs4 ? HasError4 : HasError)
     }
 
-    const create = (data = {}, merge = {}) => new Form(data, merge)
+    const create = (data = {}) => new Form(data)
 
     Vue.form = create
     Vue.prototype.$form = create

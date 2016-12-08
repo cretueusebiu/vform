@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0 - 2016-12-08
+
+- Changed how `Form.prototype.reset()` works. The form keeps now a copy of the original data.
+- Removed `mergeData` arg (`new Form(data = {}, mergeData = {})`).
+
 ## 0.5.0 - 2016-12-05
 
 - Added support for [axios](https://github.com/mzabriskie/axios).
