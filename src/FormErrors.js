@@ -37,11 +37,12 @@ export default class FormErrors {
   /**
    * Determine if the collection has errors for a given fields.
    *
+   * @param  {...String} fields
    * @return {Boolean}
    */
-  hasAny (...args) {
-    if (args.length > 0) {
-      return this.only.apply(this, args).length > 0
+  hasAny (...fields) {
+    if (fields.length > 0) {
+      return this.only.apply(this, fields).length > 0
     }
 
     return this.flatten().length > 0
@@ -59,7 +60,7 @@ export default class FormErrors {
   /**
    * Get the first error message for a given field.
    *
-   * @return {String|Null}
+   * @return {String|null}
    */
   get (field) {
     if (this.has(field)) {
@@ -72,13 +73,14 @@ export default class FormErrors {
   /**
    * Get the first error message for a given fields.
    *
+   * @param  {...String} fields
    * @return {Array}
    */
-  only (...args) {
+  only (...fields) {
     const messages = []
 
-    args.forEach(arg => {
-      const message = this.get(arg)
+    fields.forEach(field => {
+      const message = this.get(field)
 
       if (message) {
         messages.push(message)
