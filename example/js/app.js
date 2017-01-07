@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import axios from 'axios'
-import VueForm from 'vform'
-// import VueResource from 'vue-resource'
+import MockAdapter from 'axios-mock-adapter'
+import { Form, HasError, HasError4, AlertError } from 'vform'
 
-// Vue.use(VueResource)
-
-Vue.use(VueForm, { http: axios, bs4: window.bs4 })
-// Vue.use(VueForm, { http: Vue.http, bs4: window.bs4 })
+// Register the alert components
+Vue.component('alert-error', AlertError)
+Vue.component('has-error', window.bs4 ? HasError4 : HasError)
 
 new Vue({
   el: '#app',
 
   data () {
     return {
-      form: this.$form({
+      // Create the form instance
+      form: new Form({
         username: '',
         password: '',
         remember: false
@@ -23,8 +23,21 @@ new Vue({
 
   methods: {
     login () {
-      this.form.post('server.php')
+      // Since we don't have an actual server, we'll mock the request.
+      this.mockRequest()
+
+      // Submit the form via a POST request.
+      this.form.post('/auth/login')
         .then(({ data }) => console.log(data))
+    },
+
+    mockRequest () {
+      const mock = new MockAdapter(axios, { delayResponse: 200 })
+
+      mock.onPost('/auth/login').reply(422, {
+        username: ['The username field is required.'],
+        password: ['The password field is required.']
+      })
     }
   }
 })

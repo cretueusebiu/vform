@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0 - 2017-01-07
+
+- Removed support as a Vue plugin;`vform` now exports the `Form` class as default.
+- Dropped support for [vue-resoure](https://github.com/pagekit/vue-resource), [axios](https://github.com/mzabriskie/axios) is now used by default.
+- Renamed `Form.prototype.send()` to `Form.prototype.submit()`.
+- Renamed `Form.prototype.getData()` to `Form.prototype.data()`.
+- Renamed class `FormErrors` to `Errors`.
+- Renamed `Errors.prototype.hasErrors()` to `Errors.prototype.any()`
+- Removed `Errors.prototype.remove(field)` in favor of `Errors.prototype.clear(field)`.
+- Added tests.
+
 ## 0.6.0 - 2016-12-08
 
 - Changed how `Form.prototype.reset()` works. The form keeps now a copy of the original data.

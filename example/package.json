@@ -5,12 +5,11 @@
     "dev": "gulp watch --minimal"
   },
   "dependencies": {
-    "axios": "^0.15.3",
-    "vform": "^0.6.0",
-    "vue": "^2.1.4",
-    "vue-resource": "^1.0.3"
+    "vform": "^0.7.0",
+    "vue": "^2.1.4"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.7.1",
     "gulp": "^3.9.1",
     "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-vue-2": "^0.3.0",

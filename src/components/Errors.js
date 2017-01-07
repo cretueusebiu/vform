@@ -11,7 +11,7 @@ export default {
   },
 
   template: `
-    <div class="alert alert-danger" v-if="form.errors && form.errors.hasErrors()">
+    <div class="alert alert-danger" v-if="form.errors.any()">
       <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
         <span aria-hidden="true">&times;</span>
       </button>

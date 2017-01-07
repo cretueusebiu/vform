@@ -4,6 +4,7 @@
     "File": true,
     "Blob": true,
     "FormData": true,
-    "FileList": true
+    "FileList": true,
+    "atob": true
   }
 }

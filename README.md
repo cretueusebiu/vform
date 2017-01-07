@@ -1,10 +1,16 @@
+# vform
+
+<p>
+  <a href="https://npmjs.com/package/vform"><img src="https://img.shields.io/npm/v/vform.svg?style=flat-square" alt="Latest Version on NPM"></a>
+  <a href="https://travis-ci.org/cretueusebiu/vform"><img src="https://travis-ci.org/cretueusebiu/vform.svg?branch=master" alt="Build Status"></a>
+  <a href="https://npmjs.com/package/vform"><img src="https://img.shields.io/npm/dt/vform.svg?style=flat-square" alt="Total Downloads"></a>
+</p>
+
+>A simple way to handle Laravel back-end validation in Vue. Inspired from <a href="https://spark.laravel.com">Laravel Spark</a>.
+
 <p align="center">
   <img src="http://i.imgur.com/AcBAPll.gif" width="700" alt="vform">
 </p>
-
-# vform
-
-> A simple way to handle form validation in Vue and Laravel. Inspired from [Laravel Spark](https://spark.laravel.com).
 
 ## Installation
 
@@ -14,14 +20,15 @@ npm install --save vform
 
 ## Usage
 
+See the included [example](example).
+
 ### JavaScript
 
 ```javascript
 import Vue from 'vue'
-import axios from 'axios'
-import VueForm from 'vform'
+import { Form, HasError } from 'vform'
 
-Vue.use(VueForm, { http: axios })
+Vue.component('has-error', HasError)
 
 new Vue({
   el: '#app',
@@ -29,7 +36,7 @@ new Vue({
   data () {
     return {
       // Create a new form instance
-      form: this.$form({
+      form: Form({
         username: '',
         password: '',
         remember: false
@@ -47,34 +54,25 @@ new Vue({
 })
 ```
 
-If you want to use [vue-resoure](https://github.com/pagekit/vue-resource) then:
-
-```javascript
-import VueResource from 'vue-resource'
-
-Vue.use(VueResource)
-Vue.use(VueForm, { http: Vue.http })
-```
-
 ### HTML
 
 ```html
 <div id="app">
-  <form @submit.prevent="login" class="form-horizontal">
+  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)" class="form-horizontal">
     <alert-error :form="form"></alert-error>
 
     <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
-      <label class="col-md-3 control-label">Username</label>
+      <label for="username" class="col-md-3 control-label">Username</label>
       <div class="col-md-6">
-        <input v-model="form.username" type="text" name="username" class="form-control">
+        <input v-model="form.username" type="text" name="username" id="username" class="form-control">
         <has-error :form="form" field="username"></has-error>
       </div>
     </div>
 
     <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
-      <label class="col-md-3 control-label">Password</label>
+      <label for="password" class="col-md-3 control-label">Password</label>
       <div class="col-md-6">
-        <input v-model="form.password" type="password" name="password" class="form-control">
+        <input v-model="form.password" type="password" name="password" id="password" class="form-control">
         <has-error :form="form" field="password"></has-error>
       </div>
     </div>
@@ -109,96 +107,6 @@ See the [example](example) for more. <br>
 
 ### Form
 
-__Usage:__
-
-```javascript
-...
-data () {
-  return {
-    form: this.$form({
-      username: '',
-      password: '',
-      remember: false
-    })
-  }
-},
-methods: {
-  submit () {
-    this.form.post('/someUrl')
-      .then(({ data }) => { console.log(data) })
-  }
-}
-...
-```
-
-```html
-<button :disabled="form.busy" type="submit">Submit</button>
-```
-
-__Available methods:__
-
-```javascript
-/**
- * Create a new form instance.
- *
- * @param {Object} data
- */
-constructor (data = {})
-
-/**
- * Send the from via a POST request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-post (url)
-
-/**
- * Send the from via a PATCH request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-patch (url, data)
-
-/**
- * Send the from via a GET request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-get (url)
-
-/**
- * Get the form data.
- *
- * @return {Object}
- */
-getData ()
-
-/**
- * Start processing the form.
- */
-startProcessing ()
-
-/**
- * Finish processing the form.
- */
-finishProcessing ()
-
-/**
- * Clear the form errors.
- */
-clear ()
-
-/**
- * Reset the form fields.
- */
-reset ()
-```
-
-__Available properties:__
-
 ```javascript
 /**
  * Indicates if the form is sent to the server.
@@ -217,47 +125,64 @@ successful
 /**
  * Contains the validation errors from the server.
  * 
- * @var {FormErrors}
+ * @var {Errors}
  */
 errors
+
+/**
+ * Create a new form instance.
+ *
+ * @param {Object} data
+ */
+constructor (data = {})
+
+/**
+ * Submit the from via a POST request.
+ *
+ * @param  {String} url
+ * @return {Promise}
+ */
+post (url)
+
+/**
+ * Submit the from via a PATCH request.
+ *
+ * @param  {String} url
+ * @return {Promise}
+ */
+patch (url, data)
+
+/**
+ * Submit the from via a GET request.
+ *
+ * @param  {String} url
+ * @return {Promise}
+ */
+get (url)
+
+/**
+ * Clear the form errors.
+ */
+clear ()
+
+/**
+ * Reset the form fields.
+ */
+reset ()
 ```
 
-
-### FormErrors
-
-__Usage:__
-
-```html
-<span class="has-error" v-if="form.errors.has('username')">
-  <strong>{{ form.errors.get('username') }}</strong>
-</span>
-```
-
-Or
-
-```html
-<has-error :form="form" field="username"></has-error>
-```
-
-__Available methods:__
+### Errors
 
 ```javascript
 /**
- * Determine if the collection has any errors.
+ * Get all the errors.
  *
- * @return {Boolean}
+ * @return {Object}
  */
-hasErrors ()
+all ()
 
 /**
- * Get all of the errors for the collection in a flat array.
- *
- * @return {Array}
- */
-flatten ()
-
-/**
- * Determine if the collection has errors for a given field.
+ * Determine if there is an error for the given field.
  *
  * @param  {String} field
  * @return {Boolean}
@@ -265,7 +190,7 @@ flatten ()
 has (field)
 
 /**
- * Determine if the collection has errors for a given fields.
+ * Determine if there are any errors for the given fields.
  *
  * @param  {...String} fields
  * @return {Boolean}
@@ -273,57 +198,82 @@ has (field)
 hasAny (...fields)
 
 /**
- * Get all of the errors for the collection.
+ * Determine if there are any errors.
  *
- * @return {Object}
+ * @return {Boolean}
  */
-all ()
+any ()
 
 /**
- * Get the first error message for a given field.
+ * Get the error message for the given field.
  *
- * @return {String|Null}
+ * @param  String} field
+ * @return {String|undefined}
  */
 get (field)
 
 /**
- * Get the first error message for a given fields.
+ * Get the error message for the given fields.
  *
  * @param  {...String} fields
  * @return {Array}
  */
-only (..fields)
+only (...fields)
 
 /**
- * Set the raw errors for the collection.
+ * Get all the errors in a flat array.
+ *
+ * @return {Array}
+ */
+flatten ()
+
+/**
+ * Clear one or all error fields.
+ *
+ * @param {String|undefined} field
+ */
+clear (field)
+
+/**
+ * Set the errors object.
  *
  * @param {Object}
  */
 set (errors)
-
-/**
- * Clear all of the errors from the collection.
- */
-clear ()
-
-/**
- * Remove the errors for the given field.
- *
- * @param {String} field
- */
-remove (field)
 ```
 
-### Alerts
+### Bootstrap Alert Components
+
+```javascript
+import { 
+  HasError,
+  HasError4,
+  AlertError,
+  AlertErrors, 
+  AlertSuccess
+} from 'vform'
+
+Vue.component('has-error', HasError)
+// Vue.component('has-error', HasError4) // Bootstrap 4
+Vue.component('alert-error', AlertError)
+Vue.component('alert-errors', AlertErrors)
+Vue.component('alert-success', AlertSuccess)
+```
 
 ```html
-<alert-error :form="form"></alert-error>
+<!-- .help-block / .form-control-feedback with the error message -->
+<has-error :form="form" field="username"></has-error>
 
-<alert-errors :form="form"></alert-errors>
+<!-- Danger alert with a message -->
+<alert-error :form="form" message="There were some problems with your input."></alert-error>
 
+<!-- Danger alert with message and the list of errors -->
+<alert-errors :form="form" message="There were some problems with your input."></alert-errors>
+
+<!-- Success alert with message -->
 <alert-success :form="form" message="Success!"></alert-success>
 ```
 
-## Change log
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

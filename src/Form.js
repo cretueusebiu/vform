@@ -1,4 +1,5 @@
-import FormErrors from './FormErrors'
+import axios from 'axios'
+import Errors from './Errors'
 import { deepCopy, hasFile, toFormData } from './util'
 
 class Form {
@@ -10,21 +11,10 @@ class Form {
   constructor (data = {}) {
     this.busy = false
     this.successful = false
-    this.errors = new FormErrors()
-    this.original = deepCopy(data)
+    this.errors = new Errors()
+    this.originalData = deepCopy(data)
 
     Object.assign(this, data)
-  }
-
-  /**
-   * Set form data.
-   *
-   * @param {Object} data
-   */
-  set (data) {
-    Object.keys(data).forEach(key => {
-      this[key] = data[key]
-    })
   }
 
   /**
@@ -32,7 +22,7 @@ class Form {
    *
    * @return {Object}
    */
-  getData () {
+  data () {
     const data = {}
 
     Object.keys(this)
@@ -76,82 +66,84 @@ class Form {
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
       .forEach(key => {
-        this[key] = deepCopy(this.original[key])
+        this[key] = deepCopy(this.originalData[key])
       })
   }
 
   /**
-   * Send the from via a GET request.
+   * Submit the from via a GET request.
    *
    * @param  {String} url
    * @return {Promise}
    */
   get (url) {
-    return this.send('get', url)
+    return this.submit('get', url)
   }
 
   /**
-   * Send the from via a POST request.
+   * Submit the from via a POST request.
    *
    * @param  {String} url
    * @return {Promise}
    */
   post (url) {
-    return this.send('post', url)
+    return this.submit('post', url)
   }
 
   /**
-   * Send the from via a PATCH request.
+   * Submit the from via a PATCH request.
    *
    * @param  {String} url
    * @return {Promise}
    */
   patch (url) {
-    return this.send('patch', url)
+    return this.submit('patch', url)
   }
 
   /**
-   * Send the from via a PUT request.
+   * Submit the from via a PUT request.
    *
    * @param  {String} url
    * @return {Promise}
    */
   put (url) {
-    return this.send('put', url)
+    return this.submit('put', url)
   }
 
   /**
-   * Send the form data via an HTTP request.
+   * Submit the form data via an HTTP request.
    *
    * @param  {String} method (get, post, patch, put)
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  send (method, url) {
+  submit (method, url, config = {}) {
     this.startProcessing()
 
-    let body = this.getData()
+    url = this.route(url)
+    let data = this.data()
 
-    if (hasFile(body)) {
-      body = toFormData(body)
+    if (hasFile(data)) {
+      data = toFormData(data)
     }
 
     if (method === 'get') {
-      body = { params: body }
+      data = { params: data }
     }
 
     return new Promise((resolve, reject) => {
-      Form.http[method](this.route(url), body)
+      axios.request({ url, method, data, ...config })
         .then(response => {
           this.finishProcessing()
 
           resolve(response)
         })
-        .catch(response => {
+        .catch(error => {
           this.busy = false
-          this.errors.set(this.extractErrors(response))
+          this.errors.set(this.extractErrors(error.response))
 
-          reject(response)
+          reject(error)
         })
     })
   }
@@ -163,12 +155,8 @@ class Form {
    * @return {Object}
    */
   extractErrors (response) {
-    if (response.response) {
-      response = response.response
-    }
-
     if (!response.data) {
-      return { error: 'Something went wrong. Please try again.' }
+      return { error: Form.errorMessage }
     }
 
     if (response.data.errors) {
@@ -209,7 +197,7 @@ class Form {
 }
 
 Form.routes = {}
-Form.http = undefined
-Form.ignore = ['busy', 'successful', 'errors', 'forms', 'original']
+Form.errorMessage = 'Something went wrong. Please try again.'
+Form.ignore = ['busy', 'successful', 'errors', 'originalData']
 
 export default Form

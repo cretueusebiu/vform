@@ -13,7 +13,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Log In</div>
         <div class="panel-body">
-          <form @submit.prevent="login" class="form-horizontal">
+          <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)" class="form-horizontal">
             <!-- Alert -->
             <alert-error :form="form"></alert-error>
 
