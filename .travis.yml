@@ -1,5 +1,5 @@
 language: node_js
-node_js:
-    - 'stable'
-notifications:
+node_js: 
+  - node
+notifications: 
   email: false
