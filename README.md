@@ -26,9 +26,10 @@ See the included [example](example).
 
 ```javascript
 import Vue from 'vue'
-import { Form, HasError } from 'vform'
+import { Form, HasError, AlertError } from 'vform'
 
 Vue.component('has-error', HasError)
+Vue.component('alert-error', AlertError)
 
 new Vue({
   el: '#app',
