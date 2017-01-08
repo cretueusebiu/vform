@@ -151,7 +151,7 @@ post (url)
  * @param  {String} url
  * @return {Promise}
  */
-patch (url, data)
+patch (url)
 
 /**
  * Submit the from via a GET request.
