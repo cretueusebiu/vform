@@ -102,8 +102,6 @@ class AuthController extends Controller
 }
 ```
 
-See the [example](example) for more. <br>
-
 ## Api 
 
 ### Form
