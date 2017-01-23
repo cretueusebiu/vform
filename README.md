@@ -115,7 +115,7 @@ class AuthController extends Controller
 busy
 
 /**
- * Indicates response form the server was successful.
+ * Indicates if the response form the server was successful.
  *
  * @var {Boolean}
  */
