@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1 - 2017-02-14
+
+- Switch to [AVA](https://github.com/avajs/ava) tests.
+- Export in UMD format.
+- Use [vue-cli](https://github.com/vuejs/vue-cli) for the build process.
+
 ## 0.7.0 - 2017-01-07
 
 - Removed support as a Vue plugin;`vform` now exports the `Form` class as default.

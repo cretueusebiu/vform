@@ -1,10 +1,6 @@
 {
   "extends": "vue",
-  "globals": {
-    "File": true,
-    "Blob": true,
-    "FormData": true,
-    "FileList": true,
-    "atob": true
+  "env": {
+    "browser": true
   }
 }

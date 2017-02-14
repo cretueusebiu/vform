@@ -1,3 +1,8 @@
+<template>
+  <div class="help-block" v-if="form.errors.has(field)" v-html="form.errors.get(field)"></div>
+</template>
+
+<script>
 export default {
   props: {
     form: {
@@ -9,9 +14,6 @@ export default {
       type: String,
       required: true
     }
-  },
-
-  template: `
-    <div class="help-block" v-if="form.errors.has(field)" v-html="form.errors.get(field)"></div>
-  `
+  }
 }
+</script>

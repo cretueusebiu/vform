@@ -1,19 +1,16 @@
-import Vue from 'vue'
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
-import { Form, HasError, HasError4, AlertError } from 'vform'
+/* global Vue, vForm, axios, AxiosMockAdapter */
 
 // Register the alert components
-Vue.component('alert-error', AlertError)
-Vue.component('has-error', window.bs4 ? HasError4 : HasError)
+Vue.component('alert-error', vForm.AlertError)
+Vue.component('has-error', window.bs4 ? vForm.HasError4 : vForm.HasError)
 
 new Vue({
   el: '#app',
 
-  data () {
+  data: function () {
     return {
       // Create the form instance
-      form: new Form({
+      form: new vForm.Form({
         username: '',
         password: '',
         remember: false
@@ -22,7 +19,7 @@ new Vue({
   },
 
   methods: {
-    login () {
+    login: function () {
       // Since we don't have an actual server, we'll mock the request.
       this.mockRequest()
 
@@ -31,8 +28,8 @@ new Vue({
         .then(({ data }) => console.log(data))
     },
 
-    mockRequest () {
-      const mock = new MockAdapter(axios, { delayResponse: 200 })
+    mockRequest: function () {
+      var mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
 
       mock.onPost('/auth/login').reply(422, {
         username: ['The username field is required.'],
