@@ -22,14 +22,41 @@ npm install --save vform
 
 See the included [example](example).
 
-### JavaScript
+```vue
+<template>
+<div id="app">
+  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)" class="form-horizontal">
+    <alert-error :form="form"></alert-error>
 
-```javascript
+    <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
+      <label for="username" class="col-md-3 control-label">Username</label>
+      <div class="col-md-6">
+        <input v-model="form.username" type="text" name="username" id="username" class="form-control">
+        <has-error :form="form" field="username"></has-error>
+      </div>
+    </div>
+  
+    <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
+      <label for="password" class="col-md-3 control-label">Password</label>
+      <div class="col-md-6">
+        <input v-model="form.password" type="password" name="password" id="password" class="form-control">
+        <has-error :form="form" field="password"></has-error>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
+    </div>
+  </form>
+</div>  
+</template>
+
+<script>
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
 
-Vue.component('has-error', HasError)
-Vue.component('alert-error', AlertError)
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 new Vue({
   el: '#app',
@@ -53,36 +80,7 @@ new Vue({
     }
   }
 })
-```
-
-### HTML
-
-```html
-<div id="app">
-  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)" class="form-horizontal">
-    <alert-error :form="form"></alert-error>
-
-    <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
-      <label for="username" class="col-md-3 control-label">Username</label>
-      <div class="col-md-6">
-        <input v-model="form.username" type="text" name="username" id="username" class="form-control">
-        <has-error :form="form" field="username"></has-error>
-      </div>
-    </div>
-
-    <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
-      <label for="password" class="col-md-3 control-label">Password</label>
-      <div class="col-md-6">
-        <input v-model="form.password" type="password" name="password" id="password" class="form-control">
-        <has-error :form="form" field="password"></has-error>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
-    </div>
-  </form>
-</div>
+</script>
 ```
 
 ### PHP (Laravel Controller)
@@ -252,11 +250,11 @@ import {
   AlertSuccess
 } from 'vform'
 
-Vue.component('has-error', HasError)
-// Vue.component('has-error', HasError4) // Bootstrap 4
-Vue.component('alert-error', AlertError)
-Vue.component('alert-errors', AlertErrors)
-Vue.component('alert-success', AlertSuccess)
+Vue.component(HasError.name, HasError)
+// Vue.component(HasError4.name, HasError4) // Bootstrap 4
+Vue.component(AlertError.name, AlertError)
+Vue.component(AlertErrors.name, AlertErrors)
+Vue.component(AlertSuccess.name, AlertSuccess)
 ```
 
 ```html
