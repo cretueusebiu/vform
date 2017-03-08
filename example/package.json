@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "vue build src/app.js --prod --webpack=webpack.config.js"
+  },
+  "devDependencies": {
+    "vue-cli": "^2.8.1"
+  }
+}

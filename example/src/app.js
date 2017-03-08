@@ -1,16 +1,19 @@
-/* global Vue, vForm, axios, AxiosMockAdapter */
+import Vue from 'vue'
+import axios from 'axios'
+import AxiosMockAdapter from 'axios-mock-adapter'
+import { Form, HasError, HasError4, AlertError } from 'vform'
 
 // Register the alert components
-Vue.component('alert-error', vForm.AlertError)
-Vue.component('has-error', window.bs4 ? vForm.HasError4 : vForm.HasError)
+Vue.component(AlertError.name, AlertError)
+Vue.component(HasError.name, window.bs4 ? HasError4 : HasError)
 
 new Vue({
   el: '#app',
 
-  data: function () {
+  data () {
     return {
       // Create the form instance
-      form: new vForm.Form({
+      form: new Form({
         username: '',
         password: '',
         remember: false
@@ -19,7 +22,7 @@ new Vue({
   },
 
   methods: {
-    login: function () {
+    login () {
       // Since we don't have an actual server, we'll mock the request.
       this.mockRequest()
 
@@ -28,7 +31,7 @@ new Vue({
         .then(({ data }) => console.log(data))
     },
 
-    mockRequest: function () {
+    mockRequest () {
       var mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
 
       mock.onPost('/auth/login').reply(422, {
