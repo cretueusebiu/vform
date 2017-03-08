@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.7.2 - 2017-03-08
+## 0.7.3 - 2017-03-08
 
 - Add `name` to components.
 - Rename lib window name from `vForm` to `vform`.

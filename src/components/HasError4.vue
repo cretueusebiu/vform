@@ -6,6 +6,9 @@
 import HasError from './HasError'
 
 export default {
-  extends: HasError
+  extends: HasError,
+
+  name: 'has-error'
+
 }
 </script>
