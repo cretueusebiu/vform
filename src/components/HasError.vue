@@ -4,6 +4,8 @@
 
 <script>
 export default {
+  name: 'has-error',
+
   props: {
     form: {
       type: Object,

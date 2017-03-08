@@ -14,6 +14,8 @@ import Alert from './Alert'
 export default {
   extends: Alert,
 
+  name: 'alert-success',
+
   props: {
     message: {
       type: String,

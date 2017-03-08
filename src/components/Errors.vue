@@ -18,6 +18,8 @@ import Alert from './Alert'
 export default {
   extends: Alert,
 
+  name: 'alert-errors',
+
   props: {
     message: {
       type: String,
