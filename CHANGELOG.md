@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.2 - 2017-03-08
+
+- Add `name` to components.
+- Rename lib window name from `vForm` to `vform`.
+
 ## 0.7.1 - 2017-02-14
 
 - Switch to [AVA](https://github.com/avajs/ava) tests.
