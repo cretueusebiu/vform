@@ -4,7 +4,7 @@
   "description": "A simple way to handle Laravel back-end validation in Vue.",
   "main": "dist/vform.js",
   "scripts": {
-    "build": "vue build src/index.js --prod --lib vForm --webpack=webpack.config.js",
+    "build": "vue build src/index.js --prod --lib vform --webpack=webpack.config.js",
     "test": "ava",
     "prepublish": "npm run build"
   },
