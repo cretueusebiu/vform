@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.4 - 2017-04-06
+
+- Require `axios` as peer dependency.
+
 ## 0.7.3 - 2017-03-08
 
 - Add `name` to components.
