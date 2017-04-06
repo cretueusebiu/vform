@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "A simple way to handle Laravel back-end validation in Vue.",
   "main": "dist/vform.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "url": "https://github.com/cretueusebiu/vform/issues"
   },
   "homepage": "https://github.com/cretueusebiu/vform#readme",
-  "dependencies": {
+  "peerDependencies": {
     "axios": "^0.15.3"
   },
   "devDependencies": {
