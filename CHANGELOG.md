@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.5 - 2017-05-19
+
+- Check for a response before extracting errors.
+
 ## 0.7.4 - 2017-04-06
 
 - Require `axios` as peer dependency.

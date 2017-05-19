@@ -141,7 +141,10 @@ class Form {
         })
         .catch(error => {
           this.busy = false
-          this.errors.set(this.extractErrors(error.response))
+
+          if (error.response) {
+            this.errors.set(this.extractErrors(error.response))
+          }
 
           reject(error)
         })
