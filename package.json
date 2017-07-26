@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "ava": "^0.18.1",
+    "axios": "^0.16.2",
     "axios-mock-adapter": "^1.7.1",
     "babel-register": "^6.23.0",
     "browser-env": "^2.0.21",
