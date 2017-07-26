@@ -29,6 +29,10 @@ test('it exposes the passed form field values as properties', t => {
   t.is(form.password, 'bar')
 })
 
+test('it can get the form data keys', t => {
+  t.deepEqual(form.keys(), ['username', 'password' ])
+})
+
 test('it can get the form data', t => {
   t.deepEqual(form.data(), { username: 'foo', password: 'bar' })
 })

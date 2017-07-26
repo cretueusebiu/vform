@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.6 - 2017-07-26
+
+- Added `Form.prototype.keys()` to the the form data keys.
+
 ## 0.7.5 - 2017-05-19
 
 - Check for a response before extracting errors.

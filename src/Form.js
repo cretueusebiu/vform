@@ -25,13 +25,21 @@ class Form {
   data () {
     const data = {}
 
-    Object.keys(this)
-      .filter(key => !Form.ignore.includes(key))
-      .forEach(key => {
-        data[key] = this[key]
-      })
+    this.keys().forEach(key => {
+      data[key] = this[key]
+    })
 
     return data
+  }
+
+  /**
+   * Get the form data keys.
+   *
+   * @return {Array}
+   */
+  keys () {
+    return Object.keys(this)
+      .filter(key => !Form.ignore.includes(key))
   }
 
   /**
