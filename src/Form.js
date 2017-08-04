@@ -119,6 +119,16 @@ class Form {
   }
 
   /**
+   * Submit the from via a DELETE request.
+   *
+   * @param  {String} url
+   * @return {Promise}
+   */
+  delete (url) {
+    return this.submit('delete', url)
+  }
+
+  /**
    * Submit the form data via an HTTP request.
    *
    * @param  {String} method (get, post, patch, put)

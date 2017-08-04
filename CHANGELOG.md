@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.7 - 2017-08-04
+
+- Added `Form.prototype.delete()`
+
 ## 0.7.6 - 2017-07-26
 
 - Added `Form.prototype.keys()` to get the form data keys.

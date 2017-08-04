@@ -150,12 +150,28 @@ post (url)
 patch (url)
 
 /**
+ * Submit the from via a PUT request.
+ *
+ * @param  {String} url
+ * @return {Promise}
+ */
+put (url)
+
+/**
  * Submit the from via a GET request.
  *
  * @param  {String} url
  * @return {Promise}
  */
 get (url)
+
+/**
+ * Submit the from via a DELETE request.
+ *
+ * @param  {String} url
+ * @return {Promise}
+ */
+delete (url)
 
 /**
  * Clear the form errors.
