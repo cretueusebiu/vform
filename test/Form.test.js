@@ -111,6 +111,9 @@ test('it can extract the errors from the response object', t => {
   let response = {}
   t.deepEqual(form.extractErrors(response), { error: 'Something went wrong. Please try again.' })
 
+  response = { data: 'invalid json' }
+  t.deepEqual(form.extractErrors(response), { error: 'Something went wrong. Please try again.' })
+
   response = { data: { errors: { 'username': ['Value is required'] }}}
   t.deepEqual(form.extractErrors(response), { 'username': ['Value is required'] })
 

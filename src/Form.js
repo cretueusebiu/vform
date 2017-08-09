@@ -176,7 +176,7 @@ class Form {
    * @return {Object}
    */
   extractErrors (response) {
-    if (!response.data) {
+    if (!response.data || typeof response.data !== 'object') {
       return { error: Form.errorMessage }
     }
 

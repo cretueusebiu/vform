@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.8 - 2017-08-09
+
+- Fixed error message when response is not JSON.
+
 ## 0.7.7 - 2017-08-04
 
 - Added `Form.prototype.delete()`
