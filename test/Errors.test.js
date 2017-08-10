@@ -48,6 +48,14 @@ test('it can get the error message for a field', t => {
   t.is(errors.get('password'), undefined)
 })
 
+test('it can get the array of all error messages for a field', t => {
+  errors.set({ 'username': ['Value is required', 'Username is already exists.'] })
+
+  t.is(Array, errors.list('username'))
+  t.deepEqual(['Value is required', 'Username is already exists.'], errors.list('username'))
+  t.is(errors.get('password'), undefined)
+})
+
 test('it can get the error message for the given fields', t => {
   errors.set({ 'username': ['Username is required'], 'password': ['Password is required'], 'email': ['Email is required'] })
 

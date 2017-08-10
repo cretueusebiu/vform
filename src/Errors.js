@@ -56,14 +56,26 @@ export default class Errors {
   /**
    * Get the error message for the given field.
    *
-   * @param  String} field
+   * @param  {String} field
    * @return {String|undefined}
    */
   get (field) {
     if (this.has(field)) {
+      return this.list(field)[0];
+    }
+  }
+  
+  /**
+   * Get the array of all error messages for the given field.
+   *
+   * @param  {String} field
+   * @return {Array}
+   */
+  list (field) {
+    if (this.has(field)) {
       const messages = this.errors[field]
-
-      return Array.isArray(messages) ? messages[0] : messages
+      
+      return Array.isArray(messages) ? messages : [messages]
     }
   }
 
