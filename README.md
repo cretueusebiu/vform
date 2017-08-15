@@ -71,7 +71,7 @@ new Vue({
   methods: {
     login () {
       // Submit the form via a POST request
-      this.form.post('/auth/login')
+      this.form.post('/login')
         .then(({ data }) => { console.log(data) })
     }
   }
@@ -227,7 +227,7 @@ clear (field)
 set (errors)
 ```
 
-### Bootstrap Components
+## Bootstrap Components
 
 Components for Bootstrap 3 and 4.
 
@@ -245,7 +245,7 @@ Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 ```
 
-#### has-error
+### has-error
 
 Display the validation error for a field.
 
@@ -266,7 +266,7 @@ Display the validation error for a field.
 </div>
 ```
 
-#### alert-error
+### alert-error
 
 Show a danger alert if there are any errors.
 
@@ -274,7 +274,7 @@ Show a danger alert if there are any errors.
 <alert-error :form="form" message="There were some problems with your input."></alert-error>
 ```
 
-#### alert-errors
+### alert-errors
 
 Show a danger alert with the list of errors for each field.
 
@@ -282,7 +282,7 @@ Show a danger alert with the list of errors for each field.
 <alert-errors :form="form" message="There were some problems with your input."></alert-errors>
 ```
 
-#### alert-success
+### alert-success
 
 Show a success alert on a successful request.
 
