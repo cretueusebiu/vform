@@ -29,7 +29,7 @@
   "devDependencies": {
     "ava": "^0.21.0",
     "axios": "^0.16.2",
-    "axios-mock-adapter": "^1.7.1",
+    "axios-mock-adapter": "^1.9.0",
     "babel-register": "^6.24.1",
     "browser-env": "^3.1.2",
     "eslint": "3.19.0",

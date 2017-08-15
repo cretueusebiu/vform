@@ -16,7 +16,7 @@ test.beforeEach(() => {
   mockAdapter = new MockAdapter(axios)
 })
 
-test('it instantiates the form properties', t => {
+test('instantiates the form properties', t => {
   t.false(form.busy)
   t.false(form.successful)
   t.false(form.successful)
@@ -24,20 +24,20 @@ test('it instantiates the form properties', t => {
   t.deepEqual(form.originalData, { username: 'foo', password: 'bar' })
 })
 
-test('it exposes the passed form field values as properties', t => {
+test('exposes the passed form field values as properties', t => {
   t.is(form.username, 'foo')
   t.is(form.password, 'bar')
 })
 
 test('it can get the form data keys', t => {
-  t.deepEqual(form.keys(), ['username', 'password' ])
+  t.deepEqual(form.keys(), ['username', 'password'])
 })
 
-test('it can get the form data', t => {
+test('gets the form data', t => {
   t.deepEqual(form.data(), { username: 'foo', password: 'bar' })
 })
 
-test('it will start processing the form', t => {
+test('start processing the form', t => {
   form.startProcessing()
 
   t.true(form.busy)
@@ -45,21 +45,21 @@ test('it will start processing the form', t => {
   t.false(form.errors.any())
 })
 
-test('it will finish processing the form', t => {
+test('finish processing the form', t => {
   form.finishProcessing()
 
   t.false(form.busy)
   t.true(form.successful)
 })
 
-test('it can clear the form errors', t => {
+test('clear the form errors', t => {
   form.clear()
 
   t.false(form.errors.any())
   t.false(form.successful)
 })
 
-test('it can reset the form values', t => {
+test('reset the form values', t => {
   form.username = 'bar'
   form.password = 'foo'
   form.reset()
@@ -68,17 +68,19 @@ test('it can reset the form values', t => {
   t.is(form.password, 'bar')
 })
 
-test('it will submit the form successfully', t => {
-  mockAdapter.onPost('/auth/login').reply(200)
+test('submit the form successfully', async t => {
+  mockAdapter.onPost('/login').reply(200)
 
-  form.post('/auth/login').then(() => {
-    t.false(form.busy)
-    t.true(form.successful)
-    t.false(form.errors.any())
-  })
+  const form = new Form()
+
+  await form.post('/login')
+
+  t.false(form.busy)
+  t.true(form.successful)
+  t.false(form.errors.any())
 })
 
-test('it will convert the data object to FormData if it contains files', async (t) => {
+test('convert the data object to FormData if it contains files', async t => {
   form.photo = new Blob([new Uint8Array(10)], { type: 'image/png' })
 
   mockAdapter.onPut('/user/photo').reply(config => {
@@ -92,22 +94,23 @@ test('it will convert the data object to FormData if it contains files', async (
   await form.put('/user/photo')
 })
 
-test('it will set errors from the server', t => {
-  mockAdapter.onPost('/auth/login').reply(422, {
+test('set errors from the server', async t => {
+  mockAdapter.onPost('/login').reply(422, {
     'username': ['Value is required']
   })
 
-  form.post('/auth/login')
-    .then(() => {})
-    .catch(() => {})
-    .then(() => {
-      t.true(form.errors.any())
-      t.false(form.busy)
-      t.false(form.successful)
-    })
+  const form = new Form()
+
+  try {
+    await form.post('/login')
+  } catch (e) {}
+
+  t.true(form.errors.any())
+  t.false(form.busy)
+  t.false(form.successful)
 })
 
-test('it can extract the errors from the response object', t => {
+test('extract the errors from the response object', t => {
   let response = {}
   t.deepEqual(form.extractErrors(response), { error: 'Something went wrong. Please try again.' })
 
