@@ -15,7 +15,7 @@
 ## Installation
 
 ```bash
-npm install --save axios vform
+npm i axios vform
 ```
 
 ## Usage
