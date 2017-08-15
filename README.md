@@ -20,33 +20,29 @@ npm install --save axios vform
 
 ## Usage
 
-See the included [example](example).
+See the included [examples](example).
+
+__Bootstrap 4 Markup:__
 
 ```vue
 <template>
 <div id="app">
-  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)" class="form-horizontal">
-    <alert-error :form="form"></alert-error>
-
-    <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
-      <label for="username" class="col-md-3 control-label">Username</label>
-      <div class="col-md-6">
-        <input v-model="form.username" type="text" name="username" id="username" class="form-control">
-        <has-error :form="form" field="username"></has-error>
-      </div>
-    </div>
-  
-    <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
-      <label for="password" class="col-md-3 control-label">Password</label>
-      <div class="col-md-6">
-        <input v-model="form.password" type="password" name="password" id="password" class="form-control">
-        <has-error :form="form" field="password"></has-error>
-      </div>
+  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+    <div class="form-group">
+      <label>Username</label>
+      <input v-model="form.username" type="text" name="username"
+        class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+      <has-error :form="form" field="username"></has-error>
     </div>
 
     <div class="form-group">
-      <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
+      <label>Password</label>
+      <input v-model="form.password" type="password" name="password"
+        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+      <has-error :form="form" field="password"></has-error>
     </div>
+
+    <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
   </form>
 </div>  
 </template>
@@ -83,10 +79,10 @@ new Vue({
 </script>
 ```
 
-### PHP (Laravel Controller)
+__Laravel Controller:__
 
 ```php
-class AuthController extends Controller
+class LoginController extends Controller
 {
     public function login(Request $request)
     {
@@ -134,44 +130,12 @@ errors
 constructor (data = {})
 
 /**
- * Submit the from via a POST request.
+ * Submit the from via a POST|PATCH|PUT|DELETE|GET request.
  *
  * @param  {String} url
  * @return {Promise}
  */
-post (url)
-
-/**
- * Submit the from via a PATCH request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-patch (url)
-
-/**
- * Submit the from via a PUT request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-put (url)
-
-/**
- * Submit the from via a GET request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-get (url)
-
-/**
- * Submit the from via a DELETE request.
- *
- * @param  {String} url
- * @return {Promise}
- */
-delete (url)
+post|patch|put|delete|get (url)
 
 /**
  * Clear the form errors.
@@ -218,12 +182,20 @@ hasAny (...fields)
 any ()
 
 /**
- * Get the error message for the given field.
+ * Get the first error message for the given field.
  *
  * @param  String} field
  * @return {String|undefined}
  */
 get (field)
+
+/**
+ * Get all the error messages for the given field.
+ *
+ * @param  {String} field
+ * @return {Array}
+ */
+getAll (field)
 
 /**
  * Get the error message for the given fields.
@@ -255,36 +227,67 @@ clear (field)
 set (errors)
 ```
 
-### Bootstrap Alert Components
+### Bootstrap Components
+
+Components for Bootstrap 3 and 4.
 
 ```javascript
 import { 
   HasError,
-  HasError4,
   AlertError,
   AlertErrors, 
   AlertSuccess
 } from 'vform'
 
 Vue.component(HasError.name, HasError)
-// Vue.component(HasError4.name, HasError4) // Bootstrap 4
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 ```
 
+#### has-error
+
+Display the validation error for a field.
+
 ```html
-<!-- .help-block / .form-control-feedback with the error message -->
-<has-error :form="form" field="username"></has-error>
+<!-- Bootstrap 4 -->
+<div class="form-group">
+  <label>Username</label>
+  <input v-model="form.username" type="text" name="username"
+    class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+  <has-error :form="form" field="username"></has-error>
+</div>
 
-<!-- Danger alert with a message -->
+<!-- Bootstrap 3 -->
+<div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
+  <label>Username</label>
+  <input v-model="form.username" type="text" name="username" class="form-control">
+  <has-error :form="form" field="username"></has-error>
+</div>
+```
+
+#### alert-error
+
+Show a danger alert if there are any errors.
+
+```html
 <alert-error :form="form" message="There were some problems with your input."></alert-error>
+```
 
-<!-- Danger alert with message and the list of errors -->
+#### alert-errors
+
+Show a danger alert with the list of errors for each field.
+
+```html
 <alert-errors :form="form" message="There were some problems with your input."></alert-errors>
+```
 
-<!-- Success alert with message -->
-<alert-success :form="form" message="Success!"></alert-success>
+#### alert-success
+
+Show a success alert on a successful request.
+
+```html
+<alert-success :form="form" message="Your changes have been saved!"></alert-success>
 ```
 
 ## Changelog
