@@ -1,8 +1,9 @@
 <template>
-  <div class="alert alert-danger" v-if="form.errors.any()">
-    <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
+  <div v-if="form.errors.any()" class="alert alert-danger alert-dismissible" role="alert">
+    <button v-if="dismissible" @click="dismiss" type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
+
     <div v-if="form.errors.has('error')" v-html="form.errors.get('error')"></div>
     <div v-else v-html="message"></div>
   </div>

@@ -1,6 +1,6 @@
 <template>
-  <div class="alert alert-success" v-if="form.successful">
-    <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
+  <div v-if="form.successful" class="alert alert-success alert-dismissible" role="alert">
+    <button v-if="dismissible" @click="dismiss" type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 
