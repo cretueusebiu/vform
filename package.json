@@ -28,18 +28,23 @@
   },
   "devDependencies": {
     "ava": "^0.21.0",
+    "avoriaz": "^3.2.0",
     "axios": "^0.16.2",
     "axios-mock-adapter": "^1.9.0",
     "babel-register": "^6.24.1",
     "browser-env": "^3.1.2",
     "eslint": "3.19.0",
     "eslint-plugin-vue-libs": "^1.2.1",
+    "require-extension-hooks": "^0.3.0",
+    "require-extension-hooks-babel": "^0.1.1",
+    "require-extension-hooks-vue": "^0.4.0",
+    "vue": "^2.4.2",
     "vue-cli": "^2.8.2"
   },
   "ava": {
     "require": [
       "babel-register",
-      "./test/helpers/setup-browser-env.js"
+      "./test/helpers/setup.js"
     ]
   },
   "babel": {
