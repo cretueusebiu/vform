@@ -1,6 +1,8 @@
 {
-  "extends": "vue",
   "env": {
     "browser": true
-  }
+  },
+  "extends": [
+    "plugin:vue-libs/recommended"
+  ]
 }
