@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 - 2017-08-15
+
+- Merged Bootstrap component `HasError4` into `HasError`. 
+- Added `Errors.prototype.getAll(field)` to get all the errors for a field.
+
 ## 0.7.8 - 2017-08-09
 
 - Fixed error message when response is not JSON.
