@@ -3,71 +3,59 @@
 <head>
   <meta charset="utf-8">
   <title>vform example</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-  <style>
-    body { background-color: #f7f9fb; }
-    button.close { line-height: .9; }
-    .custom-control-indicator { top: 0.2rem; }
-  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>body { background-color: #f7f9fb; }</style>
 </head>
-<body class="pt-2">
+<body class="pt-3">
   <div id="app">
     <div class="container">
-      <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+      <div class="col-sm-10 col-md-8 col-lg-6 m-auto">
         <div class="card">
           <div class="card-header">Log In</div>
-          <div class="card-block">
+          <div class="card-body">
             <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
               <!-- Alert -->
               <alert-error :form="form"></alert-error>
 
               <!-- Username -->
-              <div class="form-group row" :class="{ 'has-danger': form.errors.has('username') }">
-                <label class="col-sm-3 col-form-label">Username</label>
-                <div class="col-sm-9">
-                  <input v-model="form.username" type="text" name="username" class="form-control">
-                  <has-error :form="form" field="username"></has-error>
-                </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input v-model="form.username" type="text" name="username" id="username"
+                  class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+                <has-error :form="form" field="username"></has-error>
               </div>
 
               <!-- Password -->
-              <div class="form-group row" :class="{ 'has-danger': form.errors.has('password') }">
-                <label class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
-                  <input v-model="form.password" type="password" name="password" class="form-control">
-                  <has-error :form="form" field="password"></has-error>
-                </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input v-model="form.password" type="password" name="password" id="password"
+                  class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                <has-error :form="form" field="password"></has-error>
               </div>
 
               <!-- Remember Me -->
-              <div class="form-group row">
-                <div class="col-sm-9 offset-sm-3">
-                  <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" value="1" v-model="form.remember">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Remember Me</span>
-                  </label>
-                </div>
+              <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                  <input v-model="form.remember" type="checkbox" class="custom-control-input" value="1">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Remember Me</span>
+                </label>
               </div>
 
-              <!-- Submit button -->
-              <div class="form-group row">
-                <div class="col-sm-9 offset-sm-3">
-                  <button :disabled="form.busy" type="submit" class="btn btn-primary">
-                    <i v-if="form.busy" class="fa fa-fw fa-spinner fa-spin"></i>
-                    <i v-else class="fa fa-fw fa-sign-in"></i>
-                    Log In
-                  </button>
-                </div>
-              </div>
+              <!-- Submit Button -->
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">
+                <i v-if="form.busy" class="fa fa-fw fa-spinner fa-spin"></i>
+                <i v-else class="fa fa-fw fa-sign-in"></i>
+                Log In
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script>window.bs4 = true</script>
+
   <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.min.js"></script>

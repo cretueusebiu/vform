@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import AxiosMockAdapter from 'axios-mock-adapter'
-import { Form, HasError, HasError4, AlertError } from 'vform'
+import { Form, HasError, AlertError } from 'vform'
 
-// Register the alert components
+// Register the components
+Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-Vue.component(HasError.name, window.bs4 ? HasError4 : HasError)
 
 new Vue({
   el: '#app',
@@ -27,14 +27,14 @@ new Vue({
       this.mockRequest()
 
       // Submit the form via a POST request.
-      this.form.post('/auth/login')
+      this.form.post('/login')
         .then(({ data }) => console.log(data))
     },
 
     mockRequest () {
-      var mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
+      const mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
 
-      mock.onPost('/auth/login').reply(422, {
+      mock.onPost('/login').reply(422, {
         username: ['The username field is required.'],
         password: ['The password field is required.']
       })

@@ -4,6 +4,6 @@
     "build": "vue build src/app.js --prod --webpack=webpack.config.js"
   },
   "devDependencies": {
-    "vue-cli": "^2.8.1"
+    "vue-cli": "^2.8.2"
   }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>vform example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>body { padding-top: 20px; }</style>
+</head>
+<body>
+  <div id="app">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Log In</div>
+        <div class="panel-body">
+          <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+            <!-- Alert -->
+            <alert-error :form="form"></alert-error>
+
+            <!-- Username -->
+            <div class="form-group" :class="{ 'has-error': form.errors.has('username') }">
+              <label for="username">Username</label>
+              <input v-model="form.username" type="text" name="username" id="username" class="form-control">
+              <has-error :form="form" field="username"></has-error>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" :class="{ 'has-error': form.errors.has('password') }">
+              <label for="password">Password</label>
+              <input v-model="form.password" type="password" name="password" id="password" class="form-control">
+              <has-error :form="form" field="password"></has-error>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input v-model="form.remember" type="checkbox" name="remember" value="1">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button :disabled="form.busy" type="submit" class="btn btn-primary">
+              <i v-if="form.busy" class="fa fa-fw fa-spinner fa-spin"></i>
+              <i v-else class="fa fa-fw fa-sign-in"></i>
+              Log In
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.min.js"></script>
+  <script src="https://unpkg.com/vform/dist/vform.js"></script>
+  <!-- <script src="../dist/vform.js"></script> -->
+  <script src="dist/app.js"></script>
+</body>
+</html>
