@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>vform example</title>
+</head>
+<body>
+  <div id="app">
+    <input type="file" name="file" @change="selectFile">
+  </div>
+
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.min.js"></script>
+  <script src="https://unpkg.com/vform/dist/vform.js"></script>
+
+  <script>
+    const Form = vform.Form // import Form from 'vform'
+
+    new Vue({
+      el: '#app',
+
+      data () {
+        return {
+          form: new Form({
+            file: null
+          })
+        }
+      },
+
+      methods: {
+        selectFile (e) {
+          const file = e.target.files[0]
+
+          // Do some client side validation...
+
+          this.form.file = file
+
+          this.form.post(`/upload`)
+            .then(({ data }) => {
+              // ...
+            })
+
+          // Or with progress event:
+          // this.form.submit('post', '/upload', {
+          //     onUploadProgress: e => {
+          //       // Do whatever you want with the native progress event
+          //       console.log(e)
+          //     }
+          //   })
+          //   .then(({ data }) => {
+          //     // ...
+          //   })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
