@@ -126,3 +126,12 @@ test('extract the errors from the response object', t => {
   response = { data: { 'username': ['Value is required'] }}
   t.deepEqual(form.extractErrors(response), { 'username': ['Value is required'] })
 })
+
+test('clear errors on keydown', t => {
+  form.errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+
+  form.onKeydown({ target: { name: 'username' }})
+
+  t.false(form.errors.has('username'))
+  t.true(form.errors.has('password'))
+})

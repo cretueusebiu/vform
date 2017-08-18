@@ -215,6 +215,17 @@ class Form {
 
     return url
   }
+
+  /**
+   * Clear errors on keydown.
+   *
+   * @param {KeyboardEvent} event
+   */
+  onKeydown (event) {
+    if (event.target.name) {
+      this.errors.clear(event.target.name)
+    }
+  }
 }
 
 Form.routes = {}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1 - 2017-08-18
+
+- Added `Form.prototype.onKeydown`.
+
 ## 0.8.0 - 2017-08-15
 
 - Merged Bootstrap component `HasError4` into `HasError`. 
