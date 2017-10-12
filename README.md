@@ -60,7 +60,7 @@ new Vue({
   data () {
     return {
       // Create a new form instance
-      form: Form({
+      form: new Form({
         username: '',
         password: '',
         remember: false
