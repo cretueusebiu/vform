@@ -27,7 +27,7 @@ __Bootstrap 4 Markup:__
 ```vue
 <template>
 <div id="app">
-  <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+  <form @submit.prevent="login" @keydown="form.onKeydown($event)">
     <div class="form-group">
       <label>Username</label>
       <input v-model="form.username" type="text" name="username"

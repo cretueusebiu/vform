@@ -6,7 +6,7 @@
 </head>
 <body>
   <div id="app">
-    <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+    <form @submit.prevent="login" @keydown="form.onKeydown($event)">
       <!-- Alert -->
       <div v-if="form.errors.any()">
         There were some problems with your input.

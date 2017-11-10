@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-header">Log In</div>
           <div class="card-body">
-            <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+            <form @submit.prevent="login" @keydown="form.onKeydown($event)">
               <!-- Alert -->
               <alert-error :form="form"></alert-error>
 
