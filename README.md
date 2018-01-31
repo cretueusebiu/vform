@@ -288,6 +288,8 @@ Show a success alert on a successful request.
 
 ```html
 <alert-success :form="form" message="Your changes have been saved!"></alert-success>
+<!-- Or -->
+<alert-success :form="form">Your changes have been saved!</alert-success>
 ```
 
 ## Changelog

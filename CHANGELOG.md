@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2 - 2018-01-31
+
+- Added default slot to the `alert-success` component.
+
 ## 0.8.1 - 2017-08-18
 
 - Added `Form.prototype.onKeydown`.

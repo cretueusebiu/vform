@@ -4,7 +4,9 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <div v-html="message"></div>
+    <slot>
+      <div v-html="message"></div>
+    </slot>
   </div>
 </template>
 
@@ -17,10 +19,7 @@ export default {
   name: 'alert-success',
 
   props: {
-    message: {
-      type: String,
-      required: true
-    }
+    message: String
   }
 }
 </script>
