@@ -1,3 +1,5 @@
+import { arrayWrap } from './util'
+
 export default class Errors {
   /**
    * Create a new error bag instance.
@@ -7,12 +9,17 @@ export default class Errors {
   }
 
   /**
-   * Set the errors object.
+   * Set the errors object or field error messages.
    *
-   * @param {Object}
+   * @param {Object|String} field
+   * @param {Array|String|undefined} messages
    */
-  set (errors) {
-    this.errors = errors
+  set (field, messages) {
+    if (typeof field === 'object') {
+      this.errors = field
+    } else {
+      this.set({ ...this.errors, [field]: arrayWrap(messages) })
+    }
   }
 
   /**
@@ -72,9 +79,7 @@ export default class Errors {
    * @return {Array}
    */
   getAll (field) {
-    const messages = this.errors[field] || []
-
-    return Array.isArray(messages) ? messages : [messages]
+    return arrayWrap(this.errors[field] || [])
   }
 
   /**
