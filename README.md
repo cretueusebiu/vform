@@ -146,6 +146,13 @@ clear ()
  * Reset the form fields.
  */
 reset ()
+
+/**
+ * Fill form data.
+ *
+ * @param {Object} data
+ */
+fill (data)
 ```
 
 ### Errors
@@ -225,6 +232,14 @@ clear (field)
  * @param {Object}
  */
 set (errors)
+
+/**
+ * Set a specified error message.
+ *
+ * @param {String}
+ * @param {String}
+ */
+set (field, message)
 ```
 
 ## Bootstrap Components
@@ -280,6 +295,8 @@ Show a danger alert with the list of errors for each field.
 
 ```html
 <alert-errors :form="form" message="There were some problems with your input."></alert-errors>
+<!-- Or -->
+<alert-errors :form="form">There were some problems with your input.</alert-errors>
 ```
 
 ### alert-success

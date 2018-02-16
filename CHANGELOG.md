@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 - 2018-02-16
+
+- Removed file detection, instead use axios's `transformRequest` option and [object-to-formdata](https://github.com/therealparmesh/object-to-formdata). See [example/upload.html](example/upload.html).
+- `Errors.set` now accepts a specified error message: `Errors.set(field, message)`.
+- Added default slot to the `alert-error` component.
+- Update vue-cli, eslint, tests and examples.
+
 ## 0.8.2 - 2018-01-31
 
 - Added default slot to the `alert-success` component.
