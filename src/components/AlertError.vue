@@ -4,11 +4,8 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <div v-if="message" v-html="message"></div>
-
-    <ul>
-      <li v-for="error in form.errors.flatten()" v-html="error"></li>
-    </ul>
+    <div v-if="form.errors.has('error')" v-html="form.errors.get('error')"/>
+    <div v-else v-html="message"/>
   </div>
 </template>
 
@@ -16,9 +13,9 @@
 import Alert from './Alert'
 
 export default {
-  extends: Alert,
+  name: 'alert-error',
 
-  name: 'alert-errors',
+  extends: Alert,
 
   props: {
     message: {

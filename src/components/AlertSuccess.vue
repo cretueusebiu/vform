@@ -5,7 +5,7 @@
     </button>
 
     <slot>
-      <div v-html="message"></div>
+      <div v-html="message"/>
     </slot>
   </div>
 </template>
@@ -14,12 +14,12 @@
 import Alert from './Alert'
 
 export default {
-  extends: Alert,
-
   name: 'alert-success',
 
+  extends: Alert,
+
   props: {
-    message: String
+    message: { type: String, default: '' }
   }
 }
 </script>
