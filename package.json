@@ -2,11 +2,17 @@
   "name": "vform",
   "version": "0.8.2",
   "description": "A simple way to handle Laravel back-end validation in Vue.",
-  "main": "dist/vform.js",
+  "main": "dist/vform.common.js",
+  "unpkg": "dist/vform.umd.js",
+  "files": [
+    "src",
+    "dist/*.js"
+  ],
   "scripts": {
-    "build": "vue build src/index.js --prod --lib vform --webpack=webpack.config.js",
-    "test": "ava",
-    "prepublishOnly": "npm run build"
+    "build": "vue-cli-service build src/index.js --target lib",
+    "test": "vue-cli-service test test/",
+    "lint": "vue-cli-service lint",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,30 +33,23 @@
     "axios": "*"
   },
   "devDependencies": {
-    "ava": "^0.21.0",
-    "avoriaz": "^3.2.0",
-    "axios": "^0.16.2",
-    "axios-mock-adapter": "^1.9.0",
-    "babel-register": "^6.24.1",
-    "browser-env": "^3.1.2",
-    "eslint": "3.19.0",
-    "eslint-plugin-vue-libs": "^1.2.1",
-    "require-extension-hooks": "^0.3.0",
-    "require-extension-hooks-babel": "^0.1.1",
-    "require-extension-hooks-vue": "^0.4.0",
-    "vue": "^2.4.2",
-    "vue-cli": "^2.8.2"
+    "@vue/cli-plugin-babel": "^3.0.0-beta.1",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.1",
+    "@vue/cli-plugin-unit-jest": "^3.0.0-beta.1",
+    "@vue/cli-service": "^3.0.0-beta.1",
+    "@vue/eslint-config-standard": "^3.0.0-beta.1",
+    "@vue/test-utils": "^1.0.0-beta.11",
+    "axios": "^0.17.1",
+    "axios-mock-adapter": "^1.13.1",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^22.0.4",
+    "object-to-formdata": "^1.2.2",
+    "vue": "^2.5.13",
+    "vue-template-compiler": "^2.5.13"
   },
-  "ava": {
-    "require": [
-      "babel-register",
-      "./test/helpers/setup.js"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-2"
-    ]
-  }
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

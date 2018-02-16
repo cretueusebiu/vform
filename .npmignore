@@ -1,8 +1,0 @@
-src/
-test/
-example/
-yarn.lock
-.eslintrc
-.travis.yml
-.editorconfig
-webpack.config.js

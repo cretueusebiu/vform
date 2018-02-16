@@ -1,8 +1,12 @@
 {
-  "env": {
-    "browser": true
-  },
+  "root": true,
   "extends": [
-    "plugin:vue-libs/recommended"
-  ]
+    "plugin:vue/recommended",
+    "@vue/standard"
+  ],
+  "rules": {
+    "vue/require-v-for-key": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/name-property-casing": ["error", "kebab-case"]
+  }
 }
