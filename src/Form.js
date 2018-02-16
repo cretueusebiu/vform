@@ -18,6 +18,17 @@ class Form {
   }
 
   /**
+   * Fill form data.
+   *
+   * @param {Object} data
+   */
+  fill (data) {
+    this.keys().forEach(key => {
+      this[key] = data[key]
+    })
+  }
+
+  /**
    * Get the form data.
    *
    * @return {Object}
