@@ -23,13 +23,9 @@ class Form {
    * @return {Object}
    */
   data () {
-    const data = {}
-
-    this.keys().forEach(key => {
-      data[key] = this[key]
-    })
-
-    return data
+    return this.keys().reduce((data, key) => (
+      { ...data, [key]: this[key] }
+    ), {})
   }
 
   /**
