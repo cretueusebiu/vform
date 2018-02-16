@@ -4,8 +4,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <div v-if="form.errors.has('error')" v-html="form.errors.get('error')"/>
-    <div v-else v-html="message"/>
+    <slot>
+      <div v-if="form.errors.has('error')" v-html="form.errors.get('error')"/>
+      <div v-else v-html="message"/>
+    </slot>
   </div>
 </template>
 

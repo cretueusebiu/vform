@@ -14,6 +14,18 @@ describe('AlertError', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  test('render alert with slot', () => {
+    const form = new Form({ username: '' })
+    form.errors.set({ username: 'Username is required' })
+
+    const wrapper = mount(AlertError, {
+      propsData: { form },
+      slots: { default: '<div class="custom">Custom message</div>' }
+    })
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   test('doesn\'t render alert if successful', () => {
     const form = new Form({ username: '' })
     form.successful = true
