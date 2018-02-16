@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertError dismiss alert 1`] = `undefined`;
+
+exports[`AlertError doesn't render alert if successful 1`] = `undefined`;
+
+exports[`AlertError render alert if has any errors 1`] = `
+<div role="alert" class="alert alert-danger alert-dismissible">
+    <button type="button" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+    <div>Custom message</div>
+</div>
+`;

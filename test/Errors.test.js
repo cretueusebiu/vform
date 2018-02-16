@@ -1,84 +1,105 @@
-import test from 'ava'
-import Errors from '../src/Errors'
+import Errors from '@/Errors'
 
 let errors
 
-test.beforeEach(() => {
+beforeEach(() => {
   errors = new Errors()
 })
 
-test('set errors', t => {
-  t.deepEqual({}, errors.errors)
+describe('Errors', () => {
+  test('set errors', () => {
+    expect(errors.errors).toEqual({})
 
-  errors.set({ 'username': ['Value is required'] })
+    errors.set({ username: ['Value is required'] })
 
-  t.deepEqual(errors.errors, { 'username': ['Value is required'] })
-})
+    expect(errors.errors).toEqual({ username: ['Value is required'] })
+  })
 
-test('get all errors', t => {
-  const allErrors = { 'username': ['Value is required'] }
+  test('set field error message', () => {
+    errors.set({ username: ['Value is required'] })
 
-  errors.set(allErrors)
+    errors.set('email', 'Value is required')
 
-  t.deepEqual(errors.all(), allErrors)
-})
+    expect(errors.errors).toEqual({
+      username: ['Value is required'],
+      email: ['Value is required']
+    })
 
-test('determine if there is an error for a field', t => {
-  errors.set({ 'username': ['Value is required'] })
+    errors.set({})
+    errors.set('password', ['Value is required'])
 
-  t.true(errors.has('username'))
-})
+    expect(errors.errors).toEqual({ password: ['Value is required'] })
+  })
 
-test('determine if there are any errors for the given fields', t => {
-  errors.set({ 'username': ['Value is required'], 'password': ['Value is required'], 'email': ['Value is required'] })
+  test('get all errors', () => {
+    const allErrors = { username: ['Value is required'] }
 
-  t.true(errors.hasAny('username', 'email'))
-})
+    errors.set(allErrors)
 
-test('determine if there are any errors', t => {
-  errors.set({ 'username': ['Value is required'] })
+    expect(errors.all()).toEqual(allErrors)
+  })
 
-  t.true(errors.any())
-})
+  test('determine if there is an error for a field', () => {
+    errors.set({ username: ['Value is required'] })
 
-test('get the first error message for a field', t => {
-  errors.set({ 'username': ['Value is required', 'Value must be unique'] })
+    expect(errors.has('username')).toBeTruthy()
+  })
 
-  t.is(errors.get('username'), 'Value is required')
-  t.is(errors.get('password'), undefined)
-})
+  test('determine if there are any errors for the given fields', () => {
+    errors.set({
+      username: ['Value is required'],
+      password: ['Value is required'],
+      email: ['Value is required']
+    })
 
-test('get all the error message for a field', t => {
-  errors.set({ 'username': ['Value is required', 'Value must be unique'] })
+    expect(errors.hasAny('username', 'email')).toBeTruthy()
+  })
 
-  t.deepEqual(['Value is required', 'Value must be unique'], errors.getAll('username'))
-})
+  test('determine if there are any errors', () => {
+    errors.set({ username: ['Value is required'] })
 
-test('get the error message for the given fields', t => {
-  errors.set({ 'username': ['Username is required'], 'password': ['Password is required'], 'email': ['Email is required'] })
+    expect(errors.any()).toBeTruthy()
+  })
 
-  t.deepEqual(['Username is required', 'Email is required'], errors.only('username', 'email'))
-})
+  test('get the first error message for a field', () => {
+    errors.set({ username: ['Value is required', 'Value must be unique'] })
 
-test('get all the errors in a flat array', t => {
-  errors.set({ 'username': ['Username is required'], 'email': ['Email is required', 'Email is not valid'] })
+    expect(errors.get('username')).toBe('Value is required')
+    expect(errors.get('password')).toBeUndefined()
+  })
 
-  t.deepEqual(['Username is required', 'Email is required', 'Email is not valid'], errors.flatten())
-})
+  test('get all the error message for a field', () => {
+    errors.set({ username: ['Value is required', 'Value must be unique'] })
 
-test('clear one error field', t => {
-  errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+    expect(errors.getAll('username')).toEqual(['Value is required', 'Value must be unique'])
+  })
 
-  errors.clear('username')
+  test('get the error message for the given fields', () => {
+    errors.set({ 'username': ['Username is required'], 'password': ['Password is required'], 'email': ['Email is required'] })
 
-  t.false(errors.has('username'))
-  t.true(errors.has('password'))
-})
+    expect(errors.only('username', 'email')).toEqual(['Username is required', 'Email is required'])
+  })
 
-test('clear all the error fields', t => {
-  errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+  test('get all the errors in a flat array', () => {
+    errors.set({ 'username': ['Username is required'], 'email': ['Email is required', 'Email is not valid'] })
 
-  errors.clear()
+    expect(errors.flatten()).toEqual(['Username is required', 'Email is required', 'Email is not valid'])
+  })
 
-  t.false(errors.any())
+  test('clear one error field', () => {
+    errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+
+    errors.clear('username')
+
+    expect(errors.has('username')).toBeFalsy()
+    expect(errors.has('password')).toBeTruthy()
+  })
+
+  test('clear all the error fields', () => {
+    errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+
+    errors.clear()
+
+    expect(errors.any()).toBeFalsy()
+  })
 })
