@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Errors from './Errors'
-import { deepCopy, hasFile, toFormData } from './util'
+import { deepCopy } from './util'
 
 class Form {
   /**
@@ -135,19 +135,12 @@ class Form {
   submit (method, url, config = {}) {
     this.startProcessing()
 
-    url = this.route(url)
-    let data = this.data()
-
-    if (hasFile(data)) {
-      data = toFormData(data)
-    }
-
-    if (method === 'get') {
-      data = { params: data }
-    }
+    const data = method === 'get'
+      ? { params: this.data() }
+      : this.data()
 
     return new Promise((resolve, reject) => {
-      axios.request({ url, method, data, ...config })
+      axios.request({ url: this.route(url), method, data, ...config })
         .then(response => {
           this.finishProcessing()
 
