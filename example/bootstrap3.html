@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>vform example</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>body { padding-top: 20px; }</style>
 </head>
 <body>
@@ -35,7 +34,7 @@
             <div class="form-group">
               <div class="checkbox">
                 <label>
-                  <input v-model="form.remember" type="checkbox" name="remember" value="1">
+                  <input v-model="form.remember" type="checkbox" name="remember">
                   Remember Me
                 </label>
               </div>
@@ -43,8 +42,6 @@
 
             <!-- Submit Button -->
             <button :disabled="form.busy" type="submit" class="btn btn-primary">
-              <i v-if="form.busy" class="fa fa-fw fa-spinner fa-spin"></i>
-              <i v-else class="fa fa-fw fa-sign-in"></i>
               Log In
             </button>
           </form>
@@ -53,11 +50,54 @@
     </div>
   </div>
 
-  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.min.js"></script>
-  <script src="https://unpkg.com/vform/dist/vform.js"></script>
-  <!-- <script src="../dist/vform.js"></script> -->
-  <script src="dist/app.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.js"></script>
+  <script src="https://unpkg.com/vform"></script>
+  <!-- <script src="../dist/vform.umd.js"></script> -->
+
+  <script>
+    // import { Form, HasError, AlertError } from 'vform'
+    const { Form, HasError, AlertError } = window.vform
+
+    // Register the components
+    Vue.component(HasError.name, HasError)
+    Vue.component(AlertError.name, AlertError)
+
+    new Vue({
+      el: '#app',
+
+      data () {
+        return {
+          // Create the form instance
+          form: new Form({
+            username: '',
+            password: '',
+            remember: false
+          })
+        }
+      },
+
+      methods: {
+        login () {
+          // Since we don't have an actual server, we'll mock the request.
+          this.mockRequest()
+
+          // Submit the form via a POST request.
+          this.form.post('/login')
+            .then(({ data }) => console.log(data))
+        },
+
+        mockRequest () {
+          const mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
+
+          mock.onPost('/login').reply(422, {
+            username: ['The username field is required.'],
+            password: ['The password field is required.']
+          })
+        }
+      }
+    })
+  </script>
 </body>
 </html>

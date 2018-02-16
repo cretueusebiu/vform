@@ -9,12 +9,18 @@
     <input type="file" name="file" @change="selectFile">
   </div>
 
-  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://unpkg.com/vform/dist/vform.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://cdn.rawgit.com/cretueusebiu/412715093d6e8980e7b176e9de663d97/raw/aea128d8d15d5f9f2d87892fb7d18b5f6953e952/objectToFormData.js"></script>
+  <script src="https://unpkg.com/vform"></script>
+  <!-- <script src="../dist/vform.umd.js"></script> -->
 
   <script>
-    const Form = vform.Form // import Form from 'vform'
+    // import Form from 'vform'
+    // import objectToFormData from 'object-to-formdata'
+
+    const { Form } = window.vform
+    const objectToFormData = window.objectToFormData
 
     new Vue({
       el: '#app',
@@ -22,6 +28,7 @@
       data () {
         return {
           form: new Form({
+            foo: 'bar',
             file: null
           })
         }
@@ -35,21 +42,20 @@
 
           this.form.file = file
 
-          this.form.post(`/upload`)
+          this.form.submit('post', '/upload', {
+              // Transform form data to FormData
+              transformRequest: [function (data, headers) {
+                return objectToFormData(data)
+              }],
+
+              onUploadProgress: e => {
+                // Do whatever you want with the progress event
+                // console.log(e)
+              }
+            })
             .then(({ data }) => {
               // ...
             })
-
-          // Or with progress event:
-          // this.form.submit('post', '/upload', {
-          //     onUploadProgress: e => {
-          //       // Do whatever you want with the native progress event
-          //       console.log(e)
-          //     }
-          //   })
-          //   .then(({ data }) => {
-          //     // ...
-          //   })
         }
       }
     })

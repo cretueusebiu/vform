@@ -45,6 +45,7 @@
     </form>
   </div>
 
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,Object.assign,Object.values,Object.keys,Array.prototype.includes"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="https://unpkg.com/axios-mock-adapter/dist/axios-mock-adapter.js"></script>
@@ -53,7 +54,9 @@
 
   <script>
     // import { Form, HasError, AlertError } from 'vform'
-    const { Form, HasError, AlertError } = window.vform
+    var Form = window.vform.Form
+    var HasError = window.vform.HasError
+    var AlertError = window.vform.AlertError
 
     // Register the components
     Vue.component(HasError.name, HasError)
@@ -62,7 +65,7 @@
     new Vue({
       el: '#app',
 
-      data () {
+      data: function () {
         return {
           // Create the form instance
           form: new Form({
@@ -74,17 +77,17 @@
       },
 
       methods: {
-        login () {
+        login: function () {
           // Since we don't have an actual server, we'll mock the request.
           this.mockRequest()
 
           // Submit the form via a POST request.
           this.form.post('/login')
-            .then(({ data }) => console.log(data))
+            .then(function (res) { console.log(res.data) })
         },
 
-        mockRequest () {
-          const mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
+        mockRequest: function () {
+          var mock = new AxiosMockAdapter(axios, { delayResponse: 200 })
 
           mock.onPost('/login').reply(422, {
             username: ['The username field is required.'],
