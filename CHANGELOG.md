@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 - 2018-02-16
+## 1.0.0 - 2018-02-19
 
 - Removed file detection, instead use axios's `transformRequest` option and [object-to-formdata](https://github.com/therealparmesh/object-to-formdata). See [example/upload.html](example/upload.html).
 - `Errors.set` now accepts a specified error message: `Errors.set(field, message)`.
