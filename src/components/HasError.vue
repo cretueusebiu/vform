@@ -1,5 +1,5 @@
 <template>
-  <div class="help-block invalid-feedback" v-if="form.errors.has(field)" v-html="form.errors.get(field)"/>
+  <div v-if="form.errors.has(field)" class="help-block invalid-feedback" v-html="form.errors.get(field)"/>
 </template>
 
 <script>
