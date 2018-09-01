@@ -86,53 +86,58 @@ class Form {
   }
 
   /**
-   * Submit the from via a GET request.
+   * Submit the form via a GET request.
    *
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  get (url) {
-    return this.submit('get', url)
+  get (url, config = {}) {
+    return this.submit('get', url, config)
   }
 
   /**
-   * Submit the from via a POST request.
+   * Submit the form via a POST request.
    *
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  post (url) {
-    return this.submit('post', url)
+  post (url, config = {}) {
+    return this.submit('post', url, config)
   }
 
   /**
-   * Submit the from via a PATCH request.
+   * Submit the form via a PATCH request.
    *
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  patch (url) {
-    return this.submit('patch', url)
+  patch (url, config = {}) {
+    return this.submit('patch', url, config)
   }
 
   /**
-   * Submit the from via a PUT request.
+   * Submit the form via a PUT request.
    *
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  put (url) {
-    return this.submit('put', url)
+  put (url, config = {}) {
+    return this.submit('put', url, config)
   }
 
   /**
-   * Submit the from via a DELETE request.
+   * Submit the form via a DELETE request.
    *
    * @param  {String} url
+   * @param  {Object} config (axios config)
    * @return {Promise}
    */
-  delete (url) {
-    return this.submit('delete', url)
+  delete (url, config = {}) {
+    return this.submit('delete', url, config)
   }
 
   /**
