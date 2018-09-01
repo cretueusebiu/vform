@@ -86,7 +86,7 @@ class Form {
   }
 
   /**
-   * Submit the from via a GET request.
+   * Submit the form via a GET request.
    *
    * @param  {String} url
    * @param  {Object} config (axios config)
@@ -97,7 +97,7 @@ class Form {
   }
 
   /**
-   * Submit the from via a POST request.
+   * Submit the form via a POST request.
    *
    * @param  {String} url
    * @param  {Object} config (axios config)
@@ -108,7 +108,7 @@ class Form {
   }
 
   /**
-   * Submit the from via a PATCH request.
+   * Submit the form via a PATCH request.
    *
    * @param  {String} url
    * @param  {Object} config (axios config)
@@ -119,7 +119,7 @@ class Form {
   }
 
   /**
-   * Submit the from via a PUT request.
+   * Submit the form via a PUT request.
    *
    * @param  {String} url
    * @param  {Object} config (axios config)
@@ -130,7 +130,7 @@ class Form {
   }
 
   /**
-   * Submit the from via a DELETE request.
+   * Submit the form via a DELETE request.
    *
    * @param  {String} url
    * @param  {Object} config (axios config)
