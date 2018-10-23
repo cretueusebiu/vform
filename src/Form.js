@@ -151,12 +151,14 @@ class Form {
   submit (method, url, config = {}) {
     this.startProcessing()
 
-    const data = method === 'get'
-      ? { params: this.data() }
-      : this.data()
+    if (method === 'get') {
+      config.params = this.data()
+    } else {
+      config.data = this.data()
+    }
 
     return new Promise((resolve, reject) => {
-      axios.request({ url: this.route(url), method, data, ...config })
+      axios.request({ url: this.route(url), method, ...config })
         .then(response => {
           this.finishProcessing()
 
