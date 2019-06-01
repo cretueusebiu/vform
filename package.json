@@ -39,7 +39,7 @@
     "@vue/cli-service": "^3.0.1",
     "@vue/eslint-config-standard": "^3.0.1",
     "@vue/test-utils": "^1.0.0-beta.24",
-    "axios": "^0.17.1",
+    "axios": "^0.18.1",
     "axios-mock-adapter": "^1.13.1",
     "babel-core": "^7.0.0-0",
     "babel-jest": "^22.0.4",
