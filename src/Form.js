@@ -156,7 +156,7 @@ class Form {
       : this.data()
 
     return new Promise((resolve, reject) => {
-      axios.request({ url: this.route(url), method, data, ...config })
+      (Form.axios || axios).request({ url: this.route(url), method, data, ...config })
         .then(response => {
           this.finishProcessing()
 

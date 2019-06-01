@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 - 2019-06-01
+
+- Added `Form.axios` to allow using a custom axios instance (`Form.axios = customAxiosInstance`).
+
 ## 1.0.0 - 2018-02-19
 
 - Removed file detection, instead use axios's `transformRequest` option and [object-to-formdata](https://github.com/therealparmesh/object-to-formdata). See [example/upload.html](example/upload.html).
