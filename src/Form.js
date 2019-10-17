@@ -53,7 +53,6 @@ class Form {
    * Start processing the form.
    */
   startProcessing () {
-    this.errors.clear()
     this.busy = true
     this.successful = false
   }
@@ -70,8 +69,9 @@ class Form {
    * Clear the form errors.
    */
   clear () {
-    this.errors.clear()
+    this.busy = false
     this.successful = false
+    this.errors.clear()
   }
 
   /**
@@ -158,12 +158,13 @@ class Form {
     return new Promise((resolve, reject) => {
       (Form.axios || axios).request({ url: this.route(url), method, data, ...config })
         .then(response => {
+          this.errors.clear()
           this.finishProcessing()
 
           resolve(response)
         })
         .catch(error => {
-          this.busy = false
+          this.clear()
 
           if (error.response) {
             this.errors.set(this.extractErrors(error.response))
