@@ -38,6 +38,15 @@ describe('Form', () => {
     expect(form.data()).toEqual({ username: 'foo', password: 'bar' })
   })
 
+  test('update form with data', () => {
+    form.update({
+      password: 'updated',
+      foo: 'bar'
+    })
+
+    expect(form.data()).toEqual({ foo: 'bar', username: 'foo', password: 'updated' })
+  })
+
   test('fill form with data', () => {
     form.fill({
       username: 'user',

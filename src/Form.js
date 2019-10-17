@@ -12,7 +12,16 @@ class Form {
     this.busy = false
     this.successful = false
     this.errors = new Errors()
-    this.originalData = deepCopy(data)
+    this.update(data)
+  }
+
+  /**
+   * Update form data.
+   *
+   * @param {Object} data
+   */
+  update (data) {
+    this.originalData = Object.assign({}, this.originalData, deepCopy(data))
 
     Object.assign(this, data)
   }
