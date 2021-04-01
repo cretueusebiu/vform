@@ -154,9 +154,13 @@ class Form {
     const data = method === 'get'
       ? { params: this.data() }
       : this.data()
+    
+    if (!url.startsWith('http')) {
+      url = this.route(url)
+    }
 
     return new Promise((resolve, reject) => {
-      (Form.axios || axios).request({ url: this.route(url), method, data, ...config })
+      (Form.axios || axios).request({ url, method, data, ...config })
         .then(response => {
           this.finishProcessing()
 
