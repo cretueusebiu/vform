@@ -1,14 +1,21 @@
-import axios from 'axios'
+import axios, { Method, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import Errors from './Errors'
 import { deepCopy } from './util'
 
 class Form {
+  public busy: boolean
+  public successful: boolean
+  public errors: Errors
+  private originalData: Record<string, any>
+  public static axios: AxiosInstance
+  public static routes: Record<string, string> = {}
+  public static errorMessage = 'Something went wrong. Please try again.'
+  public static ignore = ['busy', 'successful', 'errors', 'originalData']
+
   /**
    * Create a new form instance.
-   *
-   * @param {Object} data
    */
-  constructor (data = {}) {
+  constructor (data: Record<string, any> = {}) {
     this.busy = false
     this.successful = false
     this.errors = new Errors()
@@ -19,34 +26,27 @@ class Form {
 
   /**
    * Fill form data.
-   *
-   * @param {Object} data
    */
-  fill (data) {
-    this.keys().forEach(key => {
-      this[key] = data[key]
+  fill (data: Record<string, any> = {}) {
+    this.keys().forEach((key) => {
+      (this as any)[key] = data[key]
     })
   }
 
   /**
    * Get the form data.
-   *
-   * @return {Object}
    */
-  data () {
+  data (): Record<string, any> {
     return this.keys().reduce((data, key) => (
-      { ...data, [key]: this[key] }
+      { ...data, [key]: (this as any)[key] }
     ), {})
   }
 
   /**
    * Get the form data keys.
-   *
-   * @return {Array}
    */
-  keys () {
-    return Object.keys(this)
-      .filter(key => !Form.ignore.includes(key))
+  keys (): string[] {
+    return Object.keys(this).filter(key => !Form.ignore.includes(key))
   }
 
   /**
@@ -80,75 +80,50 @@ class Form {
   reset () {
     Object.keys(this)
       .filter(key => !Form.ignore.includes(key))
-      .forEach(key => {
-        this[key] = deepCopy(this.originalData[key])
+      .forEach((key) => {
+        (this as any)[key] = deepCopy(this.originalData[key])
       })
   }
 
   /**
    * Submit the form via a GET request.
-   *
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  get (url, config = {}) {
+  get (url: string, config: AxiosRequestConfig = {}) {
     return this.submit('get', url, config)
   }
 
   /**
    * Submit the form via a POST request.
-   *
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  post (url, config = {}) {
+  post (url: string, config: AxiosRequestConfig = {}) {
     return this.submit('post', url, config)
   }
 
   /**
    * Submit the form via a PATCH request.
-   *
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  patch (url, config = {}) {
+  patch (url: string, config: AxiosRequestConfig = {}) {
     return this.submit('patch', url, config)
   }
 
   /**
    * Submit the form via a PUT request.
-   *
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  put (url, config = {}) {
+  put (url: string, config: AxiosRequestConfig = {}) {
     return this.submit('put', url, config)
   }
 
   /**
    * Submit the form via a DELETE request.
-   *
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  delete (url, config = {}) {
+  delete (url: string, config: AxiosRequestConfig = {}) {
     return this.submit('delete', url, config)
   }
 
   /**
    * Submit the form data via an HTTP request.
-   *
-   * @param  {String} method (get, post, patch, put)
-   * @param  {String} url
-   * @param  {Object} config (axios config)
-   * @return {Promise}
    */
-  submit (method, url, config = {}) {
+  submit (method: Method, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
     this.startProcessing()
 
     const data = method === 'get'
@@ -157,12 +132,12 @@ class Form {
 
     return new Promise((resolve, reject) => {
       (Form.axios || axios).request({ url: this.route(url), method, data, ...config })
-        .then(response => {
+        .then((response) => {
           this.finishProcessing()
 
           resolve(response)
         })
-        .catch(error => {
+        .catch((error: AxiosError) => {
           this.busy = false
 
           if (error.response) {
@@ -176,11 +151,8 @@ class Form {
 
   /**
    * Extract the errors from the response object.
-   *
-   * @param  {Object} response
-   * @return {Object}
    */
-  extractErrors (response) {
+  extractErrors (response: AxiosResponse): Record<string, any> {
     if (!response.data || typeof response.data !== 'object') {
       return { error: Form.errorMessage }
     }
@@ -198,15 +170,11 @@ class Form {
 
   /**
    * Get a named route.
-   *
-   * @param  {String} name
-   * @return {Object} parameters
-   * @return {String}
    */
-  route (name, parameters = {}) {
+  route (name: string, parameters: any = {}) {
     let url = name
 
-    if (Form.routes.hasOwnProperty(name)) {
+    if (Object.prototype.hasOwnProperty.call(Form.routes, name)) {
       url = decodeURI(Form.routes[name])
     }
 
@@ -214,7 +182,7 @@ class Form {
       parameters = { id: parameters }
     }
 
-    Object.keys(parameters).forEach(key => {
+    Object.keys(parameters).forEach((key) => {
       url = url.replace(`{${key}}`, parameters[key])
     })
 
@@ -223,18 +191,14 @@ class Form {
 
   /**
    * Clear errors on keydown.
-   *
-   * @param {KeyboardEvent} event
    */
-  onKeydown (event) {
-    if (event.target.name) {
-      this.errors.clear(event.target.name)
+  onKeydown (event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement
+
+    if (target.name) {
+      this.errors.clear(target.name)
     }
   }
 }
-
-Form.routes = {}
-Form.errorMessage = 'Something went wrong. Please try again.'
-Form.ignore = ['busy', 'successful', 'errors', 'originalData']
 
 export default Form

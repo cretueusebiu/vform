@@ -4,10 +4,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <div v-if="message" v-html="message"/>
+    <div v-if="message" v-html="message" />
 
     <ul>
-      <li v-for="error in form.errors.flatten()" v-html="error"/>
+      <li v-for="(error, index) in form.errors.flatten()" :key="index" v-html="error" />
     </ul>
   </div>
 </template>
@@ -16,7 +16,7 @@
 import Alert from './Alert'
 
 export default {
-  name: 'alert-errors',
+  name: 'AlertErrors',
 
   extends: Alert,
 
