@@ -17,9 +17,7 @@ class Form {
    * Create a new form instance.
    */
   constructor (data: Record<string, any> = {}) {
-    this.originalData = deepCopy(data)
-
-    Object.assign(this, data)
+    this.update(data)
   }
 
   /**
@@ -27,6 +25,15 @@ class Form {
    */
   static make<T extends typeof Form, U> (this: T, augment?: U) {
     return new this(augment) as InstanceType<T> & U
+  }
+
+  /**
+   * Update form data.
+   */
+  update (data: Record<string, any>) {
+    this.originalData = Object.assign({}, this.originalData, deepCopy(data))
+
+    Object.assign(this, data)
   }
 
   /**

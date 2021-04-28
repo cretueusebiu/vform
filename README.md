@@ -153,6 +153,13 @@ reset ()
  * @param {Object} data
  */
 fill (data)
+
+/**
+ * Update form data.
+ *
+ * @param {Object} data
+ */
+update (data)
 ```
 
 ### Errors

@@ -136,6 +136,15 @@ describe('Form', () => {
     expect(data).toEqual({ results: ['a', 'b'] })
   })
 
+  test('update form with data', () => {
+    form.update({
+      password: 'updated',
+      foo: 'bar'
+    })
+
+    expect(form.data()).toEqual({ foo: 'bar', username: 'foo', password: 'updated' })
+  })
+
   test('extract the errors from the response object', () => {
     const response: AxiosResponse = { data: '', status: 0, statusText: '', headers: {}, config: {} }
 
