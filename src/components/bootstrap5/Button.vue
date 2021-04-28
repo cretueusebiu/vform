@@ -1,6 +1,6 @@
 <template>
   <button type="submit" :disabled="form.busy" :aria-disabled="form.busy">
-    <span v-if="form.busy && spinner" class="spinner-border spinner-border-sm" />
+    <span v-if="form.busy && spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
     <slot />
   </button>
 </template>

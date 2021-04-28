@@ -1,9 +1,13 @@
 # Changelog
 
-## 1.1.0 - 2021-04-xx
+## 2.0.0 - 2021-04-xx
 
 - Added support for Vue 3.
 - Added support for TypeScript.
+- Added new `Button` component for Bootstrap.
+- Added `Form.prototype.update`.
+- Fixed params for GET requests.
+- Bootstrap components are not bundled anymore.
 - New site [vform.vercel.app](https://vform.vercel.app) with examples.
 
 ## 1.0.1 - 2019-06-01
