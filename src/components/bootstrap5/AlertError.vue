@@ -1,6 +1,6 @@
 <template>
   <div v-if="form.errors.any()" class="alert alert-danger alert-dismissible" role="alert">
-    <button v-if="dismissible" type="button" class="btn-close" aria-label="Close" @click="dismiss" />
+    <button v-if="dismissible" type="button" class="btn-close" aria-label="Dismiss" @click="dismiss" />
 
     <slot>
       <div v-if="form.errors.has('error')" v-html="form.errors.get('error')" />
