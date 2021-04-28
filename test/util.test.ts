@@ -1,4 +1,4 @@
-import { deepCopy, arrayWrap } from 'vform/util'
+import { deepCopy, arrayWrap } from './../src/util'
 
 describe('util', () => {
   test('deep copy a plain object', () => {

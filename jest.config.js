@@ -6,9 +6,6 @@ module.exports = {
     '^.+\\.(ts)$': 'ts-jest',
     '^.+\\.(js)$': 'babel-jest'
   },
-  moduleNameMapper: {
-    '^vform/(.*)$': '<rootDir>/src/$1'
-  },
   snapshotSerializers: [
     'jest-serializer-vue'
   ],

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { Form, AlertSuccess } from 'vform'
+import { Form, AlertSuccess } from './../../src'
 
 describe('AlertSuccess', () => {
   test('render alert if successful', () => {

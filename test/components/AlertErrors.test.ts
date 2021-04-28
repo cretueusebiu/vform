@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { Form, AlertErrors } from 'vform'
+import { Form, AlertErrors } from './../../src'
 
 describe('AlertErrors', () => {
   test('render alert with a list of errors', () => {

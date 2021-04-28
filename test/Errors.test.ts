@@ -1,4 +1,4 @@
-import { Errors } from 'vform'
+import { Errors } from './../src'
 
 let errors: Errors
 
