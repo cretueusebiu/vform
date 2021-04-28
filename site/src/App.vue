@@ -1,32 +1,32 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-5xl mx-auto">
-      <div class="mt-4 grid">
-        <div class="text-2xl font-normal text-indigo-600">
-          <a href="/">vform</a>
+      <div class="mt-4 flex items-start">
+        <div>
+          <div class="text-2xl font-normal text-indigo-600">
+            <a href="/">vform</a>
+          </div>
+          <div class="mt-1 dark:text-gray-300">
+            A simple way to handle Laravel back-end validation in Vue.
+          </div>
         </div>
-        <div class="mt-1">
-          A simple way to handle Laravel back-end validation in Vue.
-        </div>
+
+        <ToggleTheme class="ml-auto my-auto" />
       </div>
 
-      <div class="flex mt-2">
-        <a v-for="(badge, index) in badges" :key="index" :href="badge.url" target="_blank" class="mr-2">
-          <img :src="badge.image" :alt="badge.alt">
-        </a>
-      </div>
+      <Badges class="mt-2" />
 
       <div class="grid grid-cols-4 gap-5 mt-10">
         <div class="col-span-1">
           <Navigation />
         </div>
 
-        <div class="col-span-3 bg-white shadow-sm rounded-sm p-4">
+        <div class="col-span-3 p-4 bg-white shadow rounded-sm dark:bg-gray-900 dark:border dark:border-gray-700">
           <Docs />
         </div>
       </div>
 
-      <div class="text-center mt-4 text-gray-400">
+      <div class="text-center py-4 text-gray-400">
         Created by <a href="https://github.com/cretueusebiu" target="_blank">Cretu Eusebiu</a> ✌
       </div>
     </div>
@@ -35,26 +35,18 @@
 
 <script lang="ts">
 import Docs from './../../docs.md'
-import Navigation from './Navigation.vue'
+import Badges from './components/Badges.vue'
+import Navigation from './components/Navigation.vue'
+import ToggleTheme from './components/ToggleTheme.vue'
 
 export default {
   name: 'App',
 
   components: {
     Docs,
-    Navigation
-  },
-
-  data () {
-    return {
-      badges: [
-        { url: 'https://github.com/cretueusebiu/vform', image: 'https://img.shields.io/github/stars/cretueusebiu/vform?style=social', alt: 'GitHub Repo stars' },
-        { url: 'https://npmjs.com/package/vform', image: 'https://img.shields.io/npm/v/vform.svg?style=flat-square', alt: 'Latest Version on NPM' },
-        { url: 'https://travis-ci.org/cretueusebiu/vform', image: 'https://img.shields.io/travis/cretueusebiu/vform/master.svg?style=flat-square', alt: '' },
-        { url: 'https://travis-ci.org/cretueusebiu/vform', image: 'https://img.shields.io/travis/cretueusebiu/vform/master.svg?style=flat-square', alt: 'Build Status' },
-        { url: 'https://npmjs.com/package/vform', image: 'https://img.shields.io/npm/dt/vform.svg?style=flat-square', alt: 'Total Downloads' }
-      ]
-    }
+    Badges,
+    Navigation,
+    ToggleTheme
   }
 }
 </script>

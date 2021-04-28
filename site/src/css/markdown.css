@@ -1,0 +1,8 @@
+pre[class*="language-"] {
+  @apply p-3 !important;
+}
+
+.dark .markdown-body {
+  @apply text-gray-300;
+}
+

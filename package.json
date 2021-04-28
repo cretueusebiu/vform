@@ -62,6 +62,8 @@
     "markdown-it-prism": "^2.1.6",
     "object-to-formdata": "^4.1.0",
     "postcss": "^8.2.13",
+    "postcss-import": "^14.0.1",
+    "postcss-nested": "^5.0.5",
     "prism-material-themes": "^1.0.4",
     "prismjs": "^1.23.0",
     "tailwindcss": "^2.1.2",

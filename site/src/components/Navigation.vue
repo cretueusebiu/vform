@@ -3,11 +3,8 @@
     <a v-for="item in items"
        :key="item.title"
        :href="`#${item.title.toLocaleLowerCase().replaceAll(' ', '-')}`"
-       :class="[
-         false ? 'bg-gray-200 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-         item.sub ? '' : 'font-medium',
-         'flex items-center px-3 py-2 rounded-md'
-       ]"
+       class="flex items-center px-3 py-2 rounded-md transition-transform transform-gpu hover:translate-x-1 text-gray-600 dark:text-gray-300"
+       :class="[item.sub ? '' : 'font-medium text-lg']"
     >
       <span class="truncate">
         {{ item.title }}
