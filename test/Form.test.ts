@@ -1,7 +1,7 @@
-import Form, { Errors } from 'vform'
 import axios, { AxiosResponse } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { serialize as objectToFormData } from 'object-to-formdata'
+import Form, { Errors } from './../src'
 
 let form: Form
 let mockAdapter: MockAdapter
