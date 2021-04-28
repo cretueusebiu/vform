@@ -139,28 +139,33 @@ class Form {
     this.startProcessing()
 
     if (method.toLowerCase() === 'get') {
-      config.params = { ...(config.params || {}), ...this.data() }
+      config.params = { ...this.data(), ...(config.params || {}) }
     } else {
-      config.data = { ...(config.data || {}), ...this.data() }
+      config.data = { ...this.data(), ...(config.data || {}) }
     }
 
     return new Promise((resolve, reject) => {
       (Form.axios || axios).request({ url: this.route(url), method, ...config })
-        .then((response) => {
+        .then((response: AxiosResponse) => {
           this.finishProcessing()
-
           resolve(response)
         })
         .catch((error: AxiosError) => {
-          this.busy = false
-
-          if (error.response) {
-            this.errors.set(this.extractErrors(error.response))
-          }
-
+          this.handleErrors(error)
           reject(error)
         })
     })
+  }
+
+  /**
+   * Handle the errors.
+   */
+  handleErrors (error: AxiosError) {
+    this.busy = false
+
+    if (error.response) {
+      this.errors.set(this.extractErrors(error.response))
+    }
   }
 
   /**
