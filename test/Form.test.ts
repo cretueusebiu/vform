@@ -122,6 +122,20 @@ describe('Form', () => {
     expect(form.successful).toBeFalsy()
   })
 
+  test('make get request', async () => {
+    mockAdapter.onGet('/projects', { params: { search: 'vue' } }).reply(200, {
+      results: ['a', 'b']
+    })
+
+    const form = new Form({
+      search: 'vue'
+    })
+
+    const { data } = await form.get('/projects')
+
+    expect(data).toEqual({ results: ['a', 'b'] })
+  })
+
   test('extract the errors from the response object', () => {
     const response: AxiosResponse = { data: '', status: 0, statusText: '', headers: {}, config: {} }
 
