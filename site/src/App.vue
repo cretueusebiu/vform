@@ -1,66 +1,59 @@
 <template>
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-6 mx-auto">
-        <div class="shadow-sm bg-white rounded-2 p-4">
-          <form method="POST" class="mb-0" @submit.prevent="login" @keydown="form.onKeydown($event)">
-            <AlertError :form="form" />
-            <!-- <AlertErrors :form="form" /> -->
-            <!-- <AlertSuccess :form="form" message="Your changes have beend saved!" /> -->
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input id="email" v-model="form.email" type="email" name="email" class="form-control">
-              <HasError :form="form" field="email" />
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input id="password" v-model="form.password" type="password" name="password" class="form-control">
-              <HasError :form="form" field="password" />
-            </div>
-
-            <Button :form="form" class="btn btn-primary">
-              Log In
-            </Button>
-          </form>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="mt-4 grid">
+        <div class="text-2xl font-normal text-indigo-600">
+          <a href="/">vform</a>
         </div>
+        <div class="mt-1">
+          A simple way to handle Laravel back-end validation in Vue.
+        </div>
+      </div>
+
+      <div class="flex mt-2">
+        <a v-for="(badge, index) in badges" :key="index" :href="badge.url" target="_blank" class="mr-2">
+          <img :src="badge.image" :alt="badge.alt">
+        </a>
+      </div>
+
+      <div class="grid grid-cols-4 gap-5 mt-10">
+        <div class="col-span-1">
+          <Navigation />
+        </div>
+
+        <div class="col-span-3 bg-white shadow-sm rounded-sm p-4">
+          <Docs />
+        </div>
+      </div>
+
+      <div class="text-center mt-4 text-gray-400">
+        Created by <a href="https://github.com/cretueusebiu" target="_blank">Cretu Eusebiu</a> ✌
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Form from 'vform'
-import { HasError, AlertError, AlertErrors, AlertSuccess, Button } from 'vform/components/bootstrap5'
-import './requests'
-
-// Form.axios = axios
-// ziggy-js route('login')
+import Docs from './../../docs.md'
+import Navigation from './Navigation.vue'
 
 export default {
   name: 'App',
 
   components: {
-    Button,
-    HasError,
-    AlertError,
-    AlertErrors,
-    AlertSuccess
+    Docs,
+    Navigation
   },
 
   data () {
     return {
-      form: Form.make({
-        email: '',
-        password: ''
-      })
-    }
-  },
-
-  methods: {
-    login () {
-      this.form.post('/login-invalid')
+      badges: [
+        { url: 'https://github.com/cretueusebiu/vform', image: 'https://img.shields.io/github/stars/cretueusebiu/vform?style=social', alt: 'GitHub Repo stars' },
+        { url: 'https://npmjs.com/package/vform', image: 'https://img.shields.io/npm/v/vform.svg?style=flat-square', alt: 'Latest Version on NPM' },
+        { url: 'https://travis-ci.org/cretueusebiu/vform', image: 'https://img.shields.io/travis/cretueusebiu/vform/master.svg?style=flat-square', alt: '' },
+        { url: 'https://travis-ci.org/cretueusebiu/vform', image: 'https://img.shields.io/travis/cretueusebiu/vform/master.svg?style=flat-square', alt: 'Build Status' },
+        { url: 'https://npmjs.com/package/vform', image: 'https://img.shields.io/npm/dt/vform.svg?style=flat-square', alt: 'Total Downloads' }
+      ]
     }
   }
 }
