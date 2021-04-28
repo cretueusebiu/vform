@@ -4,11 +4,10 @@ import { deepCopy } from './util'
 
 class Form {
   [key: string]: any
-
-  busy: boolean
-  successful: boolean
-  errors: Errors
-  originalData: Record<string, any>
+  busy = false
+  successful = false
+  errors = new Errors()
+  originalData: Record<string, any> = {}
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
@@ -18,9 +17,6 @@ class Form {
    * Create a new form instance.
    */
   constructor (data: Record<string, any> = {}) {
-    this.busy = false
-    this.successful = false
-    this.errors = new Errors()
     this.originalData = deepCopy(data)
 
     Object.assign(this, data)
