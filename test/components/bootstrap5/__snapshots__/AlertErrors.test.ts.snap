@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AlertErrors dismiss alert 1`] = `
-<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-  <div>Custom message</div>
-  <ul>
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+  <div class="mb-2">Custom message</div>
+  <ul class="mb-0 ps-4">
     <li>Username is required</li>
     <li>Password must be at least 6 characters</li>
     <li>Password does not match</li>
@@ -12,9 +12,9 @@ exports[`AlertErrors dismiss alert 1`] = `
 `;
 
 exports[`AlertErrors render alert with a list of errors 1`] = `
-<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-  <div>Custom message</div>
-  <ul>
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+  <div class="mb-2">Custom message</div>
+  <ul class="mb-0 ps-4">
     <li>Username is required</li>
     <li>Password must be at least 6 characters</li>
     <li>Password does not match</li>

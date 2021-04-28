@@ -1,12 +1,13 @@
 import { mount } from '@vue/test-utils'
-import { Form, AlertSuccess } from './../../src'
+import { Form } from './../../../src'
+import AlertError from './../../../src/components/bootstrap5/AlertError.vue'
 
-describe('AlertSuccess', () => {
-  test('render alert if successful', () => {
+describe('AlertError', () => {
+  test('render alert if has any errors', () => {
     const form = new Form({ username: '' })
-    form.successful = true
+    form.errors.set({ username: 'Username is required' })
 
-    const wrapper = mount(AlertSuccess, {
+    const wrapper = mount(AlertError, {
       propsData: { form, message: 'Custom message' }
     })
 
@@ -15,9 +16,9 @@ describe('AlertSuccess', () => {
 
   test('render alert with slot', () => {
     const form = new Form({ username: '' })
-    form.successful = true
+    form.errors.set({ username: 'Username is required' })
 
-    const wrapper = mount(AlertSuccess, {
+    const wrapper = mount(AlertError, {
       propsData: { form },
       slots: { default: '<div class="custom">Custom message</div>' }
     })
@@ -25,11 +26,11 @@ describe('AlertSuccess', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  test('deson\'t alert if has errors', () => {
+  test('doesn\'t render alert if successful', () => {
     const form = new Form({ username: '' })
-    form.errors.set({ username: 'Username is required' })
+    form.successful = true
 
-    const wrapper = mount(AlertSuccess, {
+    const wrapper = mount(AlertError, {
       propsData: { form, message: 'Custom message' }
     })
 
@@ -38,13 +39,13 @@ describe('AlertSuccess', () => {
 
   test('dismiss alert', () => {
     const form = new Form({ username: '' })
-    form.successful = true
+    form.errors.set({ username: 'Username is required' })
 
-    const wrapper = mount(AlertSuccess, {
+    const wrapper = mount(AlertError, {
       propsData: { form, message: 'Custom message' }
     })
 
-    wrapper.find('.close').trigger('click')
+    wrapper.find('.btn-close').trigger('click')
 
     expect(wrapper.html()).toMatchSnapshot()
   })

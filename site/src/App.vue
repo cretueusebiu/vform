@@ -1,47 +1,64 @@
 <template>
-  <form method="POST" @submit.prevent="submit" @keydown="form.onKeydown($event)">
-    <input v-model="form.title" type="text" name="title">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <div class="shadow-sm bg-white rounded-2 p-4">
+          <form method="POST" class="mb-0" @submit.prevent="login" @keydown="form.onKeydown($event)">
+            <AlertError :form="form" />
+            <AlertErrors :form="form" />
+            <AlertSuccess :form="form" message="Your changes have beend saved!" />
 
-    <br>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" v-model="form.email" type="email" class="form-control">
+              <HasError :form="form" field="email" />
+            </div>
 
-    {{ form.title }}
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" v-model="form.password" type="password" class="form-control">
+              <HasError :form="form" field="password" />
+            </div>
 
-    <br>
-
-    <HasError :form="form" field="title" />
-
-    <br>
-
-    <button type="button" @click="form.errors.set('title', 'some error')">
-      set errors
-    </button>
-
-    <button type="button" @click="form.errors.clear()">
-      clear errors
-    </button>
-  </form>
+            <Button :form="form" class="btn btn-primary">
+              Log In
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import Form, { HasError } from 'vform'
+import Form from 'vform'
+import { HasError, AlertError, AlertErrors, AlertSuccess, Button } from 'vform/components/bootstrap5'
+import './requests'
 
 export default {
   name: 'App',
 
   components: {
-    HasError
+    Button,
+    HasError,
+    AlertError,
+    AlertErrors,
+    AlertSuccess
   },
 
   data () {
     return {
       form: Form.make({
-        title: 'foo'
+        email: '',
+        password: ''
       })
     }
   },
 
-  created () {
-    // console.log(this.form.title)
+  methods: {
+    login () {
+      this.form.post('/login-invalid')
+    }
   }
 }
 </script>

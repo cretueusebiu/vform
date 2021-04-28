@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { Form, HasError } from './../../src'
+import { Form } from './../../../src'
+import HasError from './../../../src/components/bootstrap5/HasError.vue'
 
 describe('HasError', () => {
   test('render error message', () => {
