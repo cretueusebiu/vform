@@ -1,7 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-const mock = new MockAdapter(axios, { delayResponse: 500 })
+const mock = new MockAdapter(axios, { delayResponse: 250 })
 
 mock.onPost('/login-invalid').reply(422, {
   errors: {
