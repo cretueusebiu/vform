@@ -183,7 +183,7 @@ class Form {
   }
 
   /**
-   * Get a named route.
+   * @deprecated
    */
   route (name: string, parameters: any = {}) {
     let url = name
