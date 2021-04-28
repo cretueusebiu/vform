@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AlertErrors dismiss alert 1`] = `
-<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
   <div class="mb-2">Custom message</div>
   <ul class="mb-0 ps-4">
     <li>Username is required</li>
@@ -12,7 +12,7 @@ exports[`AlertErrors dismiss alert 1`] = `
 `;
 
 exports[`AlertErrors render alert with a list of errors 1`] = `
-<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
   <div class="mb-2">Custom message</div>
   <ul class="mb-0 ps-4">
     <li>Username is required</li>

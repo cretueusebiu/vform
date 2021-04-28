@@ -3,19 +3,19 @@
 exports[`AlertSuccess deson't alert if has errors 1`] = `""`;
 
 exports[`AlertSuccess dismiss alert 1`] = `
-<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
   <div>Custom message</div>
 </div>
 `;
 
 exports[`AlertSuccess render alert if successful 1`] = `
-<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
   <div>Custom message</div>
 </div>
 `;
 
 exports[`AlertSuccess render alert with slot 1`] = `
-<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Close" class="btn-close"></button>
+<div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
   <div class="custom">Custom message</div>
 </div>
 `;
