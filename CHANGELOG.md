@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 - 2021-04-xx
+
+- Added support for Vue 3.
+- Added support for TypeScript.
+- New site [vform.vercel.app](https://vform.vercel.app) with examples.
+
 ## 1.0.1 - 2019-06-01
 
 - Added `Form.axios` to allow using a custom axios instance (`Form.axios = customAxiosInstance`).

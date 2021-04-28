@@ -11,8 +11,12 @@
     "lib": ["esnext", "dom"],
     "declaration": true,
     "declarationDir": "./types",
-    "outDir": "./lib",
-    "types": ["vite/client"]
+    "outDir": "./tmp",
+    "types": ["vite/client"],
+    "paths": {
+      "vform": ["./src"],
+      "vform/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
 }

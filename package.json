@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "description": "A simple way to handle Laravel back-end validation in Vue.",
   "author": "Cretu Eusebiu",
   "license": "MIT",
@@ -11,12 +11,12 @@
     "validation"
   ],
   "scripts": {
-    "dev": "vite --config vite.config.demo.ts",
-    "build:demo": "tsc --project tsconfig.demo.json && vite build --config vite.config.demo.ts && rm -rf ./tmp",
-    "build:lib": "tsc && vite build && rm -rf ./lib",
-    "vercel-build": "npm run build:demo",
+    "dev": "vite --config ./site/vite.config.ts",
+    "build:site": "tsc --project ./site/tsconfig.json && vite build --config ./site/vite.config.ts && rm -rf ./site/tmp",
+    "build:lib": "tsc && cp -r ./src/components ./tmp/ && vite build && rm -rf ./tmp ./dist/assets ./dist/index.html",
+    "vercel-build": "npm run build:site",
     "test": "todo",
-    "lint": "eslint --ext \".js,.ts,.vue\" src/",
+    "lint": "eslint --ext \".js,.ts,.vue\" ./src/ ./site/src/",
     "prepublishOnly": "npm run test && npm run build:lib"
   },
   "files": [
@@ -31,7 +31,8 @@
     ".": {
       "import": "./dist/vform.es.js",
       "require": "./dist/vform.umd.js"
-    }
+    },
+    "./components/": "./src/components/"
   },
   "peerDependencies": {
     "vue": "*",
@@ -40,8 +41,6 @@
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
-    "@vitejs/plugin-vue": "^1.2.2",
-    "@vue/compiler-sfc": "^3.0.11",
     "@vue/test-utils": "^1.1.4",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
@@ -51,7 +50,8 @@
     "object-to-formdata": "^4.1.0",
     "typescript": "^4.2.4",
     "vite": "^2.2.3",
-    "vue": "^3.0.11"
+    "vite-plugin-vue2": "^1.4.4",
+    "vue": "^2.6.12"
   },
   "repository": {
     "type": "git",

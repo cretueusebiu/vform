@@ -25,6 +25,13 @@ class Form {
   }
 
   /**
+   * Create a new form instance.
+   */
+  static make<T extends typeof Form, U> (this: T, augment?: U) {
+    return new this(augment) as InstanceType<T> & U
+  }
+
+  /**
    * Fill form data.
    */
   fill (data: Record<string, any> = {}) {

@@ -14,6 +14,10 @@ declare class Form {
      */
     constructor(data?: Record<string, any>);
     /**
+     * Create a new form instance.
+     */
+    static make<T extends typeof Form, U>(this: T, augment?: U): InstanceType<T> & U;
+    /**
      * Fill form data.
      */
     fill(data?: Record<string, any>): void;
