@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
   ],
   rules: {
-    'vue/no-v-html': 'off'
+    'vue/no-v-html': 'off',
+    'vue/max-attributes-per-line': 'off'
   }
 }
