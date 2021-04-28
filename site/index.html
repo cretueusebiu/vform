@@ -5,6 +5,15 @@
   <title>vform</title>
   <meta name="description" content="A simple way to handle Laravel back-end validation in Vue.">
   <link rel="icon" href="/favicon.ico">
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('light')
+    } else {
+      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.add('light')
+    }
+  </script>
 </head>
 <body class="bg-indigo-50 dark:bg-gray-900">
   <div id="app"></div>
