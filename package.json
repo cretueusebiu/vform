@@ -14,7 +14,7 @@
     "dev": "vite --config ./site/vite.config.ts",
     "build:site": "tsc --project ./site/tsconfig.json && vite build --config ./site/vite.config.ts && rm -rf ./site/tmp",
     "build:lib": "tsc && cp -r ./src/components ./tmp/ && vite build && rm -rf ./tmp ./dist/assets ./dist/index.html",
-    "vercel-build": "npm run build:site",
+    "build": "npm run build:site",
     "test": "todo",
     "lint": "eslint --ext \".js,.ts,.vue\" ./src/ ./site/src/",
     "prepublishOnly": "npm run test && npm run build:lib"
