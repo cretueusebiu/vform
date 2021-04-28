@@ -1,6 +1,5 @@
-import Form from '@/Form'
 import { mount } from '@vue/test-utils'
-import HasError from '@/components/HasError'
+import { Form, HasError } from 'vform'
 
 describe('HasError', () => {
   test('render error message', () => {

@@ -1,22 +1,18 @@
 module.exports = {
-  moduleFileExtensions: [
-    'js',
-    'jsx',
-    'json',
-    'vue'
-  ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)$',
+  moduleFileExtensions: ['js', 'ts', 'json', 'vue'],
   transform: {
-    '^.+\\.vue$': 'vue-jest',
-    '^.+\\.jsx?$': 'babel-jest'
+    '.*\\.(vue)$': 'vue-jest',
+    '^.+\\.(ts)$': 'ts-jest',
+    '^.+\\.(js)$': 'babel-jest'
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^vform/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: [
     'jest-serializer-vue'
   ],
   setupFiles: [
-    '<rootDir>/test/setup.js'
-  ],
-  mapCoverage: true
+    '<rootDir>/test/setup.ts'
+  ]
 }

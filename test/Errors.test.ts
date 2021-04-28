@@ -1,6 +1,6 @@
-import Errors from '@/Errors'
+import { Errors } from 'vform'
 
-let errors
+let errors: Errors
 
 beforeEach(() => {
   errors = new Errors()
@@ -75,19 +75,19 @@ describe('Errors', () => {
   })
 
   test('get the error message for the given fields', () => {
-    errors.set({ 'username': ['Username is required'], 'password': ['Password is required'], 'email': ['Email is required'] })
+    errors.set({ username: ['Username is required'], password: ['Password is required'], email: ['Email is required'] })
 
     expect(errors.only('username', 'email')).toEqual(['Username is required', 'Email is required'])
   })
 
   test('get all the errors in a flat array', () => {
-    errors.set({ 'username': ['Username is required'], 'email': ['Email is required', 'Email is not valid'] })
+    errors.set({ username: ['Username is required'], email: ['Email is required', 'Email is not valid'] })
 
     expect(errors.flatten()).toEqual(['Username is required', 'Email is required', 'Email is not valid'])
   })
 
   test('clear one error field', () => {
-    errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+    errors.set({ username: ['Value is required'], password: ['Value is required'] })
 
     errors.clear('username')
 
@@ -96,7 +96,7 @@ describe('Errors', () => {
   })
 
   test('clear all the error fields', () => {
-    errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+    errors.set({ username: ['Value is required'], password: ['Value is required'] })
 
     errors.clear()
 

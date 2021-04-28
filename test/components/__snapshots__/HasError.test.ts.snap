@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HasError doesn\`t render error message 1`] = `undefined`;
+exports[`HasError doesn\`t render error message 1`] = `""`;
 
 exports[`HasError render error message 1`] = `<div class="help-block invalid-feedback">Username is required</div>`;

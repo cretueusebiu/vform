@@ -6,7 +6,7 @@ exports[`AlertError dismiss alert 1`] = `
 </div>
 `;
 
-exports[`AlertError doesn't render alert if successful 1`] = `undefined`;
+exports[`AlertError doesn't render alert if successful 1`] = `""`;
 
 exports[`AlertError render alert if has any errors 1`] = `
 <div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>

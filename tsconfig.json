@@ -12,11 +12,17 @@
     "declaration": true,
     "declarationDir": "./types",
     "outDir": "./tmp",
-    "types": ["vite/client"],
+    "types": ["vite/client", "jest"],
     "paths": {
       "vform": ["./src"],
       "vform/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue"
+  ]
 }

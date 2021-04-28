@@ -1,7 +1,7 @@
 import { arrayWrap } from './util'
 
 export default class Errors {
-  private errors: Record<string, any> = {}
+  errors: Record<string, any> = {}
 
   /**
    * Create a new error bag instance.

@@ -1,14 +1,13 @@
-import axios from 'axios'
-import Form from '@/Form'
-import Errors from '@/Errors'
+import Form, { Errors } from 'vform'
+import axios, { AxiosResponse } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import objectToFormData from 'object-to-formdata'
+import { serialize as objectToFormData } from 'object-to-formdata'
 
-let form
-let mockAdapter
+let form: Form
+let mockAdapter: MockAdapter
 
 beforeEach(() => {
-  form = new Form({
+  form = Form.make({
     username: 'foo',
     password: 'bar'
   })
@@ -92,9 +91,9 @@ describe('Form', () => {
   })
 
   test('transform data object to FormData', async () => {
-    form.photo = new File([new Uint8Array(10)], { type: 'image/png' })
+    form.photo = new File([new Uint8Array(10)], 'photo.jpg', { type: 'image/png' })
 
-    mockAdapter.onPut('/user/photo').reply(config => {
+    mockAdapter.onPut('/user/photo').reply((config) => {
       expect(config.data).toBeInstanceOf(FormData)
       expect(config.data.has('photo')).toBeTruthy()
       expect(config.data.has('username')).toBeTruthy()
@@ -103,15 +102,13 @@ describe('Form', () => {
     })
 
     await form.submit('put', '/user/photo', {
-      transformRequest: [(data, headers) => {
-        return objectToFormData(data)
-      }]
+      transformRequest: [(data, _headers) => objectToFormData(data)]
     })
   })
 
   test('set errors from the server', async () => {
     mockAdapter.onPost('/login').reply(422, {
-      'username': ['Value is required']
+      username: ['Value is required']
     })
 
     const form = new Form()
@@ -126,25 +123,27 @@ describe('Form', () => {
   })
 
   test('extract the errors from the response object', () => {
-    let response = {}
+    const response: AxiosResponse = { data: '', status: 0, statusText: '', headers: {}, config: {} }
+
     expect(form.extractErrors(response)).toEqual({ error: 'Something went wrong. Please try again.' })
 
-    response = { data: 'invalid json' }
+    response.data = 'invalid json'
     expect(form.extractErrors(response)).toEqual({ error: 'Something went wrong. Please try again.' })
 
-    response = { data: { errors: { 'username': ['Value is required'] } } }
-    expect(form.extractErrors(response)).toEqual({ 'username': ['Value is required'] })
+    response.data = { errors: { username: ['Value is required'] } }
+    expect(form.extractErrors(response)).toEqual({ username: ['Value is required'] })
 
-    response = { data: { message: 'Value is required' } }
-    expect(form.extractErrors(response)).toEqual({ 'error': 'Value is required' })
+    response.data = { message: 'Value is required' }
+    expect(form.extractErrors(response)).toEqual({ error: 'Value is required' })
 
-    response = { data: { 'username': ['Value is required'] } }
-    expect(form.extractErrors(response)).toEqual({ 'username': ['Value is required'] })
+    response.data = { username: ['Value is required'] }
+    expect(form.extractErrors(response)).toEqual({ username: ['Value is required'] })
   })
 
   test('clear errors on from event', () => {
-    form.errors.set({ 'username': ['Value is required'], 'password': ['Value is required'] })
+    form.errors.set({ username: ['Value is required'], password: ['Value is required'] })
 
+    // @ts-ignore
     form.onKeydown({ target: { name: 'username' } })
 
     expect(form.errors.has('username')).toBeFalsy()

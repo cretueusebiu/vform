@@ -3,14 +3,16 @@ import Errors from './Errors'
 import { deepCopy } from './util'
 
 class Form {
-  public busy: boolean
-  public successful: boolean
-  public errors: Errors
-  private originalData: Record<string, any>
-  public static axios: AxiosInstance
-  public static routes: Record<string, string> = {}
-  public static errorMessage = 'Something went wrong. Please try again.'
-  public static ignore = ['busy', 'successful', 'errors', 'originalData']
+  [key: string]: any
+
+  busy: boolean
+  successful: boolean
+  errors: Errors
+  originalData: Record<string, any>
+  static axios: AxiosInstance
+  static routes: Record<string, string> = {}
+  static errorMessage = 'Something went wrong. Please try again.'
+  static ignore = ['busy', 'successful', 'errors', 'originalData']
 
   /**
    * Create a new form instance.

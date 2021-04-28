@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AlertSuccess deson't alert if has errors 1`] = `undefined`;
+exports[`AlertSuccess deson't alert if has errors 1`] = `""`;
 
 exports[`AlertSuccess dismiss alert 1`] = `
 <div role="alert" class="alert alert-success alert-dismissible"><button type="button" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
