@@ -18,6 +18,6 @@ export function deepCopy<T> (obj: T): T {
 /**
  * If the given value is not an array, wrap it in one.
  */
-export function arrayWrap (value: any): any[] {
+export function arrayWrap<T> (value: T): T[] {
   return Array.isArray(value) ? value : [value]
 }
