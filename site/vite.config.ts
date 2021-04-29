@@ -18,7 +18,12 @@ export default defineConfig({
       markdownItUses: [
         prism,
         anchor
-      ]
+      ],
+      transforms: {
+        after (html: string) {
+          return html.replace(/({{)(.*)(}})/gi, '<span class="token punctuation">{{</span>$2<span class="token punctuation">}}</span>')
+        }
+      }
     })
   ],
 

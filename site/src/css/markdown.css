@@ -4,8 +4,18 @@ pre[class*="language-"] {
   @apply p-3 !important;
 }
 
-.dark .markdown-body {
-  @apply text-gray-300;
+.markdown-body {
+  .dark & {
+    @apply text-gray-300;
+
+    code {
+      background-color: #0f111a;
+    }
+  }
+
+  h2 {
+    @apply mt-8;
+  }
 }
 
 .dark {

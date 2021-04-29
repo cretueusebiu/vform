@@ -7,7 +7,7 @@
             <a href="/">vform</a>
           </div>
           <div class="mt-1 dark:text-gray-300">
-            A simple way to handle Laravel back-end validation in Vue.
+            Handle Laravel-Vue forms and validation with ease.
           </div>
         </div>
 
@@ -21,8 +21,12 @@
           <Navigation />
         </div>
 
-        <div class="col-span-3 p-4 bg-white shadow rounded-sm dark:bg-gray-900 dark:border dark:border-gray-700">
-          <Docs />
+        <div class="col-span-3">
+          <Demo class="mb-4" />
+
+          <div class="panel">
+            <Docs />
+          </div>
         </div>
       </div>
 
@@ -31,10 +35,12 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Docs from './../../docs.md'
+import Demo from './components/Demo.vue'
 import Badges from './components/Badges.vue'
 import Navigation from './components/Navigation.vue'
 import ToggleTheme from './components/ToggleTheme.vue'
@@ -44,6 +50,7 @@ export default {
 
   components: {
     Docs,
+    Demo,
     Badges,
     Navigation,
     ToggleTheme

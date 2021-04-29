@@ -1,0 +1,5 @@
+.dark {
+  a {
+    @apply text-blue-400;
+  }
+}

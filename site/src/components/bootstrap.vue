@@ -3,6 +3,9 @@
     <div class="row">
       <div class="col-6 mx-auto">
         <div class="shadow-sm bg-white rounded-2 p-4">
+          <input v-model="form.name" type="text" name="name">
+          <input type="file" name="file" @change="handleFile">
+
           <form method="POST" class="mb-0" @submit.prevent="login" @keydown="form.onKeydown($event)">
             <AlertError :form="form" />
             <!-- <AlertErrors :form="form" /> -->

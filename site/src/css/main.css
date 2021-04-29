@@ -2,4 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./forms.css";
 @import "./markdown.css";
+@import "./global.css";

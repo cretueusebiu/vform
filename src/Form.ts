@@ -4,10 +4,23 @@ import { deepCopy } from './util'
 
 class Form {
   [key: string]: any
-  busy = false
-  successful = false
-  errors = new Errors()
   originalData: Record<string, any> = {}
+
+  /**
+   * Indicates if the form is sent to the server.
+   */
+  busy: boolean = false
+
+  /**
+   * Indicates if the response form the server was successful.
+   */
+  successful: boolean = false
+
+  /**
+   * The validation errors from the server.
+   */
+  errors: Errors = new Errors()
+
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
@@ -28,7 +41,7 @@ class Form {
   }
 
   /**
-   * Update form data.
+   * Update the form data.
    */
   update (data: Record<string, any>) {
     this.originalData = Object.assign({}, this.originalData, deepCopy(data))
@@ -37,7 +50,7 @@ class Form {
   }
 
   /**
-   * Fill form data.
+   * Fill the form data.
    */
   fill (data: Record<string, any> = {}) {
     this.keys().forEach((key) => {
@@ -87,7 +100,7 @@ class Form {
   }
 
   /**
-   * Reset the form fields.
+   * Reset the form data.
    */
   reset () {
     Object.keys(this)
