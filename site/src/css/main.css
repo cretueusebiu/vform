@@ -2,5 +2,4 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./theme.css";
 @import "./markdown.css";

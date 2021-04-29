@@ -1,7 +1,0 @@
-.dark {
-  @nested-import "node_modules/prism-material-themes/themes/material-ocean.css"
-}
-
-.light {
-  @nested-import "node_modules/prism-material-themes/themes/material-lighter.css"
-}

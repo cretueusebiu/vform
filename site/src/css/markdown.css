@@ -1,3 +1,5 @@
+@import "github-markdown-css/github-markdown.css";
+
 pre[class*="language-"] {
   @apply p-3 !important;
 }
@@ -6,3 +8,10 @@ pre[class*="language-"] {
   @apply text-gray-300;
 }
 
+.dark {
+  @nested-import "prism-material-themes/themes/material-ocean.css"
+}
+
+.light {
+  @nested-import "prism-material-themes/themes/material-lighter.css"
+}
