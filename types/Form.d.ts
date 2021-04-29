@@ -1,5 +1,10 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import Errors from './Errors';
+interface Progress {
+    total: number;
+    loaded: number;
+    percentage: number;
+}
 declare class Form {
     [key: string]: any;
     originalData: Record<string, any>;
@@ -15,6 +20,10 @@ declare class Form {
      * The validation errors from the server.
      */
     errors: Errors;
+    /**
+     * The upload progress object.
+     */
+    progress: Progress | undefined;
     static axios: AxiosInstance;
     static routes: Record<string, string>;
     static errorMessage: string;
@@ -91,6 +100,10 @@ declare class Form {
      * Extract the errors from the response object.
      */
     extractErrors(response: AxiosResponse): Record<string, any>;
+    /**
+     * Handle the upload progress.
+     */
+    handleUploadProgress(event: ProgressEvent): void;
     /**
      * @deprecated
      */

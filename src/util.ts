@@ -21,3 +21,13 @@ export function deepCopy<T> (obj: T): T {
 export function arrayWrap<T> (value: T): T[] {
   return Array.isArray(value) ? value : [value]
 }
+
+/**
+ * Determine if the given data has files.
+ */
+export function hasFiles (data: File | Blob | FileList | Record<string, any>): boolean {
+  return data instanceof File ||
+    data instanceof Blob ||
+    data instanceof FileList ||
+    (typeof data === 'object' && data !== null && Object.values(data).find(value => hasFiles(value)) !== undefined)
+}

@@ -1,6 +1,13 @@
+import { serialize } from 'object-to-formdata'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import Errors from './Errors'
-import { deepCopy } from './util'
+import { deepCopy, hasFiles } from './util'
+
+interface Progress {
+  total: number
+  loaded: number
+  percentage: number
+}
 
 class Form {
   [key: string]: any
@@ -21,10 +28,15 @@ class Form {
    */
   errors: Errors = new Errors()
 
+  /**
+   * The upload progress object.
+   */
+  progress: Progress | undefined = undefined
+
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
-  static ignore = ['busy', 'successful', 'errors', 'originalData']
+  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData']
 
   /**
    * Create a new form instance.
@@ -81,6 +93,7 @@ class Form {
     this.errors.clear()
     this.busy = true
     this.successful = false
+    this.progress = undefined
   }
 
   /**
@@ -89,6 +102,7 @@ class Form {
   finishProcessing () {
     this.busy = false
     this.successful = true
+    this.progress = undefined
   }
 
   /**
@@ -97,6 +111,7 @@ class Form {
   clear () {
     this.errors.clear()
     this.successful = false
+    this.progress = undefined
   }
 
   /**
@@ -151,15 +166,27 @@ class Form {
   submit (method: string, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
     this.startProcessing()
 
+    config = {
+      data: {},
+      params: {},
+      url: this.route(url),
+      method: method as any,
+      onUploadProgress: this.handleUploadProgress.bind(this),
+      ...config
+    }
+
     if (method.toLowerCase() === 'get') {
-      config.params = { ...this.data(), ...(config.params || {}) }
+      config.params = { ...this.data(), ...config.params }
     } else {
-      config.data = { ...this.data(), ...(config.data || {}) }
+      config.data = { ...this.data(), ...config.data }
+
+      if (hasFiles(config.data)) {
+        config.transformRequest = [data => serialize(data)]
+      }
     }
 
     return new Promise((resolve, reject) => {
-      // @ts-ignore
-      (Form.axios || axios).request({ url: this.route(url), method, ...config })
+      (Form.axios || axios).request(config)
         .then((response: AxiosResponse) => {
           this.finishProcessing()
           resolve(response)
@@ -176,6 +203,7 @@ class Form {
    */
   handleErrors (error: AxiosError) {
     this.busy = false
+    this.progress = undefined
 
     if (error.response) {
       this.errors.set(this.extractErrors(error.response))
@@ -199,6 +227,17 @@ class Form {
     }
 
     return { ...response.data }
+  }
+
+  /**
+   * Handle the upload progress.
+   */
+  handleUploadProgress (event: ProgressEvent) {
+    this.progress = {
+      total: event.total,
+      loaded: event.loaded,
+      percentage: Math.round((event.loaded * 100) / event.total)
+    }
   }
 
   /**

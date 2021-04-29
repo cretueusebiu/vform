@@ -101,6 +101,11 @@ form.successful: boolean
  * The validation errors from the server.
  */
 form.errors: Errors
+
+/**
+ * The upload progress object.
+ */
+form.progress: { total: number, loaded: number, percentage: number } | undefined
 ```
 
 #### Instance methods
@@ -403,12 +408,6 @@ export default {
 
 ### File Upload
 
-To handle file uploads we need to install a npm pacakge:
-
-```bash
-npm install object-to-formdata
-```
-
 ```html
 <template>
 <form @submit.prevent="submit" @keydown="form.onKeydown($event)">
@@ -418,13 +417,14 @@ npm install object-to-formdata
   <input type="file" name="file" @change="handleFile">
   <HasError :form="form" field="file" />
 
+  <div v-if="form.progress">Progress: {{ form.progress.percentage }}%</div>
+
   <button type="submit">Submit</button>
 </form>
 </template>
 
 <script>
 import Form from 'vform'
-import { serialize } from 'object-to-formdata'
 import { HasError } from 'vform/src/components/bootstrap5'
 
 export default {
@@ -449,13 +449,7 @@ export default {
 
     async submit () {
       const response = await this.form.post('/upload', {
-        transformRequest: [serialize],
-
-        onUploadProgress: e => {
-          // Handle the progress...
-          // console.log(e)
-          // See: https://github.com/axios/axios#request-config
-        }
+        // onUploadProgress: e => console.log(e) }
       })
 
       // ...

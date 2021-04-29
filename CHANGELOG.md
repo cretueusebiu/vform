@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3 - 2021-04-30
+
+- Handle files with `FormData` by default.
+- Added upload `progress` property to `Form`.
+
 ## 2.0.2 - 2021-04-29
 
 - Fixed missing `Method` type for old axios versions.
