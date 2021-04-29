@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 - 2021-04-29
+
+- Fixed package.json exports.
+
 ## 2.0.0 - 2021-04-29
 
 - New site [vform.vercel.app](https://vform.vercel.app)!
@@ -10,7 +14,7 @@
 - Added `Form.prototype.update`.
 - Fixed params for GET requests.
 - Dropped support for Boostrap 3 components.
-- The components are no longer bundled. Replace `import { HasError } from 'vform'` with `import { HasError } from 'vform/components/bootstrap5'`.
+- The components are no longer bundled. Replace `import { HasError } from 'vform'` with `import { HasError } from 'vform/src/components/bootstrap5'`.
 
 ## 1.0.1 - 2019-06-01
 

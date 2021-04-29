@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Handle Laravel-Vue forms and validation with ease.",
   "author": "Cretu Eusebiu",
   "license": "MIT",
@@ -33,7 +33,12 @@
       "import": "./dist/vform.es.js",
       "require": "./dist/vform.umd.js"
     },
-    "./components/": "./src/components/"
+    "./components/tailwind": "./src/components/tailwind/index.js",
+    "./src/components/tailwind": "./src/components/tailwind/index.js",
+    "./components/bootstrap4": "./src/components/bootstrap5/index.js",
+    "./src/components/bootstrap4": "./src/components/bootstrap5/index.js",
+    "./components/bootstrap5": "./src/components/bootstrap5/index.js",
+    "./src/components/bootstrap5": "./src/components/bootstrap5/index.js"
   },
   "peerDependencies": {
     "vue": "*",

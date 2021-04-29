@@ -39,7 +39,7 @@ npm install axios vform
 
 <script>
 import Form from 'vform'
-import { HasError } from 'vform/components/bootstrap5'
+import { HasError } from 'vform/src/components/bootstrap5'
 
 export default {
   components: {

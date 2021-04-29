@@ -29,7 +29,7 @@ npm install axios vform
 
 <script>
 import Form from 'vform'
-import { HasError } from 'vform/components/bootstrap5'
+import { HasError } from 'vform/src/components/bootstrap5'
 
 export default {
   components: {
@@ -220,9 +220,9 @@ import {
   AlertError,
   AlertErrors,
   AlertSuccess
-} from 'vform/components/bootstrap5'
-// 'vform/components/bootstrap4'
-// 'vform/components/tailwind'
+} from 'vform/src/components/bootstrap5'
+// 'vform/src/components/bootstrap4'
+// 'vform/src/components/tailwind'
 
 Vue.component(Button.name, Button)
 Vue.component(HasError.name, HasError)
@@ -306,7 +306,7 @@ A submit button with a spinner.
 
 <script>
 import Form from 'vform'
-import { Button, HasError, AlertError } from 'vform/components/bootstrap5'
+import { Button, HasError, AlertError } from 'vform/src/components/bootstrap5'
 
 export default {
   components: {
@@ -375,7 +375,7 @@ export default {
 
 <script>
 import Form from 'vform'
-import { Button, HasError, AlertError } from 'vform/components/tailwind'
+import { Button, HasError, AlertError } from 'vform/src/components/tailwind'
 
 export default {
   components: {
@@ -424,7 +424,7 @@ npm install object-to-formdata
 
 <script>
 import Form from 'vform'
-import { HasError } from 'vform/components/bootstrap5'
+import { HasError } from 'vform/src/components/bootstrap5'
 import { serialize as objectToFormData } from 'object-to-formdata'
 
 export default {
