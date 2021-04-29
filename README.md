@@ -24,17 +24,17 @@ npm install axios vform
 
 ```html
 <template>
-<form @submit.prevent="login" @keydown="form.onKeydown($event)">
-  <input v-model="form.username" type="text" name="username" placeholder="Username">
-  <div v-if="form.errors.has('username')" v-html="form.errors.get('username')" />
+  <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+    <input v-model="form.username" type="text" name="username" placeholder="Username">
+    <div v-if="form.errors.has('username')" v-html="form.errors.get('username')" />
 
-  <input v-model="form.password" type="password" name="password" placeholder="Password">
-  <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
+    <input v-model="form.password" type="password" name="password" placeholder="Password">
+    <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
 
-  <button type="submit" :form="form" :disabled="form.busy">
-    Log In
-  </button>
-</form>
+    <button type="submit" :form="form" :disabled="form.busy">
+      Log In
+    </button>
+  </form>
 </template>
 
 <script>
