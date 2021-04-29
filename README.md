@@ -10,7 +10,7 @@
   <a href="https://npmjs.com/package/vform"><img src="https://img.shields.io/npm/dt/vform.svg?style=flat-square" alt="Total Downloads"></a>
 </p>
 
-`vform` is a tiny library for Vue to help with forms and validation when using Laravel as a back-end.
+`vform` is a tiny library for Vue 2/3 to help with forms and validation when using Laravel as a back-end.
 
 It provides a form instance to wrap your data in a convenient way and send it to your Laravel application via an HTTP request using `axios`.
 
