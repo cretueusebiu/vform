@@ -136,6 +136,11 @@ form.update({ ... })
  * Fill the form data.
  */
 form.fill({ ... })
+
+/**
+ * Clear errors on keydown.
+ */
+form.onKeydown(event: KeyboardEvent)
 ```
 
 #### Setting a custom axios instance
