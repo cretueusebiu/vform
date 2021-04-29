@@ -21,6 +21,8 @@ import Base from './../AlertError'
 import DismissButton from './DismissButton.vue'
 
 export default {
+  name: 'AlertError',
+
   components: {
     DismissButton
   },

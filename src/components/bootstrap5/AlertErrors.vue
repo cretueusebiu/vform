@@ -14,6 +14,8 @@
 import Base from './../AlertErrors'
 
 export default {
+  name: 'AlertErrors',
+
   extends: Base
 }
 </script>

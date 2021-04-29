@@ -19,6 +19,8 @@ import Base from './../AlertSuccess'
 import DismissButton from './DismissButton.vue'
 
 export default {
+  name: 'AlertSuccess',
+
   components: {
     DismissButton
   },

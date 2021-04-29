@@ -6,6 +6,8 @@
 import Base from './../HasError'
 
 export default {
+  name: 'HasError',
+
   extends: Base
 }
 </script>

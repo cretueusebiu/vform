@@ -1,6 +1,4 @@
 export default {
-  name: 'HasError',
-
   props: {
     form: {
       type: Object,

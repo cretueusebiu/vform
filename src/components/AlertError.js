@@ -1,8 +1,6 @@
 import Alert from './Alert'
 
 export default {
-  name: 'AlertError',
-
   extends: Alert,
 
   props: {

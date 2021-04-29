@@ -12,6 +12,8 @@
 import Base from './../AlertSuccess'
 
 export default {
+  name: 'AlertSuccess',
+
   extends: Base
 }
 </script>
