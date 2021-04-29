@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/AcBAPll.gif" width="700" alt="vform">
+  <img src="https://i.imgur.com/0IX1Otl.gif" width="700" alt="vform">
 </p>
 
 # Handle Laravel-Vue forms and validation with ease
