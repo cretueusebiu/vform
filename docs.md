@@ -424,8 +424,8 @@ npm install object-to-formdata
 
 <script>
 import Form from 'vform'
+import { serialize } from 'object-to-formdata'
 import { HasError } from 'vform/src/components/bootstrap5'
-import { serialize as objectToFormData } from 'object-to-formdata'
 
 export default {
   components: { HasError },
@@ -449,8 +449,7 @@ export default {
 
     async submit () {
       const response = await this.form.post('/upload', {
-        // Transform the form data with the installed package...
-        transformRequest: [(data) => objectToFormData(data)],
+        transformRequest: [serialize],
 
         onUploadProgress: e => {
           // Handle the progress...
