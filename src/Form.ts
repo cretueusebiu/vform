@@ -1,4 +1,4 @@
-import axios, { Method, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import Errors from './Errors'
 import { deepCopy } from './util'
 
@@ -148,7 +148,7 @@ class Form {
   /**
    * Submit the form data via an HTTP request.
    */
-  submit (method: Method, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
+  submit (method: string, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
     this.startProcessing()
 
     if (method.toLowerCase() === 'get') {
@@ -158,6 +158,7 @@ class Form {
     }
 
     return new Promise((resolve, reject) => {
+      // @ts-ignore
       (Form.axios || axios).request({ url: this.route(url), method, ...config })
         .then((response: AxiosResponse) => {
           this.finishProcessing()

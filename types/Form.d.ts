@@ -1,4 +1,4 @@
-import { Method, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import Errors from './Errors';
 declare class Form {
     [key: string]: any;
@@ -82,7 +82,7 @@ declare class Form {
     /**
      * Submit the form data via an HTTP request.
      */
-    submit(method: Method, url: string, config?: AxiosRequestConfig): Promise<AxiosResponse>;
+    submit(method: string, url: string, config?: AxiosRequestConfig): Promise<AxiosResponse>;
     /**
      * Handle the errors.
      */
