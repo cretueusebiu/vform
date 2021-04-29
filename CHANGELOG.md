@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2 - 2021-04-29
+
+- Fixed missing `Method` type for old axios versions.
+
 ## 2.0.1 - 2021-04-29
 
 - Fixed package.json exports.

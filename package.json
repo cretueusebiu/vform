@@ -1,6 +1,6 @@
 {
   "name": "vform",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Handle Laravel-Vue forms and validation with ease.",
   "author": "Cretu Eusebiu",
   "license": "MIT",
