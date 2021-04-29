@@ -20,22 +20,27 @@ function readFile (file) {
   })
 }
 
-module.exports = postcss.plugin('postcss-nested-import', () => {
-  return (root) => {
-    return new Promise((resolve) => {
-      let prom = Promise.resolve()
-      root.walkAtRules('nested-import', (importAtRule) => {
-        if (importAtRule.params) {
-          const path = parseImportPath(importAtRule.params)
-          if (path === null) {
-            return
+module.exports = () => {
+  return {
+    postcssPlugin: 'postcss-nested-import',
+    Once (root) {
+      return new Promise((resolve) => {
+        let prom = Promise.resolve()
+        root.walkAtRules('nested-import', (importAtRule) => {
+          if (importAtRule.params) {
+            const path = parseImportPath(importAtRule.params)
+            if (path === null) {
+              return
+            }
+            prom = prom.then(() => readFile(path).then(fileContents =>
+              importAtRule.replaceWith(fileContents)
+            ))
           }
-          prom = prom.then(() => readFile(path).then(fileContents =>
-            importAtRule.replaceWith(fileContents)
-          ))
-        }
+        })
+        resolve(prom)
       })
-      resolve(prom)
-    })
+    }
   }
-})
+}
+
+module.exports.postcss = true
