@@ -1,14 +1,16 @@
 # Changelog
 
-## 2.0.0 - 2021-04-xx
+## 2.0.0 - 2021-04-29
 
+- New site [vform.vercel.app](https://vform.vercel.app)!
 - Added support for Vue 3.
 - Added support for TypeScript.
-- Added new `Button` component for Bootstrap.
+- Added new `Button` component.
+- Added Boostrap 5 and Tailwind CSS components.
 - Added `Form.prototype.update`.
 - Fixed params for GET requests.
-- Bootstrap components are not bundled anymore.
-- New site [vform.vercel.app](https://vform.vercel.app) with examples.
+- Dropped support for Boostrap 3 components.
+- The components are no longer bundled. Replace `import { HasError } from 'vform'` with `import { HasError } from 'vform/components/bootstrap5'`.
 
 ## 1.0.1 - 2019-06-01
 
@@ -31,7 +33,7 @@
 
 ## 0.8.0 - 2017-08-15
 
-- Merged Bootstrap component `HasError4` into `HasError`. 
+- Merged Bootstrap component `HasError4` into `HasError`.
 - Added `Errors.prototype.getAll(field)` to get all the errors for a field.
 
 ## 0.7.8 - 2017-08-09
