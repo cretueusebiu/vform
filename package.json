@@ -1,7 +1,7 @@
 {
   "name": "vform",
   "version": "2.0.0",
-  "description": "A simple way to handle Laravel back-end validation in Vue.",
+  "description": "Handle Laravel-Vue forms and validation with ease.",
   "author": "Cretu Eusebiu",
   "license": "MIT",
   "keywords": [
@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "vite --config ./site/vite.config.ts",
     "build:site": "tsc --project ./site/tsconfig.json && vite build --config ./site/vite.config.ts && rm -rf ./site/tmp",
-    "build:lib": "tsc && cp -r ./src/components ./tmp/ && vite build && rm -rf ./tmp ./dist/assets ./dist/index.html",
+    "build:lib": "tsc && cp -r ./src/components ./tmp/ && vite build && rm -rf ./tmp ./dist/assets ./dist/index.html ./dist/favicon.ico",
     "build": "npm run build:site",
     "test": "jest",
     "lint": "eslint --ext \".js,.ts,.vue\" ./src/ ./site/src/",
@@ -21,7 +21,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "./dist/vform.umd.js",
   "unpkg": "./dist/vform.umd.js",
