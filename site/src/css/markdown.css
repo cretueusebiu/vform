@@ -1,0 +1,27 @@
+@import "github-markdown-css/github-markdown.css";
+
+pre[class*="language-"] {
+  @apply p-3 !important;
+}
+
+.markdown-body {
+  .dark & {
+    @apply text-gray-300;
+
+    code {
+      background-color: #0f111a;
+    }
+  }
+
+  h2 {
+    @apply mt-8;
+  }
+}
+
+.dark {
+  @nested-import "prism-material-themes/themes/material-ocean.css"
+}
+
+.light {
+  @nested-import "prism-material-themes/themes/material-lighter.css"
+}

@@ -1,55 +1,93 @@
 {
   "name": "vform",
-  "version": "1.0.1",
-  "description": "A simple way to handle Laravel back-end validation in Vue.",
-  "main": "dist/vform.common.js",
-  "unpkg": "dist/vform.umd.js",
-  "files": [
-    "src",
-    "dist/*.js"
+  "version": "2.0.0",
+  "description": "Handle Laravel-Vue forms and validation with ease.",
+  "author": "Cretu Eusebiu",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "form",
+    "laravel",
+    "validation"
   ],
   "scripts": {
-    "build": "vue-cli-service build src/index.js --target lib",
-    "test": "vue-cli-service test:unit test/",
-    "lint": "vue-cli-service lint",
-    "prepublishOnly": "npm run test && npm run build"
+    "dev": "vite --config ./site/vite.config.ts",
+    "build:site": "tsc --project ./site/tsconfig.json && vite build --config ./site/vite.config.ts && rm -rf ./site/tmp",
+    "build:lib": "tsc && cp -r ./src/components ./tmp/ && vite build && rm -rf ./tmp ./dist/assets ./dist/index.html ./dist/favicon.ico",
+    "build": "npm run build:site",
+    "test": "jest",
+    "lint": "eslint --ext \".js,.ts,.vue\" ./src/ ./site/src/",
+    "prepublishOnly": "npm run test && npm run build:lib"
+  },
+  "files": [
+    "src",
+    "dist",
+    "types"
+  ],
+  "main": "./dist/vform.umd.js",
+  "unpkg": "./dist/vform.umd.js",
+  "module": "./dist/vform.es.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vform.es.js",
+      "require": "./dist/vform.umd.js"
+    },
+    "./components/": "./src/components/"
+  },
+  "peerDependencies": {
+    "vue": "*",
+    "axios": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "@nuxtjs/eslint-config-typescript": "^6.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/typography": "^0.4.0",
+    "@types/jest": "^26.0.23",
+    "@vue/test-utils": "^1.1.4",
+    "autoprefixer": "^10.2.5",
+    "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.25.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "github-markdown-css": "^4.0.0",
+    "jest": "^26.6.3",
+    "jest-serializer-vue": "^2.0.2",
+    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-prism": "^2.1.6",
+    "object-to-formdata": "^4.1.0",
+    "postcss": "^8.2.13",
+    "postcss-import": "^14.0.1",
+    "postcss-nested": "^5.0.5",
+    "prism-material-themes": "^1.0.4",
+    "prismjs": "^1.23.0",
+    "tailwindcss": "^2.1.2",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.3",
+    "vite-plugin-md": "^0.6.3",
+    "vite-plugin-vue2": "^1.4.4",
+    "vue": "^2.6.12",
+    "vue-jest": "^3.0.7"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cretueusebiu/vform.git"
   },
-  "keywords": [
-    "vue",
-    "form",
-    "laravel"
-  ],
-  "author": "Cretu Eusebiu",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cretueusebiu/vform/issues"
   },
   "homepage": "https://github.com/cretueusebiu/vform#readme",
-  "peerDependencies": {
-    "axios": "*"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-plugin-unit-jest": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
-    "@vue/eslint-config-standard": "^3.0.1",
-    "@vue/test-utils": "^1.0.0-beta.24",
-    "axios": "^0.18.1",
-    "axios-mock-adapter": "^1.13.1",
-    "babel-core": "^7.0.0-0",
-    "babel-jest": "^22.0.4",
-    "object-to-formdata": "^1.2.2",
-    "vue": "^2.5.13",
-    "vue-template-compiler": "^2.5.13"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "dependencies": {},
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
 }

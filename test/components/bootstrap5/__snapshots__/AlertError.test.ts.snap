@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertError dismiss alert 1`] = `
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
+  <div>Custom message</div>
+</div>
+`;
+
+exports[`AlertError doesn't render alert if successful 1`] = `""`;
+
+exports[`AlertError render alert if has any errors 1`] = `
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
+  <div>Custom message</div>
+</div>
+`;
+
+exports[`AlertError render alert with slot 1`] = `
+<div role="alert" class="alert alert-danger alert-dismissible"><button type="button" aria-label="Dismiss" class="btn-close"></button>
+  <div class="custom">Custom message</div>
+</div>
+`;
