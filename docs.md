@@ -29,13 +29,8 @@ npm install axios vform
 
 <script>
 import Form from 'vform'
-import { HasError } from 'vform/src/components/bootstrap5'
 
 export default {
-  components: {
-    HasError
-  },
-
   data: () => ({
     form: new Form({
       username: '',
