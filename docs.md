@@ -339,7 +339,7 @@ export default {
 
 ```html
 <template>
-<form method="POST" class="mb-0" @submit.prevent="login" @keydown="form.onKeydown($event)">
+<form method="POST" @submit.prevent="login" @keydown="form.onKeydown($event)">
   <AlertError :form="form" />
   <!-- <AlertErrors :form="form" /> -->
   <!-- <AlertSuccess :form="form" message="Your changes have beend saved!" /> -->
