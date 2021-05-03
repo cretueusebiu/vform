@@ -31,7 +31,7 @@ npm install axios vform
     <input v-model="form.password" type="password" name="password" placeholder="Password">
     <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
 
-    <button type="submit" :form="form" :disabled="form.busy">
+    <button type="submit" :disabled="form.busy">
       Log In
     </button>
   </form>
