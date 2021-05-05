@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4 - 2021-05-05
+
+- Fixed package.json exports.
+
 ## 2.0.3 - 2021-04-30
 
 - Handle files with `FormData` by default.
