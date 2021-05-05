@@ -35,8 +35,8 @@
     },
     "./components/tailwind": "./src/components/tailwind/index.js",
     "./src/components/tailwind": "./src/components/tailwind/index.js",
-    "./components/bootstrap4": "./src/components/bootstrap5/index.js",
-    "./src/components/bootstrap4": "./src/components/bootstrap5/index.js",
+    "./components/bootstrap4": "./src/components/bootstrap4/index.js",
+    "./src/components/bootstrap4": "./src/components/bootstrap4/index.js",
     "./components/bootstrap5": "./src/components/bootstrap5/index.js",
     "./src/components/bootstrap5": "./src/components/bootstrap5/index.js"
   },
