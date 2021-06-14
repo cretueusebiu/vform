@@ -24,6 +24,12 @@ class Form {
   successful: boolean = false
 
   /**
+   * Indicates if the response form the server was recently successful.
+   */
+  recentlySuccessful: boolean = false
+  recentlySuccessfulTimeoutId: number | undefined = undefined
+
+  /**
    * The validation errors from the server.
    */
   errors: Errors = new Errors()
@@ -36,7 +42,8 @@ class Form {
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
-  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData']
+  static recentlySuccessfulTimeout = 2000
+  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData', 'recentlySuccessful', 'recentlySuccessfulTimeoutId']
 
   /**
    * Create a new form instance.
@@ -94,6 +101,8 @@ class Form {
     this.busy = true
     this.successful = false
     this.progress = undefined
+    this.recentlySuccessful = false
+    clearTimeout(this.recentlySuccessfulTimeoutId)
   }
 
   /**
@@ -103,6 +112,10 @@ class Form {
     this.busy = false
     this.successful = true
     this.progress = undefined
+    this.recentlySuccessful = true
+    this.recentlySuccessfulTimeoutId = setTimeout(() => {
+      this.recentlySuccessful = false
+    }, Form.recentlySuccessfulTimeout)
   }
 
   /**
@@ -111,7 +124,9 @@ class Form {
   clear () {
     this.errors.clear()
     this.successful = false
+    this.recentlySuccessful = false
     this.progress = undefined
+    clearTimeout(this.recentlySuccessfulTimeoutId)
   }
 
   /**
