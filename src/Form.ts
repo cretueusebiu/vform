@@ -18,6 +18,16 @@ class Form {
    */
   busy: boolean = false
 
+  recentlySuccessfulTimeoutId: number | undefined = undefined;
+
+  /**
+   * When a form has been successfully submitted, the successful property will be true.
+   * In addition to this, there is also a recentlySuccessful property,
+   * which will be set to true for two seconds after a successful form submission.
+   * This is helpful for showing temporary success messages.
+   */
+  recentlySuccessful: boolean = false;
+
   /**
    * Indicates if the response form the server was successful.
    */
@@ -94,6 +104,8 @@ class Form {
     this.busy = true
     this.successful = false
     this.progress = undefined
+    this.recentlySuccessful = false
+    clearTimeout(this.recentlySuccessfulTimeoutId)
   }
 
   /**
@@ -103,6 +115,8 @@ class Form {
     this.busy = false
     this.successful = true
     this.progress = undefined
+    this.recentlySuccessful = true
+    this.recentlySuccessfulTimeoutId = setTimeout(() => this.recentlySuccessful = false, 2000)
   }
 
   /**
