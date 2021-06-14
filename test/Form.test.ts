@@ -7,6 +7,8 @@ let form: Form
 let mockAdapter: MockAdapter
 
 beforeEach(() => {
+  Form.recentlySuccessfulTimeout = 100
+
   form = Form.make({
     username: 'foo',
     password: 'bar'
@@ -20,6 +22,7 @@ describe('Form', () => {
     expect(form.busy).toBeFalsy()
     expect(form.successful).toBeFalsy()
     expect(form.successful).toBeFalsy()
+    expect(form.recentlySuccessful).toBeFalsy()
     expect(form.errors).toBeInstanceOf(Errors)
     expect(form.originalData).toEqual({ username: 'foo', password: 'bar' })
   })
@@ -52,6 +55,7 @@ describe('Form', () => {
 
     expect(form.busy).toBeTruthy()
     expect(form.successful).toBeFalsy()
+    expect(form.recentlySuccessful).toBeFalsy()
     expect(form.errors.any()).toBeFalsy()
   })
 
@@ -60,13 +64,18 @@ describe('Form', () => {
 
     expect(form.busy).toBeFalsy()
     expect(form.successful).toBeTruthy()
+    expect(form.recentlySuccessful).toBeTruthy()
   })
 
   test('clear the form errors', () => {
+    form.successful = true
+    form.recentlySuccessful = true
+
     form.clear()
 
     expect(form.errors.any()).toBeFalsy()
     expect(form.successful).toBeFalsy()
+    expect(form.recentlySuccessful).toBeFalsy()
   })
 
   test('reset the form values', () => {
@@ -87,7 +96,12 @@ describe('Form', () => {
 
     expect(form.busy).toBeFalsy()
     expect(form.successful).toBeTruthy()
+    expect(form.recentlySuccessful).toBeTruthy()
     expect(form.errors.any()).toBeFalsy()
+
+    await new Promise(resolve => setTimeout(resolve, 101))
+
+    expect(form.recentlySuccessful).toBeFalsy()
   })
 
   test('transform data object to FormData', async () => {
@@ -120,6 +134,7 @@ describe('Form', () => {
     expect(form.errors.any()).toBeTruthy()
     expect(form.busy).toBeFalsy()
     expect(form.successful).toBeFalsy()
+    expect(form.recentlySuccessful).toBeFalsy()
   })
 
   test('make get request', async () => {
