@@ -46,7 +46,7 @@ class Form {
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
-  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData']
+  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData', 'recentlySuccessfulTimeoutId', 'recentlySuccessful']
 
   /**
    * Create a new form instance.
