@@ -18,20 +18,16 @@ class Form {
    */
   busy: boolean = false
 
-  recentlySuccessfulTimeoutId: number | undefined = undefined;
-
-  /**
-   * When a form has been successfully submitted, the successful property will be true.
-   * In addition to this, there is also a recentlySuccessful property,
-   * which will be set to true for two seconds after a successful form submission.
-   * This is helpful for showing temporary success messages.
-   */
-  recentlySuccessful: boolean = false;
-
   /**
    * Indicates if the response form the server was successful.
    */
   successful: boolean = false
+
+  /**
+   * Indicates if the response form the server was recently successful.
+   */
+  recentlySuccessful: boolean = false
+  recentlySuccessfulTimeoutId: number | undefined = undefined
 
   /**
    * The validation errors from the server.
@@ -46,7 +42,8 @@ class Form {
   static axios: AxiosInstance
   static routes: Record<string, string> = {}
   static errorMessage = 'Something went wrong. Please try again.'
-  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData', 'recentlySuccessfulTimeoutId', 'recentlySuccessful']
+  static recentlySuccessfulTimeout = 2000
+  static ignore = ['busy', 'successful', 'errors', 'progress', 'originalData', 'recentlySuccessful', 'recentlySuccessfulTimeoutId']
 
   /**
    * Create a new form instance.
@@ -116,7 +113,9 @@ class Form {
     this.successful = true
     this.progress = undefined
     this.recentlySuccessful = true
-    this.recentlySuccessfulTimeoutId = setTimeout(() => this.recentlySuccessful = false, 2000)
+    this.recentlySuccessfulTimeoutId = setTimeout(() => {
+      this.recentlySuccessful = false
+    }, Form.recentlySuccessfulTimeout)
   }
 
   /**
@@ -125,7 +124,9 @@ class Form {
   clear () {
     this.errors.clear()
     this.successful = false
+    this.recentlySuccessful = false
     this.progress = undefined
+    clearTimeout(this.recentlySuccessfulTimeoutId)
   }
 
   /**
