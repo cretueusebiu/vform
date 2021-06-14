@@ -93,6 +93,11 @@ form.busy: boolean
 form.successful: boolean
 
 /**
+ * Indicates if the response form the server was successful for two seconds.
+ */
+form.recentlySuccessful: boolean
+
+/**
  * The validation errors from the server.
  */
 form.errors: Errors

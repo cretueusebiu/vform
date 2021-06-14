@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 - 2021-06-14
+
+- Added `recentlySuccessful` property to `Form` [#130](https://github.com/cretueusebiu/vform/pull/130).
+
 ## 2.0.4 - 2021-05-05
 
 - Fixed package.json exports.
