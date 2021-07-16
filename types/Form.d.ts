@@ -71,27 +71,27 @@ declare class Form {
     /**
      * Submit the form via a GET request.
      */
-    get(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any>>;
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Submit the form via a POST request.
      */
-    post(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any>>;
+    post<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Submit the form via a PATCH request.
      */
-    patch(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any>>;
+    patch<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Submit the form via a PUT request.
      */
-    put(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any>>;
+    put<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Submit the form via a DELETE request.
      */
-    delete(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any>>;
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Submit the form data via an HTTP request.
      */
-    submit(method: string, url: string, config?: AxiosRequestConfig): Promise<AxiosResponse>;
+    submit<T = any>(method: string, url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
     /**
      * Handle the errors.
      */
