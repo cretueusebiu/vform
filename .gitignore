@@ -1,8 +1,8 @@
 /tmp
 /dist
-/public
 /.vercel
 /site/tmp
+/site/dist
 /node_modules
 npm-debug.log*
 *.code-workspace
