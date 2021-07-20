@@ -143,42 +143,42 @@ class Form {
   /**
    * Submit the form via a GET request.
    */
-  get (url: string, config: AxiosRequestConfig = {}) {
+  get<T = any> (url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     return this.submit('get', url, config)
   }
 
   /**
    * Submit the form via a POST request.
    */
-  post (url: string, config: AxiosRequestConfig = {}) {
+  post<T = any> (url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     return this.submit('post', url, config)
   }
 
   /**
    * Submit the form via a PATCH request.
    */
-  patch (url: string, config: AxiosRequestConfig = {}) {
+  patch<T = any> (url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     return this.submit('patch', url, config)
   }
 
   /**
    * Submit the form via a PUT request.
    */
-  put (url: string, config: AxiosRequestConfig = {}) {
+  put<T = any> (url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     return this.submit('put', url, config)
   }
 
   /**
    * Submit the form via a DELETE request.
    */
-  delete (url: string, config: AxiosRequestConfig = {}) {
+  delete<T = any> (url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     return this.submit('delete', url, config)
   }
 
   /**
    * Submit the form data via an HTTP request.
    */
-  submit (method: string, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
+  submit<T = any> (method: string, url: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
     this.startProcessing()
 
     config = {

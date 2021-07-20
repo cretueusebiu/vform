@@ -17,6 +17,11 @@ declare class Form {
      */
     successful: boolean;
     /**
+     * Indicates if the response form the server was recently successful.
+     */
+    recentlySuccessful: boolean;
+    recentlySuccessfulTimeoutId: number | undefined;
+    /**
      * The validation errors from the server.
      */
     errors: Errors;
@@ -27,6 +32,7 @@ declare class Form {
     static axios: AxiosInstance;
     static routes: Record<string, string>;
     static errorMessage: string;
+    static recentlySuccessfulTimeout: number;
     static ignore: string[];
     /**
      * Create a new form instance.

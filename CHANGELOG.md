@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 - 2021-07-20
+
+- Added support for AxiosResponse type.
+
 ## 2.1.0 - 2021-06-14
 
 - Added `recentlySuccessful` property to `Form` [#130](https://github.com/cretueusebiu/vform/pull/130).
