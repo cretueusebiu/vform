@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.2 - 2021-10-28
+
+- Fixed `transformRequest` when provided.
+
 ## 2.1.1 - 2021-07-20
 
 - Added support for AxiosResponse type.

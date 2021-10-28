@@ -1,4 +1,5 @@
 module.exports = {
+  testEnvironment: 'jsdom',
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)$',
   moduleFileExtensions: ['js', 'ts', 'json', 'vue'],
   transform: {
