@@ -195,7 +195,7 @@ class Form {
     } else {
       config.data = { ...this.data(), ...config.data }
 
-      if (hasFiles(config.data)) {
+      if (hasFiles(config.data) && !config.transformRequest) {
         config.transformRequest = [data => serialize(data)]
       }
     }
