@@ -234,7 +234,7 @@ class Form {
     }
 
     if (response.data.errors) {
-      return { ...response.data.errors }
+      return { ...response.data.errors, error: response.data.message }
     }
 
     if (response.data.message) {
